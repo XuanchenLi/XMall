@@ -15,7 +15,23 @@ public:
     Login(QWidget *parent = nullptr);
     ~Login();
 
+protected:
+    void mouseMoveEvent(QMouseEvent * mouseEvent);//鼠标移动事件
+    void mousePressEvent(QMouseEvent* mouseEvent);//鼠标按下事件
+
+private slots:
+
+    void on_minimizePushButton_clicked();
+
+    void on_minimizeToolButton_clicked();
+
+    void on_quitToolButton_clicked();
+
+    void on_quitPushButton_clicked();
+
 private:
     Ui::Login *ui;
+
+    QPoint p;
 };
 #endif // LOGIN_H
