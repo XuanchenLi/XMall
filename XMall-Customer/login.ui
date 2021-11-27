@@ -198,12 +198,15 @@ QLineEdit[EchoMode=&quot;2&quot;] {lineedit-password-character:42;}
      <rect>
       <x>210</x>
       <y>10</y>
-      <width>51</width>
-      <height>41</height>
+      <width>49</width>
+      <height>49</height>
      </rect>
     </property>
     <property name="text">
      <string>logo</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QToolButton" name="minimizeToolButton">

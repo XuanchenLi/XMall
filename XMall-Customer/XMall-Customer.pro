@@ -10,15 +10,24 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    login.cpp
+    login.cpp \
+    piclineedit.cpp \
+    register.cpp
 
 HEADERS += \
-    login.h
+    login.h \
+    piclineedit.h \
+    register.h
 
 FORMS += \
-    login.ui
+    login.ui \
+    piclineedit.ui \
+    register.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    pics.qrc

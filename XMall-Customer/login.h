@@ -2,7 +2,7 @@
 #define LOGIN_H
 
 #include <QWidget>
-
+#include<register.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
@@ -21,7 +21,6 @@ protected:
 
 private slots:
 
-    void on_minimizePushButton_clicked();
 
     void on_minimizeToolButton_clicked();
 
@@ -29,9 +28,13 @@ private slots:
 
     void on_quitPushButton_clicked();
 
+    void on_registerPushButton_clicked();
+
 private:
     Ui::Login *ui;
-
     QPoint p;
+    Register* registerWin;
+signals:
+
 };
 #endif // LOGIN_H
