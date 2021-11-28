@@ -20,6 +20,10 @@ Register::Register(QWidget *parent) :
     ui->pswPicLineEdit->findChild<QLineEdit*>("lineEdit")->setPlaceholderText("密码");
     ui->repswPicLineEdit->findChild<QLineEdit*>("lineEdit")->setPlaceholderText("重新输入密码");
 
+    ui->pswPicLineEdit->findChild<QLineEdit*>("lineEdit")->setEchoMode(QLineEdit::Password);
+    ui->repswPicLineEdit->findChild<QLineEdit*>("lineEdit")->setEchoMode(QLineEdit::Password);
+
+
     ui->namePicLineEdit->setPic(":/pics/icons/user.png");
     ui->phonePicLineEdit->setPic(":/pics/icons/phone.png");
     ui->emailPicLineEdit->setPic(":/pics/icons/email.png");
@@ -27,13 +31,14 @@ Register::Register(QWidget *parent) :
     ui->repswPicLineEdit->setPic(":/pics/icons/repsw.png");
 
     QImage img;
-    img.load (":/pics/icons/XMLOGO.png");
+    img.load (":/pics/icons/mylogo.png");
     QPixmap pixmap(QPixmap::fromImage(img));
     QLabel* logoLabel = ui->logoLabel;
     pixmap = pixmap.scaled(120,120);
     logoLabel->setScaledContents(true);
     logoLabel->setAlignment(Qt::AlignCenter);
     logoLabel->setPixmap(pixmap);
+
 }
 
 Register::~Register()
@@ -45,7 +50,7 @@ void Register::mousePressEvent(QMouseEvent *mouseEvent)
 {
     if(mouseEvent->buttons()==Qt::LeftButton)
     {
-        p = mouseEvent->globalPos()-this->frameGeometry().topLeft();
+        p = mouseEvent->globalPosition().toPoint()-this->frameGeometry().topLeft();
     }
 }
 
@@ -53,7 +58,7 @@ void Register::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(mouseEvent->buttons() & Qt::LeftButton)
     {
-        move(mouseEvent->globalPos() - p);
+        move(mouseEvent->globalPosition().toPoint() - p);
     }
 }
 
@@ -67,4 +72,5 @@ void Register::on_minimizeToolButton_clicked()
 void Register::on_quitToolButton_clicked()
 {
     close();
+    emit retLogin(this->frameGeometry().topLeft());
 }

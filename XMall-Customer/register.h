@@ -26,6 +26,9 @@ private slots:
     void on_minimizeToolButton_clicked();
 
     void on_quitToolButton_clicked();
+
+signals:
+    void retLogin(QPoint);
 };
 
 #endif // REGISTER_H

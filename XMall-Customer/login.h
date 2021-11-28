@@ -30,11 +30,13 @@ private slots:
 
     void on_registerPushButton_clicked();
 
+    void on_retLogin(QPoint pos);
+
 private:
     Ui::Login *ui;
     QPoint p;
     Register* registerWin;
-signals:
+
 
 };
 #endif // LOGIN_H

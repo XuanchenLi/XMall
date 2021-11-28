@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include <QPainter>
 #include<QMouseEvent>
+#include<QObject>
 Login::Login(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Login)
@@ -13,8 +14,9 @@ Login::Login(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
     setMinimumSize(1280, 580); setMaximumSize(1280, 580);
     registerWin = new Register;
+    connect(registerWin, &Register::retLogin, this, &Login::on_retLogin);
     QImage img;
-    img.load (":/pics/icons/XMLOGO.png");
+    img.load (":/pics/icons/mylogo.png");
     QPixmap pixmap(QPixmap::fromImage(img));
     QLabel* logoLabel = ui->logoLabel;
     pixmap = pixmap.scaled(120,120);
@@ -32,7 +34,7 @@ void Login::mousePressEvent(QMouseEvent *mouseEvent)
 {
     if(mouseEvent->buttons()==Qt::LeftButton)
     {
-        p = mouseEvent->globalPos()-this->frameGeometry().topLeft();
+        p = mouseEvent->globalPosition().toPoint()-this->frameGeometry().topLeft();
     }
 }
 
@@ -40,7 +42,7 @@ void Login::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(mouseEvent->buttons() & Qt::LeftButton)
     {
-        move(mouseEvent->globalPos() - p);
+        move(mouseEvent->globalPosition().toPoint() - p);
     }
 }
 
@@ -71,5 +73,11 @@ void Login::on_registerPushButton_clicked()
     registerWin->move(this->frameGeometry().topLeft());
 
     registerWin->show();
+}
+
+void Login::on_retLogin(QPoint pos)
+{
+    this->move(pos);
+    this->show();
 }
 

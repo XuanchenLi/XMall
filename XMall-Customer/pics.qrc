@@ -6,6 +6,6 @@
         <file>icons/phone.png</file>
         <file>icons/psw.png</file>
         <file>icons/repsw.png</file>
-        <file>icons/XMLOGO.png</file>
+        <file>icons/mylogo.png</file>
     </qresource>
 </RCC>

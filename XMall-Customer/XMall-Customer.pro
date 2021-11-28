@@ -12,17 +12,20 @@ SOURCES += \
     main.cpp \
     login.cpp \
     piclineedit.cpp \
-    register.cpp
+    register.cpp \
+    xmallmainwindow.cpp
 
 HEADERS += \
     login.h \
     piclineedit.h \
-    register.h
+    register.h \
+    xmallmainwindow.h
 
 FORMS += \
     login.ui \
     piclineedit.ui \
-    register.ui
+    register.ui \
+    xmallmainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
