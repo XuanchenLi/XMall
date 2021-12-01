@@ -43,12 +43,6 @@ public class UserAdminController {
     @GetMapping("/id/{id}")
     UserInfoDto getById(@PathVariable("id") int id) throws NotFoundException {
         //System.out.println(uuid);
-        //return UserMapper.INSTANCE.userInfoEntityToDto(userService.getById(id));
-        UserInfoDto user = new UserInfoDto();
-        user.setNickname("Dazzl");
-        user.setPassword("12");
-        user.setPhone("12");
-        user.setUuid("assa");
-        return user;
+        return UserMapper.INSTANCE.userInfoEntityToDto(userService.getById(id));
     }
 }
