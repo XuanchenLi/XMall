@@ -25,6 +25,7 @@ public class UserInfoEntity implements Serializable {
     private String nickname;
     private String phone;
     private String password;
+    private String email;
     private Timestamp registerTime;
     private boolean gender;
     private String icon;

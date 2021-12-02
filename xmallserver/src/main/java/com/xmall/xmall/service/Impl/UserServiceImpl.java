@@ -3,10 +3,17 @@ package com.xmall.xmall.service.Impl;
 import com.xmall.xmall.dao.entity.UserInfoEntity;
 import com.xmall.xmall.dao.mapper.UserInfoMapper;
 import com.xmall.xmall.dto.UserInfoDto;
-import com.xmall.xmall.exception.NormalException;
 import com.xmall.xmall.exception.NotFoundException;
+import com.xmall.xmall.mapper.UserMapper;
+import com.xmall.xmall.service.messagingService.UserMessagingService;
 import com.xmall.xmall.service.UserService;
+import com.xmall.xmall.utils.DateTimeUtil;
+import com.xmall.xmall.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTimeUtils;
+import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +32,8 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserInfoMapper userInfoMapper;
 
+    @Autowired
+    UserMessagingService userMessagingService;
     @Override
     public UserInfoEntity getByUuid(String uuid) throws NotFoundException {
 
@@ -44,4 +53,19 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException("用户不存在"));
     }
 
+    @Override
+    public int register(UserInfoDto userInfoDto) {
+
+        UserInfoEntity userInfoEntity = UserMapper.INSTANCE.userInfoDtoToEntity(userInfoDto);
+        userInfoEntity.setRegisterTime(DateTimeUtil.getTimestamp());
+        userInfoEntity.setUuid(StringUtil.allocateUuid());
+
+        try{
+            return  userInfoMapper.saveUser(userInfoEntity);//成功则返回插入数据条数
+        }catch (Exception e )
+        {
+            return -1;
+        }
+
+    }
 }

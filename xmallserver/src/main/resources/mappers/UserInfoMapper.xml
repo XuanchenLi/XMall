@@ -11,5 +11,8 @@
     <select id="findById" parameterType="int" resultType="com.xmall.xmall.dao.entity.UserInfoEntity">
         select * from xm_user_info where id = #{id}
     </select>
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="UserInfoEntity">
+        insert into xm_user_info (uuid,nickname,phone,password,email,register_time) values (#{uuid},#{nickname},#{phone},#{password},#{email},#{registerTime})
+    </insert>
 
 </mapper>
