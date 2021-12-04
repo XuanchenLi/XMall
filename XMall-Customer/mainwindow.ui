@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>XMall</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+background:rgb(40, 44, 50);
+color:white;
+}
+
+QFrame{
+border:sold 10px rgba(0 ,0, 0)
+}
+
+
+QLineEdit{
+background-color:rgb(58. 104. 148);
+}
+
+QPushButton{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-color:white;
+border-radius:3px;
+border:0px solid ;
+}
+
+QPushButton:pressed{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-radius:3px;
+border:1px solid;
+}
+
+
+
+QLineEdit{
+border: 1px solid #A0A0A0;
+background-color:rgb(65, 65, 65);
+color:white;
+}
+
+
+QLineEdit:hover { 
+	border: 1px solid #298DFF;
+	border-radius: 3px;
+	selection-color: #F2F2F2;
+}
+
+QLineEdit[EchoMode=&quot;2&quot;] {lineedit-password-character:42;}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

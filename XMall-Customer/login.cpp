@@ -1,11 +1,15 @@
 #include "login.h"
 #include "ui_login.h"
+#include "alertwindow.h"
+#include "mainwindow.h"
 #include <QPainter>
 #include<QMouseEvent>
 #include<QObject>
+extern QString GET_HOST();
 Login::Login(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Login)
+    , httpProxy(new HttpProxy)
 {
     ui->setupUi(this);
     //去边框
@@ -23,6 +27,7 @@ Login::Login(QWidget *parent)
     logoLabel->setScaledContents(true);
     logoLabel->setAlignment(Qt::AlignCenter);
     logoLabel->setPixmap(pixmap);
+    alertWin = new AlertWindow;
 }
 
 Login::~Login()
@@ -79,5 +84,47 @@ void Login::on_retLogin(QPoint pos)
 {
     this->move(pos);
     this->show();
+}
+
+
+void Login::on_loginPushButton_clicked()
+{
+    ui->registerPushButton->setEnabled(false);
+    QString phone = ui->accountLineEdit->text();
+    QString psw = ui->passwordLineEdit->text();
+    httpProxy->get(GET_HOST() + "/user/phone/" + phone);
+    int statusCode = httpProxy->getReplyCode();
+    QElapsedTimer timer;
+    timer.start();
+    while(statusCode == 0)
+    {
+        double timeCount = timer.elapsed()/1000.0;
+        if(timeCount > 8)
+        {
+
+            alertWin->setMessage("连接超时");
+            alertWin->show();
+            ui->loginPushButton->setEnabled(true);
+            return;
+        }
+        statusCode = httpProxy->getReplyCode();
+    }
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        if (jsonObject["userInfoDto"].toObject()["password"] == psw)
+        {
+            mainWin = new MainWindow;
+            this->close();
+            mainWin->show();
+        }
+    }
+    else
+    {
+        alertWin->setMessage("账号或密码错误");
+        alertWin->show();
+        ui->loginPushButton->setEnabled(true);
+        return;
+    }
 }
 

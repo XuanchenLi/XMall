@@ -1,0 +1,36 @@
+#ifndef HTTPPROXY_H
+#define HTTPPROXY_H
+#include <QSettings>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonObject>
+class HttpProxy : public QObject{
+
+    Q_OBJECT
+public:
+    HttpProxy();
+    ~HttpProxy();
+    void get(const QString url);
+    void post(const QString url, const QByteArray &data);
+    QJsonObject getJsonObject();
+    inline int getReplyCode() const{return replyCode;}
+    inline QByteArray getReplyData() const{return replyData;}
+    /*
+    void buildConnection(QObject* obj_p, void(*replyFunction)(QObject*, QNetworkReply *));
+    void removeConnection(QObject* obj_p, void(*replyFunction)(QObject*, QNetworkReply *));
+    */
+protected:
+    virtual void requestFinished(QNetworkReply *reply, const QByteArray data, const int statusCode);//子类定义获得回复后的具体操作
+
+public slots:
+    void serviceRequestFinished(QNetworkReply *reply);
+private:
+    QNetworkRequest httpRequest;
+    QNetworkAccessManager networkAccessManager;
+    int replyCode;
+    QByteArray replyData;
+
+};
+#endif // HTTPPROXY_H

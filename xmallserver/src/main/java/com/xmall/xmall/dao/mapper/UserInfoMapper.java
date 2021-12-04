@@ -17,5 +17,7 @@ public interface UserInfoMapper {
 
     Optional<UserInfoEntity> findById(int id);
 
+    Optional<UserInfoEntity> findByPhone(String phone);
+
     int saveUser(UserInfoEntity userInfoEntity);
 }

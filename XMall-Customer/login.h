@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include<register.h>
+#include"alertwindow.h"
+#include"mainwindow.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
@@ -32,11 +34,14 @@ private slots:
 
     void on_retLogin(QPoint pos);
 
+    void on_loginPushButton_clicked();
+
 private:
     Ui::Login *ui;
     QPoint p;
     Register* registerWin;
-
-
+    QScopedPointer<HttpProxy> httpProxy;
+    AlertWindow *alertWin;
+    MainWindow *mainWin;
 };
 #endif // LOGIN_H

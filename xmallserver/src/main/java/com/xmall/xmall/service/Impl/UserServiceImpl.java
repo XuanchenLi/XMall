@@ -7,6 +7,7 @@ import com.xmall.xmall.exception.NotFoundException;
 import com.xmall.xmall.mapper.UserMapper;
 import com.xmall.xmall.service.messagingService.UserMessagingService;
 import com.xmall.xmall.service.UserService;
+import com.xmall.xmall.utils.Constants;
 import com.xmall.xmall.utils.DateTimeUtil;
 import com.xmall.xmall.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,12 @@ import org.joda.time.DateTimeUtils;
 import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @ClassName:
@@ -34,6 +37,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMessagingService userMessagingService;
+
+
     @Override
     public UserInfoEntity getByUuid(String uuid) throws NotFoundException {
 
@@ -54,15 +59,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(cacheNames = Constants.USER_KEY_CACHE_PREFIX, key = "'Phone_'+#phone", unless = "#result == null")
+    public UserInfoEntity getByPhone(String phone) throws NotFoundException {
+        return userInfoMapper.findByPhone(phone)
+                .orElseThrow(() -> new NotFoundException("用户不存在"));
+    }
+
+    @Override
     public int register(UserInfoDto userInfoDto) {
 
         UserInfoEntity userInfoEntity = UserMapper.INSTANCE.userInfoDtoToEntity(userInfoDto);
+        userInfoEntity.setEmail(userInfoDto.getEmail());
         userInfoEntity.setRegisterTime(DateTimeUtil.getTimestamp());
         userInfoEntity.setUuid(StringUtil.allocateUuid());
 
+        Optional<UserInfoEntity> userInfo = userInfoMapper.findByPhone(userInfoDto.getPhone());
+        if(userInfo.isPresent())
+        {
+            return -1;
+        }
         try{
-            return  userInfoMapper.saveUser(userInfoEntity);//成功则返回插入数据条数
-        }catch (Exception e )
+            return userInfoMapper.saveUser(userInfoEntity);
+        }catch (Exception e)
         {
             return -1;
         }

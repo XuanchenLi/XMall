@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 @Data
 public class UserInfoDto implements Serializable {
-    private String uuid;
     private String nickname;
     private String phone;
     private String password;
+    private String email;
 }

@@ -7,5 +7,7 @@
         <file>icons/psw.png</file>
         <file>icons/repsw.png</file>
         <file>icons/mylogo.png</file>
+        <file>icons/fullScreen.jpg</file>
+        <file>icons/normalScreen.jpg</file>
     </qresource>
 </RCC>

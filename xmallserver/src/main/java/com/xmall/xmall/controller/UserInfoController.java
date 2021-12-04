@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xmall.xmall.controller.response.RegistrationResponse;
+import com.xmall.xmall.controller.response.UserInfoResponse;
 import com.xmall.xmall.dao.entity.UserInfoEntity;
+import com.xmall.xmall.dao.mapper.UserInfoMapper;
 import com.xmall.xmall.dto.UserInfoDto;
 import com.xmall.xmall.exception.BadRequestException;
 import com.xmall.xmall.exception.NotFoundException;
@@ -93,9 +95,24 @@ public class UserInfoController {
 
         return UserMapper.INSTANCE.userInfoEntityToDto(userInfoEntity);
     }
-
+    @GetMapping("/phone/{phone}")
+    UserInfoResponse getByPhone(@PathVariable("phone") String phone)throws NotFoundException{
+        UserInfoResponse userInfoResponse = new UserInfoResponse();
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
+        try{
+             userInfoEntity= userService.getByPhone(phone);
+        }catch (NotFoundException e)
+        {
+            userInfoResponse.setStatusCode(StatusEnum.NOT_FOUND);
+            return userInfoResponse;
+        }
+        userInfoResponse.setStatusCode(StatusEnum.SUCCESS);
+        userInfoResponse.setUserInfoDto(UserMapper.INSTANCE.userInfoEntityToDto(userInfoEntity));
+        return userInfoResponse;
+    }
     @PostMapping("/register")
     RegistrationResponse register(@RequestBody UserInfoDto userInfoDto) throws BadRequestException {
+
         if(userService.register(userInfoDto) == -1)
         {
             return new RegistrationResponse(StatusEnum.BAD_REQUEST);
