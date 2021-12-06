@@ -9,5 +9,9 @@
         <file>icons/mylogo.png</file>
         <file>icons/fullScreen.jpg</file>
         <file>icons/normalScreen.jpg</file>
+        <file>avatars/defaultAvatar.jpg</file>
+    </qresource>
+    <qresource prefix="/xml">
+        <file>xml/LocList.xml</file>
     </qresource>
 </RCC>

@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,31 +11,46 @@ CONFIG += c++11
 SOURCES += \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/UserInfoDto.cpp \
+    addresslistitem.cpp \
     alertwindow.cpp \
+    cityselectionwidget.cpp \
+    locationwidget.cpp \
     main.cpp \
     login.cpp \
     mainwindow.cpp \
     piclineedit.cpp \
+    refreshlistwidget.cpp \
+    refreshwidget.cpp \
     register.cpp \
-    topbar.cpp
+    slidewidget.cpp
 
 HEADERS += \
     Service/HttpProxy.h \
     Service/UserInfoDto.h \
+    VerticalTabBar.h \
+    addresslistitem.h \
     alertwindow.h \
+    cityselectionwidget.h \
+    locationwidget.h \
     login.h \
     mainwindow.h \
     piclineedit.h \
+    refreshlistwidget.h \
+    refreshwidget.h \
     register.h \
-    topbar.h
+    slidewidget.h \
+    verticaltabwidget.h
 
 FORMS += \
+    addresslistitem.ui \
     alertwindow.ui \
+    cityselectionwidget.ui \
     login.ui \
     mainwindow.ui \
     piclineedit.ui \
+    refreshwidget.ui \
     register.ui \
-    topbar.ui
+    slidewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

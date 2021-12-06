@@ -114,7 +114,11 @@ void Login::on_loginPushButton_clicked()
     {
         if (jsonObject["userInfoDto"].toObject()["password"] == psw)
         {
+            UserInfoDto currentUser = UserInfoDto("",ui->accountLineEdit->text()
+                                                  ,ui->passwordLineEdit->text()
+                                                  ,"");
             mainWin = new MainWindow;
+            mainWin->setCurrentUser(currentUser);
             this->close();
             mainWin->show();
         }

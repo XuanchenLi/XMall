@@ -2,8 +2,6 @@
 #include <QApplication>
 #include <QString>
 //Test
-
-#include<topbar.h>
 #include<mainwindow.h>
 #include <QtNetwork/QNetworkAccessManager>
 #include<QtNetwork/QNetworkReply>
@@ -12,6 +10,7 @@
 #include <QJsonObject>
 #include <QEventLoop>
 #include <QDebug>
+#include "slidewidget.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +19,14 @@ int main(int argc, char *argv[])
     w.show();
 
     //TEST
-
+    MainWindow mw;
+    mw.show();
+    SlideWidget sd;
+    sd.addImage(":/pics/icons/test.png");
+    sd.addImage(":/pics/icons/mylogo.png");
+    sd.addImage(":/pics/icons/email.png");
+    sd.startPlay();
+    sd.show();
     //
     return a.exec();
 }
