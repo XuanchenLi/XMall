@@ -23,7 +23,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(logoLabel);
     ui->statusbar->addPermanentWidget(textLabel);
     connect(ui->exitAction, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->switchAccountAction, SIGNAL(triggered()), this, SLOT(on_switchAccountAction_trigger()));
+    connect(ui->switchAccountAction,
+            SIGNAL(triggered()),
+            this,
+            SLOT(on_switchAccountAction_trigger()));
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
+     animation->setDuration(1000);
+     animation->setStartValue(0);
+     animation->setEndValue(1);
+     animation->start();
 }
 
 MainWindow::~MainWindow()

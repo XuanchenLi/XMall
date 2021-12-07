@@ -21,12 +21,6 @@ int main(int argc, char *argv[])
     //TEST
     MainWindow mw;
     mw.show();
-    SlideWidget sd;
-    sd.addImage(":/pics/icons/test.png");
-    sd.addImage(":/pics/icons/mylogo.png");
-    sd.addImage(":/pics/icons/email.png");
-    sd.startPlay();
-    sd.show();
     //
     return a.exec();
 }

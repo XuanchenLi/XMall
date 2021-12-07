@@ -39,9 +39,13 @@ public slots:
     void onImageChangeTimeout();
 
     // 图片切换按钮点击;
-    void onImageSwitchButtonClicked(int buttonId);
+    void onImageSwitchButtonClicked(QAbstractButton* button);
+
+    void onValueChanged(const QVariant&);
 
 private:
+    const int ANIMATION_DURATION = 2500;
+    const int SWITCH_DURATION = 3000;
     // 用来做图片切换滑动效果，目前以透明度作为切换效果;
     QScrollArea* m_imagePlayWidget;
     // 图片列表;
@@ -60,6 +64,7 @@ private:
     QPropertyAnimation* m_opacityAnimation;
     // 按钮列表;
     QList<QPushButton*> m_pButtonChangeImageList;
+    QButtonGroup* changeButtonGroup;
     Ui::SlideWidget *ui;
 };
 

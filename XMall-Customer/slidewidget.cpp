@@ -4,7 +4,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QButtonGroup>
-
+#include <QPropertyAnimation>
 SlideWidget::SlideWidget(QWidget *parent)
     : QWidget(parent)
     , m_currentDrawImageIndx(0)
@@ -17,17 +17,20 @@ SlideWidget::SlideWidget(QWidget *parent)
     // 动画切换类;为动画绑定施加的对象，此处为this
     m_opacityAnimation = new QPropertyAnimation(this, "ImageOpacity");
     // 这里要设置的动画时间小于图片切换时间;
-    m_opacityAnimation->setDuration(1500);
+    m_opacityAnimation->setDuration(ANIMATION_DURATION);
 
     // 设置ImageOpacity属性值的变化范围;从透明变为透明
     m_opacityAnimation->setStartValue(1.0);
     m_opacityAnimation->setEndValue(0.0);
     // 透明度变化及时更新绘图;
-    connect(m_opacityAnimation, SIGNAL(valueChanged(QVariant&)), this, SLOT(update()));
+    connect(m_opacityAnimation,
+            &QPropertyAnimation::valueChanged,
+            this,
+            &SlideWidget::onValueChanged);
     // 设置图片切换时钟槽函数;
     connect(&m_imageChangeTimer, SIGNAL(timeout()), this, SLOT(onImageChangeTimeout()));
 
-    this->setFixedSize(QSize(400, 250));
+    //this->setFixedSize(QSize(400, 250));
 
     this->setWindowFlags(Qt::FramelessWindowHint);
     //
@@ -46,8 +49,8 @@ SlideWidget::~SlideWidget()
 
 void SlideWidget::initChangeImageButton()
 {
-    // 注意图片过多按钮可能放置不下;
-    QButtonGroup* changeButtonGroup = new QButtonGroup;
+    // 图片过多按钮可能放置不下;
+    changeButtonGroup = new QButtonGroup;
     QHBoxLayout* hLayout = new QHBoxLayout();
     hLayout->addStretch();
     for (int i = 0; i < m_imageFileNameList.count(); i++)
@@ -55,8 +58,6 @@ void SlideWidget::initChangeImageButton()
         QPushButton* pButton = new QPushButton;
         pButton->setFixedSize(QSize(16, 16));
         pButton->setCheckable(true);
-        //pButton->setStyleSheet("QPushButton{border-image:url(:/Resources/select1.png);}\
-                                QPushButton:checked{border-image:url(:/Resources/select2.png);}");
         changeButtonGroup->addButton(pButton, i);
         m_pButtonChangeImageList.append(pButton);
         hLayout->addWidget(pButton);
@@ -65,7 +66,9 @@ void SlideWidget::initChangeImageButton()
     hLayout->setSpacing(10);
     //hLayout->setMargin(0);
 
-    connect(changeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(onImageSwitchButtonClicked(int)));
+    connect(changeButtonGroup, &QButtonGroup::buttonClicked,
+            this,
+            &SlideWidget::onImageSwitchButtonClicked);
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->addStretch();
@@ -95,7 +98,7 @@ void SlideWidget::startPlay()
     {
         m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(true);
         m_currentPixmap = QPixmap(m_imageFileNameList.at(m_currentDrawImageIndx));
-        m_imageChangeTimer.start(2000);
+        m_imageChangeTimer.start(SWITCH_DURATION);
         update();
     }
 }
@@ -119,14 +122,15 @@ void SlideWidget::onImageChangeTimeout()
 
 void SlideWidget::paintEvent(QPaintEvent *event)
 {
+    //qDebug()<<"refresh";
     QPainter painter(this);
     QRect imageRect = this->rect();
 
     // 如果图片列表为空，显示默认图片;
     if (m_imageFileNameList.isEmpty())
     {
-        QPixmap backPixmap = QPixmap("");
-        painter.drawPixmap(imageRect, backPixmap.scaled(imageRect.size()));
+        //QPixmap backPixmap = QPixmap("");
+        //painter.drawPixmap(imageRect, backPixmap.scaled(imageRect.size()));
     }
     // 如果只有一张图片;
     else if (m_imageFileNameList.count() == 1)
@@ -145,23 +149,40 @@ void SlideWidget::paintEvent(QPaintEvent *event)
     }
 }
 
-void SlideWidget::onImageSwitchButtonClicked(int buttonId)
+void SlideWidget::onImageSwitchButtonClicked(QAbstractButton* button)
 {
-    m_currentDrawImageIndx = buttonId - 1;
+
+    m_currentDrawImageIndx = 0;
+
+    QList<QAbstractButton*> listBt = changeButtonGroup->buttons();
+    if(listBt.isEmpty())
+        return;
+    for (int i = 0; listBt.size() ; ++i)
+    {
+        if(listBt[i]==button)
+        {
+           m_currentDrawImageIndx = i;
+           break;
+        }
+    }
+
     if (m_currentDrawImageIndx == -1)
     {
         m_currentDrawImageIndx = m_imageFileNameList.count() - 1;
     }
 
     onImageChangeTimeout();
-    m_imageChangeTimer.start(2000);
-    update();
+    m_imageChangeTimer.start(SWITCH_DURATION);
+    repaint();//调用paintEvent
 }
 
 void SlideWidget::mousePressEvent(QMouseEvent* event)
 {
     // 这里可以对当前图片进行点击然后触发每个图片对应的效果;
-    qDebug() << m_currentDrawImageIndx;
+    //qDebug() << m_currentDrawImageIndx;
     //return __super::mouseEvent(event);
 }
-
+void SlideWidget::onValueChanged(const QVariant&)
+{
+    update();
+}
