@@ -88,5 +88,16 @@ void CitySelectionWidget::onCityComboBoxIndexChanged(int index)
 
     m_RegionComboBox->addItems(regionNameList);
 }
-
+QString CitySelectionWidget::getProvince() const
+{
+    return m_StateComboBox->currentText();
+}
+QString CitySelectionWidget::getCity() const
+{
+    return m_CityComboBox->currentText();
+}
+QString CitySelectionWidget::getRegion() const
+{
+    return m_RegionComboBox->currentText();
+}
 

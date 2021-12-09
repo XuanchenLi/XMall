@@ -9,9 +9,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ServiceImpl/AddressEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/UserInfoDto.cpp \
+    ServiceImpl/UserInfoEntity.cpp \
     addresslistitem.cpp \
+    addressrefreshwidget.cpp \
     alertwindow.cpp \
     cityselectionwidget.cpp \
     locationwidget.cpp \
@@ -25,10 +28,13 @@ SOURCES += \
     slidewidget.cpp
 
 HEADERS += \
+    Service/AddressEntity.h \
     Service/HttpProxy.h \
     Service/UserInfoDto.h \
+    Service/UserInfoEntity.h \
     VerticalTabBar.h \
     addresslistitem.h \
+    addressrefreshwidget.h \
     alertwindow.h \
     cityselectionwidget.h \
     locationwidget.h \
@@ -43,6 +49,7 @@ HEADERS += \
 
 FORMS += \
     addresslistitem.ui \
+    addressrefreshwidget.ui \
     alertwindow.ui \
     cityselectionwidget.ui \
     login.ui \

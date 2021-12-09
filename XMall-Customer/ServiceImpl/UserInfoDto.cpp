@@ -40,13 +40,13 @@ void UserInfoDto::setPassword(const QString &newPassword)
     password = newPassword;
 }
 
-UserInfoDto::UserInfoDto(QString nickname, QString phone, QString password, QString email):
-    nickname(nickname),
-    phone(phone),
-    password(password),
-    email(email)
+UserInfoDto::UserInfoDto(QString _nickname, QString _phone, QString _password, QString _email):
+    nickname(_nickname),
+    phone(_phone),
+    password(_password),
+    email(_email)
 {
-
+qDebug()<<"初始化"<<phone;
 }
 
 QJsonObject UserInfoDto::getJsonForm()

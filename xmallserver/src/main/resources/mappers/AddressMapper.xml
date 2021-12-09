@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmall.xmall.dao.mapper.UserInfoMapper">
+    <select id="findAllAddressByPhone" resultType="AddressEntity">
+        select * from xm_user_address_item where user_phone = #{userPhone}
+    </select>
+    <insert id="saveAddress" useGeneratedKeys="true" keyProperty="id" parameterType="AddressEntity">
+        insert into xm_user_address_item (user_phone,name,phone,province,city,region,detail)
+        values (#{userPhone},#{name},#{phone},#{province},#{city},#{region},#{detail})
+    </insert>
+</mapper>

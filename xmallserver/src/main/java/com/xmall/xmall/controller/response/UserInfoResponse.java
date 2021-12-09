@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfoResponse {
+public class UserInfoResponse extends NormalResponse{
     UserInfoDto userInfoDto;
-    StatusEnum statusCode;
 }

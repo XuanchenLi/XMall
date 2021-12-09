@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "alertwindow.h"
 #include "mainwindow.h"
+#include "Service/UserInfoDto.h"
 #include <QPainter>
 #include<QMouseEvent>
 #include<QObject>
@@ -114,21 +115,24 @@ void Login::on_loginPushButton_clicked()
     {
         if (jsonObject["userInfoDto"].toObject()["password"] == psw)
         {
-            UserInfoDto currentUser = UserInfoDto("",ui->accountLineEdit->text()
-                                                  ,ui->passwordLineEdit->text()
+            qDebug()<<"登陆成功";
+            UserInfoDto currentUser = UserInfoDto("",phone
+                                                  ,psw
                                                   ,"");
             mainWin = new MainWindow;
             mainWin->setCurrentUser(currentUser);
             this->close();
             mainWin->show();
+            mainWin->initFunction();
+        }
+        else
+        {
+            alertWin->setMessage("账号或密码错误");
+            alertWin->show();
+            ui->loginPushButton->setEnabled(true);
+            return;
         }
     }
-    else
-    {
-        alertWin->setMessage("账号或密码错误");
-        alertWin->show();
-        ui->loginPushButton->setEnabled(true);
-        return;
-    }
+
 }
 

@@ -1,5 +1,5 @@
 #include "refreshlistwidget.h"
-#include "ui_refreshlistwidget.h"
+//#include "ui_refreshlistwidget.h"
 #include <QScrollBar>
 #include <QListWidget>
 #include <QVBoxLayout>

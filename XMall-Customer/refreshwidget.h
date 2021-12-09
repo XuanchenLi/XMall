@@ -20,7 +20,7 @@ private:
 
 private  slots:
      void  onScrollBarMoved( int );
-     void  onReachedBottom();
+     virtual void  onReachedBottom();
 };
 
 #endif // REFRESHWIDGET_H

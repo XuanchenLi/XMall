@@ -17,5 +17,17 @@
     <insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="UserInfoEntity">
         insert into xm_user_info (uuid,nickname,phone,password,email,register_time) values (#{uuid},#{nickname},#{phone},#{password},#{email},#{registerTime})
     </insert>
+    <update id="updateByPhone" parameterType="UserInfoEntity" >
+        update xm_user_info
+        set nickname = #{nickname}, gender = #{gender},
+        email = #{email}, birthday = #{birthday},
+        personal_remark = #{personalRemark}
+        where phone = #{phone}
+    </update>
+    <update id="updateAvatarByPhone" >
+        update xm_user_info
+        set icon = #{path}
+        where phone = #{phone}
+    </update>
 
 </mapper>

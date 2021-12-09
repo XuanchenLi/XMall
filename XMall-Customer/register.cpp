@@ -161,7 +161,7 @@ void Register::on_registerPushButton_clicked()
     QJsonObject jsonObject = httpProxy->getJsonObject();
     if(jsonObject["statusCode"] == "SUCCESS")
     {
-        alertWin->setMessage("手机号已被使用");
+        alertWin->setMessage("手机号已被占用");
         alertWin->show();
         ui->registerPushButton->setEnabled(true);
         return;

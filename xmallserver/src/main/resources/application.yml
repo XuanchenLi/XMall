@@ -2,6 +2,14 @@ server:
   port: 8080
 
 spring:
+  mvc:
+    static-path-pattern: /static/**
+
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   rabbitmq:
     port: 5672
     host: 121.5.43.28
@@ -72,6 +80,9 @@ spring:
         reset-enable: true
         #启用
         enabled: true
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:static/
 
 mybatis:
   # mapper 文件存放位置

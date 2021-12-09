@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QTimer>
 class HttpProxy : public QObject{
 
     Q_OBJECT
@@ -14,6 +15,7 @@ public:
     ~HttpProxy();
     void get(const QString url);
     void post(const QString url, const QByteArray &data);
+    void uploadPicture(const QString url, const QString filePath);
     QJsonObject getJsonObject();
     inline int getReplyCode() const{return replyCode;}
     inline QByteArray getReplyData() const{return replyData;}
@@ -27,6 +29,7 @@ protected:
 public slots:
     void serviceRequestFinished(QNetworkReply *reply);
 private:
+    QTimer timer;
     QNetworkRequest httpRequest;
     QNetworkAccessManager networkAccessManager;
     int replyCode;

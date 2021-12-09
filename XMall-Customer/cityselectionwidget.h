@@ -17,6 +17,9 @@ class CitySelectionWidget : public QWidget
 public:
     explicit CitySelectionWidget(QWidget *parent = nullptr);
     ~CitySelectionWidget();
+    QString getProvince() const;
+    QString getCity()const;
+    QString getRegion()const;
 
 private:
     QComboBox *m_StateComboBox = nullptr;

@@ -13,3 +13,19 @@ AddressListItem::~AddressListItem()
 {
     delete ui;
 }
+
+const AddressEntity &AddressListItem::getAddressEntity() const
+{
+    return addressEntity;
+}
+
+void AddressListItem::setAddressEntity(const AddressEntity &newAddressEntity)
+{
+    addressEntity = newAddressEntity;
+    ui->cityLabel->setText(addressEntity.getProvince() + "\n"
+                           + addressEntity.getCity() + "\n"
+                           + addressEntity.getRegion());
+    ui->nameLabel->setText(addressEntity.getName());
+    ui->phoneLabel->setText(addressEntity.getPhone());
+    ui->detailLabel->setText(addressEntity.getDetail());
+}

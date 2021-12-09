@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1013</width>
-    <height>677</height>
+    <width>980</width>
+    <height>706</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -127,6 +127,29 @@ QStatusBar QLabel{
 border:none;
 background:transparent;
 }
+
+QCheckBox::indicator, QRadioButton::indicator, QTreeView::indicator {
+width: 16px;
+height: 16px;
+background-color: #111111;
+border: 1px solid #333333;
+}
+
+QRadioButton::indicator {
+border-radius: 8px;
+}
+
+QCheckBox::indicator::checked, QRadioButton::indicator::checked, QTreeView::indicator::checked {
+background-color: qradialgradient(cx:0.5, cy:0.5, fx:0.25, fy:0.15, radius:0.3, stop:0 #BBBBBB, stop:1 #111111);
+}
+
+QCheckBox::indicator:disabled, QRadioButton::indicator:disabled, QTreeView::indicator:disabled {
+background-color: #444444;
+}
+
+QCheckBox::indicator::checked:disabled, QRadioButton::indicator::checked:disabled, QTreeView::indicator::checked:disabled {
+background-color: rgb(0, 99, 148)
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -152,7 +175,7 @@ background:transparent;
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="shopTab">
        <property name="styleSheet">
@@ -357,7 +380,7 @@ background:transparent;
                       <string>phoneNum</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -404,6 +427,12 @@ background:transparent;
                      </item>
                      <item>
                       <widget class="QLabel" name="avatarLabel">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="minimumSize">
                         <size>
                          <width>0</width>
@@ -555,14 +584,14 @@ background:transparent;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QRadioButton" name="femaleRadioButton">
+                    <widget class="QRadioButton" name="maleRadioButton">
                      <property name="text">
                       <string>男</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QRadioButton" name="maleRadioButton">
+                    <widget class="QRadioButton" name="femaleRadioButton">
                      <property name="text">
                       <string>女</string>
                      </property>
@@ -920,7 +949,7 @@ border:1px solid;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QTextEdit" name="textEdit">
+                    <widget class="QTextEdit" name="detailAddressTextEdit">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                        <horstretch>0</horstretch>
@@ -963,7 +992,7 @@ border:1px solid;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit"/>
+                    <widget class="QLineEdit" name="recvNameLineEdit"/>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_12">
@@ -993,7 +1022,7 @@ border:1px solid;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_2"/>
+                    <widget class="QLineEdit" name="recvPhonelineEdit"/>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_13">
@@ -1026,7 +1055,7 @@ border:1px solid;
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="ackPushButton_2">
+                    <widget class="QPushButton" name="saveAddressPushButton">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1176,7 +1205,7 @@ background:rgb(48, 48, 48)
                       </layout>
                      </item>
                      <item>
-                      <widget class="RefreshWidget" name="widget" native="true">
+                      <widget class="AddressRefreshWidget" name="addressListWidget" native="true">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                          <horstretch>0</horstretch>
@@ -1222,7 +1251,7 @@ background:rgb(48, 48, 48)
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1013</width>
+     <width>980</width>
      <height>21</height>
     </rect>
    </property>
@@ -1280,15 +1309,15 @@ background:rgb(48, 48, 48)
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>RefreshWidget</class>
-   <extends>QWidget</extends>
-   <header>refreshwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>SlideWidget</class>
    <extends>QWidget</extends>
    <header>slidewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AddressRefreshWidget</class>
+   <extends>QWidget</extends>
+   <header>addressrefreshwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

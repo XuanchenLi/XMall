@@ -1,16 +1,16 @@
-#include "refreshwidget.h"
-#include "ui_refreshwidget.h"
+#include "addressrefreshwidget.h"
+#include "ui_addressrefreshwidget.h"
 #include "addresslistitem.h"
 #include <QListWidget>
 #include <QLabel>
-RefreshWidget::RefreshWidget(QWidget *parent) :
+AddressRefreshWidget::AddressRefreshWidget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::RefreshWidget)
+    ui(new Ui::AddressRefreshWidget)
 {
     ui->setupUi(this);
     AddressListItem* temp;
     int  startRow = ui->listWidget->count();
-    for ( int  i = startRow; i < startRow+5; i++)
+    for ( int  i = startRow; i < startRow+1; i++)
     {
         QListWidgetItem* pItem = new QListWidgetItem();
          temp =  new  AddressListItem();
@@ -20,24 +20,23 @@ RefreshWidget::RefreshWidget(QWidget *parent) :
          temp->findChild<QLabel*>("detailLabel")->setText("TEST");
          temp->findChild<QLabel*>("phoneLabel")->setText("TEST");
          pItem->setSizeHint(temp->size());
-         qDebug()<<temp->sizeHint();
+         //qDebug()<<temp->sizeHint();
          ui->listWidget->setItemWidget(pItem,temp);
     }
-
     connect(ui->listWidget, SIGNAL(msliderChanged(int)),  this , SLOT(onScrollBarMoved(int)));
     connect(ui->listWidget, SIGNAL(reachedBottom()),  this , SLOT(onReachedBottom()));
 }
 
-RefreshWidget::~RefreshWidget()
+AddressRefreshWidget::~AddressRefreshWidget()
 {
     delete ui;
 }
-void  RefreshWidget::onScrollBarMoved( int  v)
+void  AddressRefreshWidget::onScrollBarMoved( int  v)
 {
 
 }
 
-void  RefreshWidget::onReachedBottom()
+void  AddressRefreshWidget::onReachedBottom()
 {
      /*AddressListItem* temp;
      int  startRow = ui->listWidget->count();
