@@ -15,6 +15,5 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProductEntity implements Serializable {
 }

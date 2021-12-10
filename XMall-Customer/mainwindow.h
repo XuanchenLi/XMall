@@ -20,6 +20,7 @@ public:
     void initUserBaseInfo();
     void initFunction();
     void initAddress();
+    void test();
 private slots:
 void on_switchAccountAction_trigger();
 void on_ackPushButton_clicked();

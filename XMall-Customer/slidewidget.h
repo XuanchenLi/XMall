@@ -44,7 +44,7 @@ public slots:
     void onValueChanged(const QVariant&);
 
 private:
-    const int ANIMATION_DURATION = 2500;
+    const int ANIMATION_DURATION = 500;
     const int SWITCH_DURATION = 3000;
     // 用来做图片切换滑动效果，目前以透明度作为切换效果;
     QScrollArea* m_imagePlayWidget;

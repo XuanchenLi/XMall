@@ -7,6 +7,7 @@
 #include "Service/AddressEntity.h"
 #include "addresslistitem.h"
 #include "refreshlistwidget.h"
+#include "menulistwidget.h"
 #include <QPushButton>
 #include<QRegularExpression>
 #include<QRegularExpressionValidator>
@@ -45,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
      animation->setStartValue(0);
      animation->setEndValue(1);
      animation->start();
+
+     test();
+     test();
+     test();
 }
 
 MainWindow::~MainWindow()
@@ -263,4 +268,11 @@ void MainWindow::on_saveAddressPushButton_clicked()
 void MainWindow::initAddress()
 {
     ui->addressListWidget->play(currentUser.getPhone());
+}
+
+
+void MainWindow::test()
+{
+    MenuListWidget* item = new MenuListWidget;
+    ui->menuCategory->addAction(item);
 }

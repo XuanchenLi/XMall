@@ -123,7 +123,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
         ConcurrentHashMap<String, RedisCacheConfiguration> configMap = new ConcurrentHashMap<>();
         configMap.put(Constants.ONE_MINUTE, config.entryTtl(Duration.ofSeconds(Constants.CACHE_1MIN)));//有效期1分钟
-        configMap.put(Constants.THIRTY_MINUTES, config.entryTtl(Duration.ofSeconds(Constants.CACHE_30MINS)));//有效期1分钟
+        configMap.put(Constants.THIRTY_MINUTES, config.entryTtl(Duration.ofSeconds(Constants.CACHE_30MINS)));//有效期30分钟
         configMap.put(Constants.PERMANENT, config);//永久
 
         //需要先初始化缓存名称，再初始化其它的配置。

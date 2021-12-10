@@ -175,28 +175,97 @@ background-color: rgb(0, 99, 148)
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="shopTab">
        <property name="styleSheet">
         <string notr="true">*{
 background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(40, 44, 50), stop:1 rgb(49, 97, 117))
 
+}
+QMenu::item 
+{
+     background-color:rgb(42, 42, 42);
+}
+ 
+/*选择项设置*/
+QMenu::item:selected 
+{
+     background-color: rgb(36, 58, 99);
+}
+QMenuBar::item:selected{
+background-color:rgb(51, 124, 188);
+color:white;
+}
+QMenuBar::item{
+color:white;
+font:20px;
 }</string>
        </property>
        <attribute name="title">
         <string>商店</string>
        </attribute>
-       <widget class="SlideWidget" name="slideWidget" native="true">
-        <property name="geometry">
-         <rect>
-          <x>129</x>
-          <y>69</y>
-          <width>741</width>
-          <height>221</height>
-         </rect>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,18">
+          <item>
+           <widget class="QMenuBar" name="menu">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei</family>
+              <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <widget class="QMenu" name="menuCategory">
+             <property name="font">
+              <font>
+               <family>Microsoft YaHei</family>
+               <pointsize>9</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="title">
+              <string>类别</string>
+             </property>
+            </widget>
+            <widget class="QMenu" name="menuFlash">
+             <property name="title">
+              <string>秒杀专区</string>
+             </property>
+            </widget>
+            <addaction name="menuCategory"/>
+            <addaction name="menuFlash"/>
+           </widget>
+          </item>
+          <item>
+           <widget class="SlideWidget" name="slideWidget" native="true"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+       <action name="settingAction">
+        <property name="text">
+         <string>设置</string>
         </property>
-       </widget>
+       </action>
+       <action name="switchAccountAction">
+        <property name="text">
+         <string>切换账户</string>
+        </property>
+       </action>
+       <action name="exitAction">
+        <property name="text">
+         <string>退出</string>
+        </property>
+       </action>
+       <action name="serviceAction">
+        <property name="text">
+         <string>XMall客服</string>
+        </property>
+       </action>
       </widget>
       <widget class="QWidget" name="cartTab">
        <property name="styleSheet">
@@ -1292,6 +1361,11 @@ background:rgb(48, 48, 48)
   <action name="serviceAction">
    <property name="text">
     <string>XMall客服</string>
+   </property>
+  </action>
+  <action name="actiontest">
+   <property name="text">
+    <string>test</string>
    </property>
   </action>
  </widget>

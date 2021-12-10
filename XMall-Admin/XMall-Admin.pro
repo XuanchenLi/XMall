@@ -13,54 +13,27 @@ SOURCES += \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
-    addresslistitem.cpp \
-    addressrefreshwidget.cpp \
     alertwindow.cpp \
-    cityselectionwidget.cpp \
-    locationwidget.cpp \
     main.cpp \
     login.cpp \
-    mainwindow.cpp \
-    menulistwidget.cpp \
     piclineedit.cpp \
-    refreshlistwidget.cpp \
-    refreshwidget.cpp \
-    register.cpp \
-    slidewidget.cpp
+    register.cpp
 
 HEADERS += \
     Service/AddressEntity.h \
     Service/HttpProxy.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
-    VerticalTabBar.h \
-    addresslistitem.h \
-    addressrefreshwidget.h \
     alertwindow.h \
-    cityselectionwidget.h \
-    locationwidget.h \
     login.h \
-    mainwindow.h \
-    menulistwidget.h \
     piclineedit.h \
-    refreshlistwidget.h \
-    refreshwidget.h \
-    register.h \
-    slidewidget.h \
-    verticaltabwidget.h
+    register.h
 
 FORMS += \
-    addresslistitem.ui \
-    addressrefreshwidget.ui \
     alertwindow.ui \
-    cityselectionwidget.ui \
     login.ui \
-    mainwindow.ui \
-    menulistwidget.ui \
     piclineedit.ui \
-    refreshwidget.ui \
-    register.ui \
-    slidewidget.ui
+    register.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/pics">
+        <file>icons/email.png</file>
+        <file>icons/fullScreen.jpg</file>
+        <file>icons/mylogo.png</file>
+        <file>icons/normalScreen.jpg</file>
+        <file>icons/phone.png</file>
+        <file>icons/psw.png</file>
+        <file>icons/repsw.png</file>
+        <file>icons/test.png</file>
+        <file>icons/user.png</file>
+        <file>icons/XMLOGO.png</file>
+    </qresource>
+</RCC>
