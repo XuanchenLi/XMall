@@ -30,4 +30,5 @@ public interface UserInfoMapper {
     //Address
     List<AddressEntity> findAllAddressByPhone(String userPhone);
     int saveAddress(AddressEntity addressEntity);
+    int deleteAddressByUuid(String uuid);
 }

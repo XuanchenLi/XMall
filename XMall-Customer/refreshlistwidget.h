@@ -3,6 +3,7 @@
 
 #include <QScrollArea>
 #include <QListWidget>
+#include <QScrollBar>
 namespace Ui {
 class RefreshListWidget;
 }
@@ -15,6 +16,8 @@ public:
     explicit RefreshListWidget(QWidget *parent = nullptr);
     ~RefreshListWidget();
 
+
+    bool isScrollVisible() const {return scrollBar->isVisible();}
 
 private  slots:
      void  onSliderChanged( int  p);

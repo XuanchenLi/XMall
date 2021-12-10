@@ -6,6 +6,7 @@
 class AddressEntity
 {
 public:
+    static AddressEntity parseJson(QJsonObject obj);
     const QString &getUserPhone() const;
     void setUserPhone(const QString &newUserPhone);
     const QString &getName() const;
@@ -22,6 +23,9 @@ public:
     void setDetail(const QString &newDetail);
     QJsonObject getJsonForm();
     QByteArray getQByteArrayForm();
+    const QString &getUuid() const;
+    void setUuid(const QString &newUuid);
+
 private:
     QString userPhone;
     QString name;
@@ -30,6 +34,7 @@ private:
     QString city;
     QString region;
     QString detail;
+    QString uuid;
 };
 
 #endif // ADDRESSENTITY_H

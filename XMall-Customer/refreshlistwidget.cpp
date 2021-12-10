@@ -26,3 +26,4 @@ void  RefreshListWidget::onSliderChanged(int  p)
      }
      emit msliderChanged(p);   // 2
 }
+

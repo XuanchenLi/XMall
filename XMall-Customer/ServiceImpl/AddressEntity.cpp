@@ -73,6 +73,7 @@ void AddressEntity::setDetail(const QString &newDetail)
 QJsonObject AddressEntity::getJsonForm()
 {
     return QJsonObject{
+        {"uuid", uuid},
         {"userPhone", userPhone},
         {"name", name},
         {"phone", phone},
@@ -85,4 +86,28 @@ QJsonObject AddressEntity::getJsonForm()
 QByteArray AddressEntity::getQByteArrayForm()
 {
     return QJsonDocument(this->getJsonForm()).toJson();
+}
+
+const QString &AddressEntity::getUuid() const
+{
+    return uuid;
+}
+
+void AddressEntity::setUuid(const QString &newUuid)
+{
+    uuid = newUuid;
+}
+
+AddressEntity AddressEntity::parseJson(QJsonObject obj)
+{
+    AddressEntity addressEntity;
+    addressEntity.setUuid(obj["uuid"].toString());
+    addressEntity.setUserPhone(obj["userPhone"].toString());
+    addressEntity.setPhone(obj["phone"].toString());
+    addressEntity.setName(obj["name"].toString());
+    addressEntity.setProvince(obj["province"].toString());
+    addressEntity.setCity(obj["city"].toString());
+    addressEntity.setRegion(obj["region"].toString());
+    addressEntity.setDetail(obj["detail"].toString());
+    return addressEntity;
 }

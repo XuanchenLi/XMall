@@ -120,6 +120,7 @@ void MainWindow::initUserBaseInfo()
 void MainWindow::initFunction()
 {
     initUserBaseInfo();
+    initAddress();
 }
 
 void MainWindow::on_ackPushButton_clicked()
@@ -245,9 +246,7 @@ void MainWindow::on_saveAddressPushButton_clicked()
     QJsonObject jsonObject = httpProxy->getJsonObject();
     if(jsonObject["statusCode"] == "SUCCESS")
     {
-        AddressListItem addressItem;
-        addressItem.setAddressEntity(addressEntity);
-        QListWidgetItem* pItem = new QListWidgetItem();
+        initAddress();
         //
     }
     else
@@ -261,4 +260,7 @@ void MainWindow::on_saveAddressPushButton_clicked()
     ui->saveAddressPushButton->setEnabled(true);
 }
 
-
+void MainWindow::initAddress()
+{
+    ui->addressListWidget->play(currentUser.getPhone());
+}

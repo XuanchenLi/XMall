@@ -1,6 +1,8 @@
 #include "addresslistitem.h"
 #include "ui_addresslistitem.h"
-
+#include "Service/HttpProxy.h"
+#include <QJsonObject>
+extern QString GET_HOST();
 AddressListItem::AddressListItem(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AddressListItem)
@@ -29,3 +31,21 @@ void AddressListItem::setAddressEntity(const AddressEntity &newAddressEntity)
     ui->phoneLabel->setText(addressEntity.getPhone());
     ui->detailLabel->setText(addressEntity.getDetail());
 }
+
+void AddressListItem::on_pushButton_clicked()
+{
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/user/address/delete/" + addressEntity.getUserPhone() + "/" + addressEntity.getUuid());
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        emit deleteRecord(true);
+        //
+    }
+    else
+    {
+        emit deleteRecord(false);
+    }
+
+}
+

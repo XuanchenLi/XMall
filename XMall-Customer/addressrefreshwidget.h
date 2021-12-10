@@ -14,19 +14,21 @@ class AddressRefreshWidget : public QWidget
 public:
     explicit AddressRefreshWidget(QWidget *parent = nullptr);
     ~AddressRefreshWidget();
-    void setAddressVector();
-    void insertAddress(AddressListItem addressItem);
+    void setAddressVector(QString phone);
+    void insertAddress(AddressListItem* addressItem);
     void clear();
+    void play(QString phone);
 
 
 private:
     Ui::AddressRefreshWidget *ui;
-    QVector<AddressListItem> addressVector;
+    QVector<AddressListItem*> addressVector;
     int curIndex = 0;
-
+    QString phone;
 private  slots:
      void  onScrollBarMoved( int );
      void  onReachedBottom();
+     void on_deleteRecord(bool);
 };
 
 #endif // ADDRESSREFRESHWIDGET_H

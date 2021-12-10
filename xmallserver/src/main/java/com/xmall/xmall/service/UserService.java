@@ -26,6 +26,6 @@ public interface UserService {
     //Address
     List<AddressEntity> getAllAddressByPhone(String userPhone) throws NotFoundException;
     int saveAddress(AddressEntity addressEntity);
-
+    int deleteAddressByUuid(String uuid, String phone) throws Exception;
 
 }

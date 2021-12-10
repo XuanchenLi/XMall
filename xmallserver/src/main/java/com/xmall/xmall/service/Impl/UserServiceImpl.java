@@ -132,8 +132,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int saveAddress(AddressEntity addressEntity) {
-        redisUtil.remove("ADDRESSES_Phone_" + addressEntity.getUserPhone());
+        redisUtil.remove("THIRTY_MINUTES::ADDRESSES_Phone_" + addressEntity.getUserPhone());
         try {
+            addressEntity.setUuid(StringUtil.allocateUuid());
             return userInfoMapper.saveAddress(addressEntity);
         }catch (Exception e)
         {
@@ -141,4 +142,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public int deleteAddressByUuid(String uuid, String phone) throws Exception {
+        redisUtil.remove("THIRTY_MINUTES::ADDRESSES_Phone_" + phone);
+        return userInfoMapper.deleteAddressByUuid(uuid);
+    }
 }

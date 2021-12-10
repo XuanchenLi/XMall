@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @ClassName:
  * @Description: TODO
@@ -14,8 +16,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressEntity {
+public class AddressEntity implements Serializable {
     private long id;
+    private String uuid;
     private String userPhone;
     private String name;
     private String phone;

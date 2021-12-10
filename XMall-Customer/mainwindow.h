@@ -19,6 +19,7 @@ public:
     UserInfoDto getCurrentUser() const {return currentUser;}
     void initUserBaseInfo();
     void initFunction();
+    void initAddress();
 private slots:
 void on_switchAccountAction_trigger();
 void on_ackPushButton_clicked();

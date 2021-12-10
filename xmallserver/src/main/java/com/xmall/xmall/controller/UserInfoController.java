@@ -236,9 +236,20 @@ public class UserInfoController {
             normalResponse.setStatusCode(StatusEnum.INTERNAL_ERROR);
         }
         return normalResponse;
-
     }
-
-
+    @GetMapping("/address/delete/{phone}/{uuid}")
+    NormalResponse deleteAddressByUUid(@PathVariable String uuid, @PathVariable String phone)
+    {
+        NormalResponse normalResponse = new NormalResponse();
+        try
+        {
+            userService.deleteAddressByUuid(uuid, phone);
+            normalResponse.setStatusCode(StatusEnum.SUCCESS );
+        }catch (Exception e)
+        {
+            normalResponse.setStatusCode(StatusEnum.INTERNAL_ERROR);
+        }
+        return normalResponse;
+    }
 
 }

@@ -21,9 +21,16 @@ public:
     const AddressEntity &getAddressEntity() const;
     void setAddressEntity(const AddressEntity &newAddressEntity);
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::AddressListItem *ui;
     AddressEntity addressEntity;
+
+signals:
+    void deleteRecord(bool);
+
 };
 
 #endif // ADDRESSLISTITEM_H

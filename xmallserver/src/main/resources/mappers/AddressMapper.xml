@@ -6,7 +6,10 @@
         select * from xm_user_address_item where user_phone = #{userPhone}
     </select>
     <insert id="saveAddress" useGeneratedKeys="true" keyProperty="id" parameterType="AddressEntity">
-        insert into xm_user_address_item (user_phone,name,phone,province,city,region,detail)
-        values (#{userPhone},#{name},#{phone},#{province},#{city},#{region},#{detail})
+        insert into xm_user_address_item (user_phone,uuid,name,phone,province,city,region,detail)
+        values (#{userPhone},#{uuid},#{name},#{phone},#{province},#{city},#{region},#{detail})
     </insert>
+    <delete id="deleteAddressByUuid">
+        DELETE FROM xm_user_address_item  WHERE uuid=#{uuid}
+    </delete>
 </mapper>
