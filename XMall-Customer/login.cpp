@@ -90,7 +90,7 @@ void Login::on_retLogin(QPoint pos)
 
 void Login::on_loginPushButton_clicked()
 {
-    ui->registerPushButton->setEnabled(false);
+    ui->loginPushButton->setEnabled(false);
     QString phone = ui->accountLineEdit->text();
     QString psw = ui->passwordLineEdit->text();
     httpProxy->get(GET_HOST() + "/user/phone/" + phone);
@@ -132,6 +132,13 @@ void Login::on_loginPushButton_clicked()
             ui->loginPushButton->setEnabled(true);
             return;
         }
+    }
+    else
+    {
+        alertWin->setMessage("账号或密码错误");
+        alertWin->show();
+        ui->loginPushButton->setEnabled(true);
+        return;
     }
 
 }

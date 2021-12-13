@@ -10,29 +10,49 @@ CONFIG += c++11
 
 SOURCES += \
     ServiceImpl/AddressEntity.cpp \
+    ServiceImpl/AdminEntity.cpp \
+    ServiceImpl/CategoryEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
     alertwindow.cpp \
+    categorylistitem.cpp \
+    categoryrefreshwidget.cpp \
     main.cpp \
     login.cpp \
+    mainwindow.cpp \
     piclineedit.cpp \
+    refreshlistwidget.cpp \
+    refreshwidget.cpp \
     register.cpp
 
 HEADERS += \
     Service/AddressEntity.h \
+    Service/AdminEntity.h \
+    Service/CategoryEntity.h \
     Service/HttpProxy.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
+    VerticalTabBar.h \
     alertwindow.h \
+    categorylistitem.h \
+    categoryrefreshwidget.h \
     login.h \
+    mainwindow.h \
     piclineedit.h \
-    register.h
+    refreshlistwidget.h \
+    refreshwidget.h \
+    register.h \
+    verticaltabwidget.h
 
 FORMS += \
     alertwindow.ui \
+    categorylistitem.ui \
+    categoryrefreshwidget.ui \
     login.ui \
+    mainwindow.ui \
     piclineedit.ui \
+    refreshwidget.ui \
     register.ui
 
 # Default rules for deployment.

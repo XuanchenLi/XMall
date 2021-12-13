@@ -1,10 +1,14 @@
 #include "menulistwidget.h"
 #include "ui_menulistwidget.h"
+#include "menulistitem.h"
 #include <QLabel>
 #include <QSplitter>
 #include <QListWidget>
-MenuListWidget::MenuListWidget(QObject *parent) :
-    QWidgetAction(parent)
+MenuListWidget::MenuListWidget(QObject *parent,QVector<CategoryEntity>* category1 ,QVector<CategoryEntity>* category2 ,int start, int end) :
+    QWidgetAction(parent),
+    start(start),end(end),
+    category1(category1),
+    category2(category2)
 {
 
 }
@@ -16,28 +20,39 @@ MenuListWidget::~MenuListWidget()
 
 QWidget* MenuListWidget::createWidget(QWidget *parent)
 {
+
     if(parent->inherits("QMenu")||parent->inherits("QToolBarr"))
     {
-        // Splitter ??? Why!
-        //QGridLayout *pLayout = new QGridLayout();
         QSplitter *splitter = new QSplitter(parent);
-        QLabel *label = new QLabel;
-        label->setText("类别1");
-        splitter->addWidget(label);
-        QListWidget* list1 = new QListWidget;
-        list1->insertItem(0,tr("hah"));
-        list1->insertItem(1,tr("hah2"));
-        list1->insertItem(3,tr("hah3"));
-        splitter->addWidget(list1);
-        QLabel *label2 = new QLabel;
-        label2->setText("类别2");
-        splitter->addWidget(label2);
-        QListWidget* list2 = new QListWidget;
-        list2->insertItem(0,tr("hah"));
-        list2->insertItem(1,tr("hah2"));
-        list2->insertItem(3,tr("hah3"));
-        splitter->addWidget(list2);
+        for (int i = start; i <= end; ++i)
+        {
+            QSplitter *subSplitter = new QSplitter(Qt::Vertical, splitter);
+            CategoryEntity root = category1->at(i);
+            QLabel *label = new QLabel(root.getName(),subSplitter);
+            label->setStyleSheet("color:rgb(46, 191, 255);");
+            QListWidget* list = new QListWidget(subSplitter);
+            for (int i = 0 ; i < category2->length(); ++i)
+            {
+                CategoryEntity category = category2->at(i);
+                //qDebug()<<category1;
+                //qDebug()<<category2;
+
+                if(category.getParentId() == root.getId())
+                {
+                    qDebug()<<category.getName();
+                    MenuListItem* item = new MenuListItem();
+                    item->setCategoryEntity(category);
+                    item->setText(category.getName());
+                    QListWidgetItem* pItem = new QListWidgetItem();
+                    list->addItem(pItem);
+                    pItem->setSizeHint(item->size());
+                    list->setItemWidget(pItem,item);
+                }
+            }
+
+        }
         return splitter;
     }
     return nullptr;
 }
+

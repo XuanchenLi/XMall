@@ -2,11 +2,19 @@
 
 #include <QApplication>
 
+//test
+#include "mainwindow.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Login w;
     w.show();
+
+    //text
+    MainWindow mw;
+    mw.show();
+
     return a.exec();
 }
 QString GET_HOST()

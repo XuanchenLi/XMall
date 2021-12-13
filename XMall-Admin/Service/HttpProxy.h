@@ -29,7 +29,7 @@ protected:
 public slots:
     void serviceRequestFinished(QNetworkReply *reply);
 private:
-    QTimer timer;
+    //QTimer timer;
     QNetworkRequest httpRequest;
     QNetworkAccessManager networkAccessManager;
     int replyCode;

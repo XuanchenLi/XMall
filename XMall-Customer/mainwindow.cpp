@@ -13,6 +13,7 @@
 #include<QRegularExpressionValidator>
 #include <QLabel>
 #include <QTabBar>
+#include <QJsonArray>
 #include <QScopedPointer>
 #include <QFileDialog>
 #include <QListWidgetItem>
@@ -47,9 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
      animation->setEndValue(1);
      animation->start();
 
-     test();
-     test();
-     test();
 }
 
 MainWindow::~MainWindow()
@@ -126,6 +124,7 @@ void MainWindow::initFunction()
 {
     initUserBaseInfo();
     initAddress();
+    initCategoryMenu();
 }
 
 void MainWindow::on_ackPushButton_clicked()
@@ -271,8 +270,41 @@ void MainWindow::initAddress()
 }
 
 
-void MainWindow::test()
+void MainWindow::initCategoryMenu()
 {
-    MenuListWidget* item = new MenuListWidget;
-    ui->menuCategory->addAction(item);
+    categoryLevel1.clear();
+    categoryLevel2.clear();
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/category/level/1");
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        QJsonArray categories = jsonObject["categoryEntityList"].toArray();
+        for (int i =0; i<categories.count(); ++i)
+        {
+            categoryLevel1.push_back(CategoryEntity::parseJson(categories[i].toObject()));
+        }
+    }
+    httpProxy->get(GET_HOST() + "/category/level/2");
+    QJsonObject jsonObject2 = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        QJsonArray categories2 = jsonObject2["categoryEntityList"].toArray();
+        for (int i =0; i<categories2.count(); ++i)
+        {
+            categoryLevel2.push_back(CategoryEntity::parseJson(categories2[i].toObject()));
+        }
+    }
+    int start = 0;
+    int tot = categoryLevel1.length();
+    for ( ; start < tot ; start +=4)
+    {
+        MenuListWidget* item = new MenuListWidget(nullptr,&categoryLevel1, &categoryLevel2, start, qMin(start + 3, tot - 1));
+        ui->menuCategory->addAction(item);
+        //item->setEnabled(false);
+    }
+
+    //MenuListWidget* item = new MenuListWidget;
+    //ui->menuCategory->addAction(item);
+    //item->setEnabled(false);
 }

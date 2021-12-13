@@ -1,7 +1,8 @@
 #include "login.h"
 #include "ui_login.h"
 #include "alertwindow.h"
-#include "Service/UserInfoDto.h"
+#include "Service/AdminEntity.h"
+#include "mainwindow.h"
 #include <QPainter>
 #include<QMouseEvent>
 #include<QObject>
@@ -89,41 +90,23 @@ void Login::on_retLogin(QPoint pos)
 
 void Login::on_loginPushButton_clicked()
 {
-    ui->registerPushButton->setEnabled(false);
+    ui->loginPushButton->setEnabled(false);
     QString phone = ui->accountLineEdit->text();
     QString psw = ui->passwordLineEdit->text();
-    httpProxy->get(GET_HOST() + "/user/phone/" + phone);
-    int statusCode = httpProxy->getReplyCode();
-    QElapsedTimer timer;
-    timer.start();
-    while(statusCode == 0)
-    {
-        double timeCount = timer.elapsed()/1000.0;
-        if(timeCount > 8)
-        {
-
-            alertWin->setMessage("连接超时");
-            alertWin->show();
-            ui->loginPushButton->setEnabled(true);
-            return;
-        }
-        statusCode = httpProxy->getReplyCode();
-    }
+    httpProxy->get(GET_HOST() + "/admin/phone/" + phone);
     QJsonObject jsonObject = httpProxy->getJsonObject();
     if(jsonObject["statusCode"] == "SUCCESS")
     {
-        if (jsonObject["userInfoDto"].toObject()["password"] == psw)
+        if (jsonObject["adminEntity"].toObject()["password"].toString() == psw)
         {
             qDebug()<<"登陆成功";
-            UserInfoDto currentUser = UserInfoDto("",phone
-                                                  ,psw
-                                                  ,"");
-            /*mainWin = new MainWindow;
-            mainWin->setCurrentUser(currentUser);
+            AdminEntity currentAdmin = AdminEntity(jsonObject["userInfoDto"].toObject()["uuid"].toString(), phone, psw);
+            mainWin = new MainWindow;
+            mainWin->setCurrentAdmin(currentAdmin);
             this->close();
             mainWin->show();
             mainWin->initFunction();
-            */
+
         }
         else
         {
@@ -132,6 +115,13 @@ void Login::on_loginPushButton_clicked()
             ui->loginPushButton->setEnabled(true);
             return;
         }
+    }
+    else
+    {
+        alertWin->setMessage("账号或密码错误");
+        alertWin->show();
+        ui->loginPushButton->setEnabled(true);
+        return;
     }
 
 }

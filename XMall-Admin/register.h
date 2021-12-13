@@ -26,7 +26,6 @@ private:
     Ui::Register *ui;
     QPoint p;
     QRegularExpressionValidator passwordValidator;
-    QRegularExpressionValidator emailValidator;
     QRegularExpressionValidator phoneValidator;
     AlertWindow *alertWin;
     QScopedPointer<HttpProxy> httpProxy;

@@ -178,6 +178,7 @@ void Register::on_registerPushButton_clicked()
         alertWin->setMessage("注册成功！");
         alertWin->show();
         ui->registerPushButton->setEnabled(true);
+        emit retLogin(this->frameGeometry().topLeft());
         return ;
     }
     else

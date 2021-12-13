@@ -1,9 +1,9 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 #include <QWidget>
-#include<register.h>
-#include"alertwindow.h"
-
+#include <register.h>
+#include "alertwindow.h"
+#include "mainwindow.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
@@ -41,6 +41,6 @@ private:
     Register* registerWin;
     QScopedPointer<HttpProxy> httpProxy;
     AlertWindow *alertWin;
-    //MainWindow *mainWin;
+    MainWindow *mainWin;
 };
 #endif // LOGIN_H

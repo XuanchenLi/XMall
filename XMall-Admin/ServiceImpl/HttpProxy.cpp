@@ -20,10 +20,12 @@ HttpProxy::~HttpProxy()
 void HttpProxy::get(const QString url)
 {
     httpRequest.setRawHeader("Content-Type", "application/json");
+    QTimer timer;
     timer.setInterval(60000);//一分钟
     httpRequest.setUrl(url);
     QEventLoop loop;
     connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    timer.start();
     QNetworkReply* reply = networkAccessManager.get(httpRequest);
     QObject::connect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
     loop.exec();
@@ -34,11 +36,15 @@ void HttpProxy::get(const QString url)
         reply->abort();
         reply->deleteLater();
     }
-
+    else
+    {
+        timer.stop();
+    }
 }
 
 void HttpProxy::post(const QString url, const QByteArray &data)
 {
+    QTimer timer;
     httpRequest.setRawHeader("Content-Type", "application/json");
     timer.setInterval(60000);//一分钟
     httpRequest.setUrl(url);
@@ -55,11 +61,16 @@ void HttpProxy::post(const QString url, const QByteArray &data)
         reply->abort();
         reply->deleteLater();
     }
+    else
+    {
+        timer.stop();
+    }
 
 }
 
 void HttpProxy::uploadPicture(const QString url, const QString filePath)
 {
+    QTimer timer;
     httpRequest.setRawHeader("Content-Type", "image/jpeg");
     timer.setInterval(60000);//一分钟
     httpRequest.setUrl(url);
@@ -87,12 +98,16 @@ void HttpProxy::uploadPicture(const QString url, const QString filePath)
         reply->abort();
         reply->deleteLater();
     }
+    else
+    {
+        timer.stop();
+    }
 
 }
 
 void HttpProxy::serviceRequestFinished(QNetworkReply *reply)
 {
-    timer.stop();
+    //timer.stop();
     replyCode = 0;
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     qDebug() << "HttpProxy...serviceRequestFinished...statusCode:" << statusCode;
@@ -109,7 +124,7 @@ void HttpProxy::serviceRequestFinished(QNetworkReply *reply)
 
 void HttpProxy::requestFinished(QNetworkReply *reply, const QByteArray data, const int statusCode)
 {
-    qDebug()<<"statusCode="<<statusCode;
+    //qDebug()<<"statusCode="<<statusCode;
     QByteArray resBytes = reply->readAll();
 
     //qDebug()<<"resBytes="<<QString(resBytes);

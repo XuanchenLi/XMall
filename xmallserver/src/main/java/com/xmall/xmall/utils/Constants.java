@@ -24,4 +24,5 @@ public class Constants {
     public static final long CACHE_1MIN= 60;
 
     public static final String USER_KEY_CACHE_PREFIX= "USER_";
+    public static final String CATEGORY_KEY_CACHE_PREFIX= "CATEGORY_";
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "Service/UserInfoDto.h"
 #include "Service/HttpProxy.h"
+#include "Service/CategoryEntity.h"
 namespace Ui {
 class MainWindow;
 }
@@ -20,7 +21,7 @@ public:
     void initUserBaseInfo();
     void initFunction();
     void initAddress();
-    void test();
+    void initCategoryMenu();
 private slots:
 void on_switchAccountAction_trigger();
 void on_ackPushButton_clicked();
@@ -34,6 +35,8 @@ void on_saveAddressPushButton_clicked();
 private:
     Ui::MainWindow *ui;
     UserInfoDto currentUser;
+    QVector<CategoryEntity> categoryLevel1;
+    QVector<CategoryEntity> categoryLevel2;
 };
 
 

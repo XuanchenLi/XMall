@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     ServiceImpl/AddressEntity.cpp \
+    ServiceImpl/CategoryEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     main.cpp \
     login.cpp \
     mainwindow.cpp \
+    menulistitem.cpp \
     menulistwidget.cpp \
     piclineedit.cpp \
     refreshlistwidget.cpp \
@@ -30,6 +32,7 @@ SOURCES += \
 
 HEADERS += \
     Service/AddressEntity.h \
+    Service/CategoryEntity.h \
     Service/HttpProxy.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
@@ -41,6 +44,7 @@ HEADERS += \
     locationwidget.h \
     login.h \
     mainwindow.h \
+    menulistitem.h \
     menulistwidget.h \
     piclineedit.h \
     refreshlistwidget.h \
@@ -56,6 +60,7 @@ FORMS += \
     cityselectionwidget.ui \
     login.ui \
     mainwindow.ui \
+    menulistitem.ui \
     menulistwidget.ui \
     piclineedit.ui \
     refreshwidget.ui \
