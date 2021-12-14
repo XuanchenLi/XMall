@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
      animation->setEndValue(1);
      animation->start();
     //
-    initCategory();
+    //initCategory();
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +44,8 @@ MainWindow::~MainWindow()
 void MainWindow::initFunction()
 {
     initCategory();
+    initFreight();
+    initProduct();
 }
 void MainWindow::initCategory()
 {
@@ -145,4 +147,33 @@ void MainWindow::on_categoryPushButton_2_clicked()
     }
     ui->categoryPushButton_2->setEnabled(true);
 }
-
+void MainWindow::initFreight()
+{
+    ui->freightRefreshWidget->play();
+}
+void MainWindow::on_freightPushButton_clicked()
+{
+    ui->categoryPushButton_2->setEnabled(false);
+    double price = ui->freightDoubleSpinBox->value();
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/freight/insert/price/" + QString::number(price, 'f', 2));
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        initFreight();
+        //
+    }
+    else
+    {
+        AlertWindow *alertWin = new AlertWindow;
+        alertWin->setMessage("网络异常");
+        alertWin->show();
+        ui->categoryPushButton_2->setEnabled(true);
+        return ;
+    }
+    ui->categoryPushButton_2->setEnabled(true);
+}
+void MainWindow::initProduct()
+{
+    ui->productRefreshWidget->play();
+}

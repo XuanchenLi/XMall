@@ -63,7 +63,7 @@ void CategoryRefreshWidget::insertCategory(CategoryListItem* categoryItem)
         qDebug()<<"空指针";
         return;
     }
-    qDebug()<<categoryItem->getCategoryEntity().getId();
+    //qDebug()<<categoryItem->getCategoryEntity().getId();
     QListWidgetItem* pItem = new QListWidgetItem();
     ui->listWidget->addItem(pItem);
     pItem->setSizeHint(categoryItem->size());

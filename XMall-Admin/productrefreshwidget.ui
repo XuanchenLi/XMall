@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CategoryRefreshWidget</class>
- <widget class="QWidget" name="CategoryRefreshWidget">
+ <class>ProductRefreshWidget</class>
+ <widget class="QWidget" name="ProductRefreshWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
+    <width>400</width>
     <height>300</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -31,11 +40,11 @@
    </property>
    <item>
     <widget class="RefreshListWidget" name="listWidget">
-     <property name="minimumSize">
-      <size>
-       <width>450</width>
-       <height>0</height>
-      </size>
+     <property name="styleSheet">
+      <string notr="true">QListWidget::item{
+margin:5px;
+
+}</string>
      </property>
     </widget>
    </item>

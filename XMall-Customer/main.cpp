@@ -1,6 +1,7 @@
 #include "login.h"
 #include <QApplication>
 #include <QString>
+
 //Test
 #include<mainwindow.h>
 #include <QtNetwork/QNetworkAccessManager>
@@ -14,6 +15,7 @@
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     Login w;
     w.show();
@@ -21,6 +23,7 @@ int main(int argc, char *argv[])
     //TEST
     MainWindow mw;
     mw.show();
+    mw.initCategoryMenu();
     //
     return a.exec();
 }

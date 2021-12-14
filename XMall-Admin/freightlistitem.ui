@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CategoryRefreshWidget</class>
- <widget class="QWidget" name="CategoryRefreshWidget">
+ <class>FreightListItem</class>
+ <widget class="QWidget" name="FreightListItem">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>300</height>
+    <width>298</width>
+    <height>55</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,1">
    <property name="spacing">
-    <number>0</number>
-   </property>
-   <property name="leftMargin">
     <number>0</number>
    </property>
    <property name="topMargin">
@@ -30,24 +27,33 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="RefreshListWidget" name="listWidget">
+    <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
-       <width>450</width>
-       <height>0</height>
+       <width>0</width>
+       <height>55</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>删除</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>RefreshListWidget</class>
-   <extends>QListWidget</extends>
-   <header>refreshlistwidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

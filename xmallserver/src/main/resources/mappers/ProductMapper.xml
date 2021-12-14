@@ -2,5 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xmall.xmall.dao.mapper.ProductMapper">
-
+    <insert id="saveProduct" useGeneratedKeys="true" keyProperty="id" parameterType="ProductEntity">
+        insert into xm_product (`name`, introduction, price, current_price, small_pic_address, big_pic_address,
+        limitation, category_id, is_have_attribute,freight_template_id, status, sale, unit, storage_id, creat_time)
+        values (#{name},#{introduction},#{price},#{currentPrice},#{smallPicAddress},#{bigPicAddress},
+        #{limitation},#{categoryId},#{isHaveAttribute},#{freightTemplateId},#{sstatus},#{sale}, #{unit},
+        #{storageId}, #{creatTime})
+    </insert>
+    <select id="findAllByStatus" resultType="ProductEntity">
+        select * from xm_product where `status` = #{status}
+    </select>
+    <select id="findById" resultType="ProductEntity">
+        select * from xm_product where id = #{id}
+    </select>
+    <update id="updateSmallPicById" >
+        update xm_product
+        set small_pic_address = #{path}
+        where id = #{id}
+    </update>
+    <update id="updateBigPicById" >
+        update xm_product
+        set big_pic_address = #{path}
+        where id = #{id}
+    </update>
+    <update id="updateStatusById" >
+        update xm_product
+        set status = #{status}
+        where id = #{id}
+    </update>
+    <update id="updatePriceById" >
+        update xm_product
+        set price = #{price}
+        where id = #{id}
+    </update>
+    <update id="updateById" >
+        update xm_product
+        set `name` = #{name}, introduction = #{introduction}, price = #{price},
+            current_price = #{currentPrice},limitation = #{limitation},
+            ,freight_template_id = #{freightTemplateId}, status = #{status}, unit = #{unit}
+        where id = #{id}
+    </update>
+    <select id="getTenByRandom" resultType="ProductEntity">
+        select  *  from  xm_product where status = 1 order by rand() limit 10
+    </select>
 </mapper>

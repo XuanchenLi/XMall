@@ -18,6 +18,8 @@ public:
     AdminEntity getCurrentAdmin() const {return currentAdmin;}
     void initFunction();
     void initCategory();
+    void initFreight();
+    void initProduct();
 private:
     Ui::MainWindow *ui;
     AdminEntity currentAdmin;
@@ -28,6 +30,7 @@ void on_refreshBox();
 
 void on_categoryPushButton_1_clicked();
 void on_categoryPushButton_2_clicked();
+void on_freightPushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

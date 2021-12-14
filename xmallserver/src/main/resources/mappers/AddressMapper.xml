@@ -12,4 +12,5 @@
     <delete id="deleteAddressByUuid">
         DELETE FROM xm_user_address_item  WHERE uuid=#{uuid}
     </delete>
+
 </mapper>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1014</width>
-    <height>586</height>
+    <width>1006</width>
+    <height>648</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -193,7 +193,7 @@ border:1px solid;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="categoryTab">
        <property name="styleSheet">
@@ -505,6 +505,15 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(
        <attribute name="title">
         <string>商品管理</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="ProductRefreshWidget" name="productRefreshWidget" native="true"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="orderTab">
        <property name="styleSheet">
@@ -571,11 +580,159 @@ font:20px;
         <string notr="true">*{
 background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(40, 44, 50), stop:1 rgb(49, 97, 117))
 
+}
+
+QMenu::item 
+{
+     background-color:rgb(42, 42, 42);
+}
+ 
+/*选择项设置*/
+QMenu::item:selected 
+{
+     background-color: rgb(36, 58, 99);
+}
+QMenuBar::item:selected{
+background-color:rgb(51, 124, 188);
+color:white;
+}
+QMenuBar::item{
+color:white;
+font:20px;
+}
+QLabel{
+background:transparent
 }</string>
        </property>
        <attribute name="title">
         <string>运费模板</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_8" stretch="2,1">
+          <item>
+           <widget class="FreightRefreshWidget" name="freightRefreshWidget" native="true"/>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,1,1,1,1">
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>新增模板</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="freightDoubleSpinBox">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>45</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="suffix">
+               <string>￥</string>
+              </property>
+              <property name="maximum">
+               <double>10000.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="5,3,5">
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="freightPushButton">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">
+
+QPushButton{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-color:white;
+border-radius:3px;
+border:0px solid ;
+}
+
+QPushButton:pressed{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-radius:3px;
+border:1px solid;
+}</string>
+                </property>
+                <property name="text">
+                 <string>添加</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -586,7 +743,7 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1014</width>
+     <width>1006</width>
      <height>21</height>
     </rect>
    </property>
@@ -632,6 +789,18 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(
    <class>CategoryRefreshWidget</class>
    <extends>QWidget</extends>
    <header>categoryrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FreightRefreshWidget</class>
+   <extends>QWidget</extends>
+   <header>freightrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ProductRefreshWidget</class>
+   <extends>QWidget</extends>
+   <header>productrefreshwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

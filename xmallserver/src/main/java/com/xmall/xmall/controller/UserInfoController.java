@@ -174,29 +174,11 @@ public class UserInfoController {
 
     @PostMapping("/phone/{phone}/uploadAvatar")
     NormalResponse uploadAvatar(@RequestParam("file") MultipartFile file, @PathVariable String phone) {
-        if (file.isEmpty()) {
-            return new NormalResponse(StatusEnum.BAD_REQUEST);
-        }
-        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        String fileName = StringUtil.allocateUuid() + suffix;//服务端文件名
-        try {
-            //Linux环境需修改
-            File path = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-            //File path = new File("./");
-            if(!path.exists()) {
-                path = new File("");
-            }
-            File upload = new File(path.getAbsolutePath(),fileUtil.AVATAR_PATH);
-            if(!upload.exists()) {
-                upload.mkdirs();
-            }
-            String uploadPath = upload + "\\";
-
-            file.transferTo(new File(uploadPath+fileName));
-
+        try{
+            String path = fileUtil.uploadFile(file, fileUtil.AVATAR_PATH);
             //更新数据库
             UserInfoEntity oldUserInfoEntity = userService.getByPhone(phone);
-            oldUserInfoEntity.setIcon(uploadPath + fileName);
+            oldUserInfoEntity.setIcon(path);
             userService.updateAvatarByPhone(oldUserInfoEntity);
             return new NormalResponse(StatusEnum.SUCCESS);
         }catch (NotFoundException e)

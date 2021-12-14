@@ -12,16 +12,22 @@ SOURCES += \
     ServiceImpl/AddressEntity.cpp \
     ServiceImpl/AdminEntity.cpp \
     ServiceImpl/CategoryEntity.cpp \
+    ServiceImpl/FreightEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
+    ServiceImpl/ProductEntity.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
     alertwindow.cpp \
     categorylistitem.cpp \
     categoryrefreshwidget.cpp \
+    freightlistitem.cpp \
+    freightrefreshwidget.cpp \
     main.cpp \
     login.cpp \
     mainwindow.cpp \
     piclineedit.cpp \
+    productlistwidget.cpp \
+    productrefreshwidget.cpp \
     refreshlistwidget.cpp \
     refreshwidget.cpp \
     register.cpp
@@ -30,16 +36,22 @@ HEADERS += \
     Service/AddressEntity.h \
     Service/AdminEntity.h \
     Service/CategoryEntity.h \
+    Service/FreightEntity.h \
     Service/HttpProxy.h \
+    Service/ProductEntity.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
     VerticalTabBar.h \
     alertwindow.h \
     categorylistitem.h \
     categoryrefreshwidget.h \
+    freightlistitem.h \
+    freightrefreshwidget.h \
     login.h \
     mainwindow.h \
     piclineedit.h \
+    productlistwidget.h \
+    productrefreshwidget.h \
     refreshlistwidget.h \
     refreshwidget.h \
     register.h \
@@ -49,9 +61,13 @@ FORMS += \
     alertwindow.ui \
     categorylistitem.ui \
     categoryrefreshwidget.ui \
+    freightlistitem.ui \
+    freightrefreshwidget.ui \
     login.ui \
     mainwindow.ui \
     piclineedit.ui \
+    productlistwidget.ui \
+    productrefreshwidget.ui \
     refreshwidget.ui \
     register.ui
 
