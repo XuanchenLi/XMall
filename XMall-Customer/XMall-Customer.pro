@@ -14,6 +14,9 @@ SOURCES += \
     ServiceImpl/CategoryEntity.cpp \
     ServiceImpl/FreightEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
+    ServiceImpl/OrderEntity.cpp \
+    ServiceImpl/OrderItemEntity.cpp \
+    ServiceImpl/OrderRefundFormEntity.cpp \
     ServiceImpl/ProductEntity.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
@@ -45,6 +48,9 @@ HEADERS += \
     Service/CategoryEntity.h \
     Service/FreightEntity.h \
     Service/HttpProxy.h \
+    Service/OrderEntity.h \
+    Service/OrderItemEntity.h \
+    Service/OrderRefundFormEntity.h \
     Service/ProductEntity.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \

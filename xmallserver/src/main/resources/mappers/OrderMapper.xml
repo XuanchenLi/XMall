@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmall.xmall.dao.mapper.OrderMapper">
+    <select id="findById" resultType="OrderEntity">
+        select * from xm_order where id = #{id}
+    </select>
+    <select id="findBySn" resultType="OrderEntity">
+        select * from xm_order where order_sn = #{orderSn}
+    </select>
+    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="id" parameterType="OrderEntity">
+        insert into xm_order
+        (user_phone, order_sn, tot_price, pay_price, freight_price,
+         promotion_price, coupon_price, pay_type, `status`, user_address_info,
+         creat_time, pay_time, delivery_time, recv_time, comment_time, refund_time, die_time)
+        values
+        (#{userPhone}, #{orderSn}, #{totPrice}, #{payPrice}, #{freightPrice},
+         #{promotionPrice}, #{couponPrice}, #{payType}, #{status}, #{userAddressInfo},
+         #{creat_time}, #{pay_time}, #{delivery_time}, #{recv_time}, #{comment_time}, #{refund_time}, #{die_time})
+    </insert>
+    <update id="updatePay" >
+        update xm_order
+        set pay_price = #{payPrice}, pay_time = #{payTime}, pay_type = #{payType}, status = 1
+        where id = #{id}
+    </update>
+    <update id="updateDelivery" >
+        update xm_order
+        set delivery_time = #{deliveryTime}, status = 2
+        where id = #{id}
+    </update>
+    <update id="updateRecv" >
+        update xm_order
+        set recv_time = #{recvTime}, status = 3
+        where id = #{id}
+    </update>
+    <update id="updateComment" >
+        update xm_order
+        set comment_time = #{commentTime}, status = 4
+        where id = #{id}
+    </update>
+    <update id="updateRefund" >
+        update xm_order
+        set refund_time = #{refundTime}, status = 5
+        where id = #{id}
+    </update>
+    <update id="updateFinish" >
+        update xm_order
+        set die_time = #{dieTime}, status = 6
+        where id = #{id}
+    </update>
+
+
+    <select id="findAllItemBySn" resultType="OrderItemEntity">
+        select * from xm_order_item where order_sn = #{orderSn}
+    </select>
+    <insert id="saveOrderItem" useGeneratedKeys="true" keyProperty="id" parameterType="OrderItemEntity">
+        insert into xm_order_item
+        (order_sn, product_id, `name`, current_price,
+         price, `count`)
+        values
+        (#{orderSn}, #{productId}, #{name}, #{currentPrice},
+         #{price}, #{count})
+    </insert>
+
+    <select id="findFormBySn" resultType="OrderRefundFormEntity">
+        select * from xm_order_refund_form where order_sn = #{orderSn}
+    </select>
+    <insert id="saveRefundForm" useGeneratedKeys="true" keyProperty="id" parameterType="OrderRefundFormEntity">
+        insert into xm_order_refund_form
+        (order_sn, user_phone, `creat_time`, refund_price,
+         handle_time, `status`)
+        values
+        (#{orderSn}, #{userPhone}, #{creatTime}, #{refundPrice},
+         #{handleTime}, #{status})
+    </insert>
+    <update id="updateRefundFormHandle" >
+        update xm_order_refund_form
+        set handle_time = #{handleTime}, status = #{status}
+        where id = #{id}
+    </update>
+
+</mapper>
