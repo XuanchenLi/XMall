@@ -17,6 +17,7 @@ SOURCES += \
     ServiceImpl/ProductEntity.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
+    adminproductwindow.cpp \
     alertwindow.cpp \
     categorylistitem.cpp \
     categoryrefreshwidget.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
     VerticalTabBar.h \
+    adminproductwindow.h \
     alertwindow.h \
     categorylistitem.h \
     categoryrefreshwidget.h \
@@ -58,6 +60,7 @@ HEADERS += \
     verticaltabwidget.h
 
 FORMS += \
+    adminproductwindow.ui \
     alertwindow.ui \
     categorylistitem.ui \
     categoryrefreshwidget.ui \

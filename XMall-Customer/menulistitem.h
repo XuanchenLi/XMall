@@ -24,6 +24,9 @@ private slots:
 private:
     Ui::MenuListItem *ui;
     CategoryEntity categoryEntity;
+
+signals:
+    void changeCategory(CategoryEntity);
 };
 
 #endif // MENULISTITEM_H

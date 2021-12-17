@@ -31,8 +31,6 @@ void MenuListItem::setText(QString text) const
 void MenuListItem::on_pushButton_clicked()
 {
    //按类别检索
-    AlertWindow *alertWin = new AlertWindow;
-    alertWin->setMessage(categoryEntity.getName());
-    alertWin->show();
+    emit changeCategory(categoryEntity);
 }
 

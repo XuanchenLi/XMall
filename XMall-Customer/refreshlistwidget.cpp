@@ -22,6 +22,7 @@ void  RefreshListWidget::onSliderChanged(int  p)
 
      if  (p == scrollBar->maximum())
      {
+         qDebug()<<p;
          emit reachedBottom();  // 1
      }
      emit msliderChanged(p);   // 2

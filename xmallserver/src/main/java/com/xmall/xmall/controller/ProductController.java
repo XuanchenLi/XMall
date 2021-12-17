@@ -32,17 +32,17 @@ public class ProductController {
     private FileUtil fileUtil;
 
     @PostMapping("/add")
-    NormalResponse addNewProduct(@RequestBody ProductEntity productEntity)
+    ProductResponse addNewProduct(@RequestBody ProductEntity productEntity)
     {
-        NormalResponse normalResponse = new NormalResponse();
+        ProductResponse productResponse = new ProductResponse();
         try{
-            productService.creatNewProduct(productEntity);
-            normalResponse.setStatusCode(StatusEnum.SUCCESS);
-            return normalResponse;
+            productResponse.setProductEntity(productService.creatNewProduct(productEntity));
+            productResponse.setStatusCode(StatusEnum.SUCCESS);
+            return productResponse;
         }catch (Exception e)
         {
-            normalResponse.setStatusCode(StatusEnum.BAD_REQUEST);
-            return normalResponse;
+            productResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return productResponse;
         }
     }
     @GetMapping("/status/{status}")
@@ -52,6 +52,37 @@ public class ProductController {
         productListResponse.setProductEntityList(null);
         try{
             productListResponse.setProductEntityList(productService.getAllByStatus(status));
+            productListResponse.setStatusCode(StatusEnum.SUCCESS);
+            return productListResponse;
+        }catch (Exception e)
+        {
+            productListResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return productListResponse;
+        }
+    }
+    @GetMapping("/id/{id}")
+    ProductResponse getById(@PathVariable("id") long id)
+    {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setProductEntity(null);
+        try{
+            productResponse.setProductEntity(productService.getById(id));
+            productResponse.setStatusCode(StatusEnum.SUCCESS);
+            return productResponse;
+        }catch (Exception e)
+        {
+            productResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return productResponse;
+        }
+    }
+
+    @GetMapping("/category/{id}")
+    ProductListResponse getAllByCategory(@PathVariable("id") int id)
+    {
+        ProductListResponse productListResponse = new ProductListResponse();
+        productListResponse.setProductEntityList(null);
+        try{
+            productListResponse.setProductEntityList(productService.getAllByCategory(id));
             productListResponse.setStatusCode(StatusEnum.SUCCESS);
             return productListResponse;
         }catch (Exception e)

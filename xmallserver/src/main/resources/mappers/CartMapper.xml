@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmall.xmall.dao.mapper.CartMapper">
+    <select id="findAllActiveByPhone" parameterType="String" resultType="CartEntity">
+        select * from xm_cart_item where user_phone = #{userPhone} and del = false
+    </select>
+    <select id="findById"  resultType="CartEntity">
+        select * from xm_cart_item where id = #{id}
+    </select>
+    <update id="lazyDeleteById" >
+        update xm_cart_item
+        set del = true
+        where id = #{id}
+    </update>
+    <update id="checkById" >
+        update xm_cart_item
+        set checked = true
+        where id = #{id}
+    </update>
+    <update id="disCheckById" >
+        update xm_cart_item
+        set checked = false
+        where id = #{id}
+    </update>
+    <update id="updateCountById" >
+        update xm_cart_item
+        set `count` = #{count}
+        where id = #{id}
+    </update>
+    <insert id="saveCart" useGeneratedKeys="true" keyProperty="id" parameterType="CartEntity">
+        insert into xm_cart_item (user_phone,product_id,`count`,del,checked)
+        values (#{userPhone},#{productId},#{count},#{del},#{checked})
+    </insert>
+</mapper>

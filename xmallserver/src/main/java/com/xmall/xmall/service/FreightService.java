@@ -8,4 +8,5 @@ public interface FreightService {
     List<FreightEntity> getAll() throws Exception;
     int saveFreight(FreightEntity freightEntity) throws Exception;
     int deleteById(long id)throws Exception;
+    FreightEntity getById(long id)throws Exception;
 }

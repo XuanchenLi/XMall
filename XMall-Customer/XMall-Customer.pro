@@ -10,13 +10,18 @@ CONFIG += c++11
 
 SOURCES += \
     ServiceImpl/AddressEntity.cpp \
+    ServiceImpl/CartEntity.cpp \
     ServiceImpl/CategoryEntity.cpp \
+    ServiceImpl/FreightEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
+    ServiceImpl/ProductEntity.cpp \
     ServiceImpl/UserInfoDto.cpp \
     ServiceImpl/UserInfoEntity.cpp \
     addresslistitem.cpp \
     addressrefreshwidget.cpp \
     alertwindow.cpp \
+    cartlistitem.cpp \
+    cartrefreshwidget.cpp \
     cityselectionwidget.cpp \
     locationwidget.cpp \
     main.cpp \
@@ -25,6 +30,10 @@ SOURCES += \
     menulistitem.cpp \
     menulistwidget.cpp \
     piclineedit.cpp \
+    productionwindow.cpp \
+    productlistwidget.cpp \
+    productrefreshwidget.cpp \
+    productwindow.cpp \
     refreshlistwidget.cpp \
     refreshwidget.cpp \
     register.cpp \
@@ -32,14 +41,19 @@ SOURCES += \
 
 HEADERS += \
     Service/AddressEntity.h \
+    Service/CartEntity.h \
     Service/CategoryEntity.h \
+    Service/FreightEntity.h \
     Service/HttpProxy.h \
+    Service/ProductEntity.h \
     Service/UserInfoDto.h \
     Service/UserInfoEntity.h \
     VerticalTabBar.h \
     addresslistitem.h \
     addressrefreshwidget.h \
     alertwindow.h \
+    cartlistitem.h \
+    cartrefreshwidget.h \
     cityselectionwidget.h \
     locationwidget.h \
     login.h \
@@ -47,6 +61,10 @@ HEADERS += \
     menulistitem.h \
     menulistwidget.h \
     piclineedit.h \
+    productionwindow.h \
+    productlistwidget.h \
+    productrefreshwidget.h \
+    productwindow.h \
     refreshlistwidget.h \
     refreshwidget.h \
     register.h \
@@ -57,12 +75,18 @@ FORMS += \
     addresslistitem.ui \
     addressrefreshwidget.ui \
     alertwindow.ui \
+    cartlistitem.ui \
+    cartrefreshwidget.ui \
     cityselectionwidget.ui \
     login.ui \
     mainwindow.ui \
     menulistitem.ui \
     menulistwidget.ui \
     piclineedit.ui \
+    productionwindow.ui \
+    productlistwidget.ui \
+    productrefreshwidget.ui \
+    productwindow.ui \
     refreshwidget.ui \
     register.ui \
     slidewidget.ui

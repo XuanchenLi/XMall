@@ -10,6 +10,12 @@
     <height>250</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="maximumSize">
    <size>
     <width>200</width>
@@ -62,6 +68,9 @@ background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(52, 12
        <pointsize>11</pointsize>
       </font>
      </property>
+     <property name="cursor" stdset="0">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
       <string notr="true">*{
 background:transparent;
@@ -83,7 +92,7 @@ border:0px;
        <property name="font">
         <font>
          <family>微软雅黑</family>
-         <pointsize>16</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="styleSheet">

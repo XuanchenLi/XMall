@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1006</width>
-    <height>648</height>
+    <width>980</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -193,7 +193,7 @@ border:1px solid;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="categoryTab">
        <property name="styleSheet">
@@ -507,9 +507,83 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,8,1,1">
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>管理现存商品</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="ProductRefreshWidget" name="productRefreshWidget" native="true"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>添加商品</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,2,7">
+            <item>
+             <spacer name="horizontalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="addProductButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+QPushButton{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-color:white;
+border-radius:3px;
+border:0px solid ;
+}
+
+QPushButton:pressed{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-radius:3px;
+border:1px solid;
+}</string>
+              </property>
+              <property name="text">
+               <string>添加商品</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -743,7 +817,7 @@ border:1px solid;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1006</width>
+     <width>980</width>
      <height>21</height>
     </rect>
    </property>
@@ -786,6 +860,12 @@ border:1px solid;
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ProductRefreshWidget</class>
+   <extends>QWidget</extends>
+   <header>productrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>CategoryRefreshWidget</class>
    <extends>QWidget</extends>
    <header>categoryrefreshwidget.h</header>
@@ -795,12 +875,6 @@ border:1px solid;
    <class>FreightRefreshWidget</class>
    <extends>QWidget</extends>
    <header>freightrefreshwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ProductRefreshWidget</class>
-   <extends>QWidget</extends>
-   <header>productrefreshwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

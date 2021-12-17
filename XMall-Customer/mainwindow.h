@@ -22,6 +22,8 @@ public:
     void initFunction();
     void initAddress();
     void initCategoryMenu();
+    void initProduction();
+    void initCart(QString);
 private slots:
 void on_switchAccountAction_trigger();
 void on_ackPushButton_clicked();
@@ -31,6 +33,15 @@ void on_avatarPushButton_clicked();
 //void on_ackPushButton_2_clicked();
 
 void on_saveAddressPushButton_clicked();
+void on_allCheckBox_stateChanged(int arg1);
+
+
+public slots:
+void on_changeCategory(CategoryEntity);
+void on_finishCalculate(double);
+
+
+void on_refreshPushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

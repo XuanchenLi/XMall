@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "login.h"
 #include "Service/CategoryEntity.h"
+#include "Service/ProductEntity.h"
+#include "adminproductwindow.h"
 #include <QPropertyAnimation>
 extern QString GET_HOST();
 MainWindow::MainWindow(QWidget *parent) :
@@ -177,3 +179,15 @@ void MainWindow::initProduct()
 {
     ui->productRefreshWidget->play();
 }
+
+void MainWindow::on_addProductButton_clicked()
+{
+    //qDebug()<<"Add new";
+    AdminProductWindow *detailWin = new AdminProductWindow;
+    detailWin->setStatus(detailWin->NEW_PRODUCT);
+    ProductEntity productEntity;
+    detailWin->setProduct(productEntity);
+    connect(detailWin, &AdminProductWindow::modified, this, &MainWindow::initProduct);
+    detailWin->show();
+}
+

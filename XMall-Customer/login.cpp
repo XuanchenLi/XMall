@@ -94,22 +94,6 @@ void Login::on_loginPushButton_clicked()
     QString phone = ui->accountLineEdit->text();
     QString psw = ui->passwordLineEdit->text();
     httpProxy->get(GET_HOST() + "/user/phone/" + phone);
-    int statusCode = httpProxy->getReplyCode();
-    QElapsedTimer timer;
-    timer.start();
-    while(statusCode == 0)
-    {
-        double timeCount = timer.elapsed()/1000.0;
-        if(timeCount > 8)
-        {
-
-            alertWin->setMessage("连接超时");
-            alertWin->show();
-            ui->loginPushButton->setEnabled(true);
-            return;
-        }
-        statusCode = httpProxy->getReplyCode();
-    }
     QJsonObject jsonObject = httpProxy->getJsonObject();
     if(jsonObject["statusCode"] == "SUCCESS")
     {

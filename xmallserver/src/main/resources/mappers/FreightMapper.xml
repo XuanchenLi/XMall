@@ -5,6 +5,9 @@
     <select id="findAll" resultType="FreightEntity">
         select * from xm_freight_template
     </select>
+    <select id="findById" resultType="FreightEntity">
+        select * from xm_freight_template where id = #{id}
+    </select>
     <insert id="saveFreight" useGeneratedKeys="true" keyProperty="id" parameterType="FreightEntity">
         insert into xm_freight_template (price) values (#{price})
     </insert>

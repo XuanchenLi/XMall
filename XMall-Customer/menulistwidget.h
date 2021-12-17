@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QWidgetAction>
 #include "Service/CategoryEntity.h"
+#include "mainwindow.h"
 
 class MenuListWidget : public QWidgetAction
 {
@@ -17,6 +18,9 @@ public:
     ~MenuListWidget();
     //void init();
 
+    MainWindow *getFather() const;
+    void setFather(MainWindow *newFather);
+
 protected:
     // is an virtual function in QWidgetAction(important)
     QWidget* createWidget(QWidget *parent);
@@ -26,7 +30,7 @@ private:
     int end;
     QVector<CategoryEntity>* category1;
     QVector<CategoryEntity>* category2;
-
+    MainWindow *father;
 };
 
 #endif // MENULISTWIDGET_H

@@ -71,7 +71,7 @@ void HttpProxy::post(const QString url, const QByteArray &data)
 void HttpProxy::uploadPicture(const QString url, const QString filePath)
 {
     QTimer timer;
-    httpRequest.setRawHeader("Content-Type", "image/jpeg");
+    //httpRequest.setRawHeader("Content-Type", "multipart/form-data");
     timer.setInterval(60000);//一分钟
     httpRequest.setUrl(url);
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);

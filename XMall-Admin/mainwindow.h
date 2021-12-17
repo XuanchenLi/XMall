@@ -31,6 +31,7 @@ void on_refreshBox();
 void on_categoryPushButton_1_clicked();
 void on_categoryPushButton_2_clicked();
 void on_freightPushButton_clicked();
+void on_addProductButton_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -15,9 +15,7 @@ int main(int argc, char *argv[])
     //text
     MainWindow mw;
     mw.show();
-    ProductRefreshWidget m;
-    m.play();
-    m.show();
+
     return a.exec();
 }
 QString GET_HOST()
@@ -39,4 +37,16 @@ QString GET_PRODUCT_BIG_PATH()
 {
     static QString PRODUCT_BIG_PATH = "/static/uploads/products/big/";
     return PRODUCT_BIG_PATH;
+}
+
+long GET_ID(QString context)
+{
+    if (context == "") return 0;
+    long res = 0;
+    for(int i =0; context[i].isNumber() && i < context.length(); ++i)
+    {
+        res *= 10;
+        res += context[i].toLatin1() - '0';
+    }
+    return res;
 }

@@ -32,6 +32,6 @@ public class ProductEntity implements Serializable {
     private int status;
     private long sale;
     private String unit;
-    private long storageId;
+    private long storage;
     private Timestamp creatTime;
 }

@@ -46,4 +46,10 @@ public class FreightServiceImpl implements FreightService {
         redisUtil.remove("THIRTY_MINUTES::FREIGHT_");
         return freightMapper.deleteById(id);
     }
+
+    @Override
+    public FreightEntity getById(long id) throws Exception {
+        return freightMapper.findById(id)
+                .orElseThrow(() -> new Exception("找不到"));
+    }
 }

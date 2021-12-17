@@ -8,6 +8,8 @@
 #include "addresslistitem.h"
 #include "refreshlistwidget.h"
 #include "menulistwidget.h"
+#include "productrefreshwidget.h"
+#include "cartrefreshwidget.h"
 #include <QPushButton>
 #include<QRegularExpression>
 #include<QRegularExpressionValidator>
@@ -15,10 +17,12 @@
 #include <QTabBar>
 #include <QJsonArray>
 #include <QScopedPointer>
+#include <QPropertyAnimation>
 #include <QFileDialog>
 #include <QListWidgetItem>
 extern QString GET_HOST();
 extern QString GET_AVATAR_PATH();
+extern QString GET_ID(QString);
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -42,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(triggered()),
             this,
             SLOT(on_switchAccountAction_trigger()));
+    connect(ui->cartWidget, &CartRefreshWidget::finishCalculate, this, &MainWindow::on_finishCalculate);
     QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
      animation->setDuration(1000);
      animation->setStartValue(0);
@@ -125,6 +130,8 @@ void MainWindow::initFunction()
     initUserBaseInfo();
     initAddress();
     initCategoryMenu();
+    initProduction();
+    initCart(currentUser.getPhone());
 }
 
 void MainWindow::on_ackPushButton_clicked()
@@ -300,6 +307,7 @@ void MainWindow::initCategoryMenu()
     for ( ; start < tot ; start +=4)
     {
         MenuListWidget* item = new MenuListWidget(nullptr,&categoryLevel1, &categoryLevel2, start, qMin(start + 3, tot - 1));
+        item->setFather(this);
         ui->menuCategory->addAction(item);
         //item->setEnabled(false);
     }
@@ -307,4 +315,42 @@ void MainWindow::initCategoryMenu()
     //MenuListWidget* item = new MenuListWidget;
     //ui->menuCategory->addAction(item);
     //item->setEnabled(false);
+}
+void MainWindow::initProduction()
+{
+    ui->productRefreshWidget->setPhone(currentUser.getPhone());
+    ui->productRefreshWidget->setFather(this);
+    //qDebug()<<currentUser.getPhone();
+    ui->productRefreshWidget->play(1);
+}
+
+
+
+void MainWindow::on_refreshPushButton_clicked()
+{
+    initProduction();
+}
+
+void MainWindow::on_changeCategory(CategoryEntity category)
+{
+    qDebug()<<"get";
+    ui->productRefreshWidget->play(category, 1);
+}
+
+void MainWindow::on_allCheckBox_stateChanged(int arg1)
+{
+    if(ui->allCheckBox->isChecked())
+    {
+        ui->cartWidget->checkAll();
+    }
+}
+
+void MainWindow::on_finishCalculate(double res)
+{
+    ui->totPriceLabel->setText("￥ " + QString::number(res, 'f', 2));
+}
+
+void MainWindow::initCart(QString phone)
+{
+    ui->cartWidget->play(phone);
 }

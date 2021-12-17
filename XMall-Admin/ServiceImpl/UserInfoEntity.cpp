@@ -99,7 +99,7 @@ QJsonObject UserInfoEntity::getJsonForm()
         {"emial", email},
         {"gender", gender},
         {"icon", icon},
-        {"birthday", birthday.toString()},
+        {"birthday", birthday.toString("yyyy-MM-dd")},
         {"personalRemark", personalRemark}
     };
 }

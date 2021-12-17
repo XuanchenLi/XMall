@@ -1,6 +1,7 @@
 package com.xmall.xmall.controller;
 
 import com.xmall.xmall.controller.response.FreightListResponse;
+import com.xmall.xmall.controller.response.FreightResponse;
 import com.xmall.xmall.controller.response.NormalResponse;
 import com.xmall.xmall.dao.entity.FreightEntity;
 import com.xmall.xmall.service.FreightService;
@@ -38,6 +39,21 @@ public class FreightController {
         {
             freightListResponse.setStatusCode(StatusEnum.BAD_REQUEST);
             return freightListResponse;
+        }
+    }
+    @GetMapping("/id/{id}")
+    FreightResponse getById(@PathVariable("id") long id)
+    {
+        FreightResponse freightResponse = new FreightResponse();
+        freightResponse.setFreightEntity(null);
+        try{
+            freightResponse.setFreightEntity(freightService.getById(id));
+            freightResponse.setStatusCode(StatusEnum.SUCCESS);
+            return freightResponse;
+        }catch (Exception e)
+        {
+            freightResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return freightResponse;
         }
     }
     @GetMapping("/delete/id/{id}")

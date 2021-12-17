@@ -39,11 +39,12 @@ QWidget* MenuListWidget::createWidget(QWidget *parent)
 
                 if(category.getParentId() == root.getId())
                 {
-                    qDebug()<<category.getName();
+                    //qDebug()<<category.getName();
                     MenuListItem* item = new MenuListItem();
                     item->setCategoryEntity(category);
                     item->setText(category.getName());
                     QListWidgetItem* pItem = new QListWidgetItem();
+                    connect(item, &MenuListItem::changeCategory,father, &MainWindow::on_changeCategory);
                     list->addItem(pItem);
                     pItem->setSizeHint(item->size());
                     list->setItemWidget(pItem,item);
@@ -54,5 +55,15 @@ QWidget* MenuListWidget::createWidget(QWidget *parent)
         return splitter;
     }
     return nullptr;
+}
+
+MainWindow *MenuListWidget::getFather() const
+{
+    return father;
+}
+
+void MenuListWidget::setFather(MainWindow *newFather)
+{
+    father = newFather;
 }
 

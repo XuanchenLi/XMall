@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @ClassName:
@@ -31,17 +32,17 @@ public class ProductServiceImpl implements ProductService {
     private RedisUtil redisUtil;
 
     @Override
-    public int creatNewProduct(ProductEntity productEntity) throws Exception {
+    public ProductEntity creatNewProduct(ProductEntity productEntity) throws Exception {
         //
-        redisUtil.remove("*PRODUCT_*");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         productEntity.setSale(0);
         productEntity.setCreatTime(DateTimeUtil.getTimestamp());
-        try{
-            return productMapper.saveProduct(productEntity);
-        }catch (Exception e)
-        {
-            return 0;
-        }
+        productMapper.saveProduct(productEntity);
+        return productEntity;
+
     }
 
     @Override
@@ -51,34 +52,59 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductEntity> getAllByCategory(int id) throws Exception {
+        return productMapper.findAllByCategory(id);
+    }
+
+    @Override
     public ProductEntity getById(long id) throws NotFoundException {
+
         return productMapper.findById(id)
                 .orElseThrow(() -> new NotFoundException("商品不存在"));
     }
 
     @Override
     public int updateSmallPicById(String path, long id) throws NotFoundException, Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         return productMapper.updateSmallPicById(path, id);
     }
 
     @Override
     public int updateBigPicById(String path, long id) throws NotFoundException, Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         return productMapper.updateBigPicById(path, id);
     }
 
     @Override
     public int updateStatusById(int status, long id) throws Exception {
-        redisUtil.remove("*PRODUCT_Status_" + status);
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         return productMapper.updateStatusById(status, id);
     }
 
     @Override
     public int updatePriceById(double price, long id) throws Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         return productMapper.updatePriceById(price, id);
     }
 
     @Override
     public int updateById(ProductEntity productEntity) throws Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
         return productMapper.updateById(productEntity);
     }
 

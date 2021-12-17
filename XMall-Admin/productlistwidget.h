@@ -18,15 +18,21 @@ public:
     const ProductEntity &getProductEntity() const;
     void setProductEntity(const ProductEntity &newProductEntity);
 
+protected:
+    void mousePressEvent(QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
+
+
 private:
     Ui::ProductListWidget *ui;
     ProductEntity productEntity;
+    QPoint mousePos;
 private slots:
-
-
+    void mouseClicked();
+    void on_modified(ProductEntity);
 
 signals:
-    //void deleteRecord(bool);
+    //void clicked();
 };
 
 #endif // PRODUCTLISTWIDGET_H

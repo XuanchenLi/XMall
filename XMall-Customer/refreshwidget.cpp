@@ -39,6 +39,7 @@ void  RefreshWidget::onScrollBarMoved( int  v)
 
 void  RefreshWidget::onReachedBottom()
 {
+
      /*AddressListItem* temp;
      int  startRow = ui->listWidget->count();
      */
