@@ -3,6 +3,9 @@
 #include "Service/FreightEntity.h"
 #include "Service/CartEntity.h"
 #include "Service/HttpProxy.h"
+#include "Service/OrderEntity.h"
+#include "Service/OrderItemEntity.h"
+#include "orderwindow.h"
 #include "alertwindow.h"
 #include <QJsonArray>
 #include <QLabel>
@@ -206,6 +209,7 @@ void ProductionWindow::on_cartPushButton_clicked()
 
 void ProductionWindow::on_orderPushButton_clicked()
 {
-
+    OrderWindow *orderWin = new OrderWindow;
+    orderWin->show();
 }
 

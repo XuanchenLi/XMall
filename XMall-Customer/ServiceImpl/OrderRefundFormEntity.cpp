@@ -87,9 +87,11 @@ OrderRefundFormEntity OrderRefundFormEntity::parseJson(QJsonObject obj)
     OrderRefundFormEntity OrderRefundFormEntity;
     OrderRefundFormEntity.setId(obj["id"].toInteger());
     OrderRefundFormEntity.setRefundPrice(obj["refundPrice"].toDouble());
-    OrderRefundFormEntity.setCurrentPrice(obj["currentPrice"].toDouble());
     OrderRefundFormEntity.setOrderSn(obj["orderSn"].toString());
-
+    OrderRefundFormEntity.setCreatTime(QDateTime::fromString(obj["creatTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
+    OrderRefundFormEntity.setHandleTime(QDateTime::fromString(obj["hadnleTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
+    OrderRefundFormEntity.setUserPhone(obj["userPhone"].toString());
+    OrderRefundFormEntity.setStatus(obj["status"].toInt());
     return OrderRefundFormEntity;
 }
 QByteArray OrderRefundFormEntity::getQByteArrayForm()

@@ -1,6 +1,7 @@
 package com.xmall.xmall.controller;
 
 import com.xmall.xmall.controller.response.NormalResponse;
+import com.xmall.xmall.controller.response.OrderItemListResponse;
 import com.xmall.xmall.controller.response.OrderResponse;
 import com.xmall.xmall.dao.entity.OrderEntity;
 import com.xmall.xmall.service.OrderService;
@@ -48,5 +49,18 @@ public class OrderController {
             return orderResponse;
         }
     }
-
+    @GetMapping("/item/orderSn/{orderSn}")
+    OrderItemListResponse getAllItemBySn(@PathVariable("orderSn") String orderSn)
+    {
+        OrderItemListResponse orderItemListResponse = new OrderItemListResponse();
+        try{
+            orderItemListResponse.setOrderItemEntityList(orderService.getAllItemBySn(orderSn));
+            orderItemListResponse.setStatusCode(StatusEnum.SUCCESS);
+            return orderItemListResponse;
+        }catch (Exception e)
+        {
+            orderItemListResponse.setStatusCode(StatusEnum.NOT_FOUND);
+            return orderItemListResponse;
+        }
+    }
 }

@@ -92,7 +92,6 @@ OrderItemEntity OrderItemEntity::parseJson(QJsonObject obj)
     OrderItemEntity.setOrderSn(obj["orderSn"].toString());
     OrderItemEntity.setProductId(obj["productId"].toInteger());
     OrderItemEntity.setCount(obj["count"].toInt());
-
     return OrderItemEntity;
 }
 QByteArray OrderItemEntity::getQByteArrayForm()

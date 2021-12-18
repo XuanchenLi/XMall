@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddressRefreshWidget</class>
- <widget class="QWidget" name="AddressRefreshWidget">
+ <class>OrderListWidget</class>
+ <widget class="QWidget" name="OrderListWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>450</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">RefreshListWidget::item:selected
-{
-    background:rgb(0, 115, 172);
-outline: none; 
-}</string>
-  </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -37,7 +30,14 @@ outline: none;
     <number>0</number>
    </property>
    <item>
-    <widget class="RefreshListWidget" name="listWidget"/>
+    <widget class="RefreshListWidget" name="listWidget">
+     <property name="minimumSize">
+      <size>
+       <width>450</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

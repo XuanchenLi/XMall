@@ -1,6 +1,7 @@
 package com.xmall.xmall.service.Impl;
 
 import com.xmall.xmall.dao.entity.OrderEntity;
+import com.xmall.xmall.dao.entity.OrderItemEntity;
 import com.xmall.xmall.dao.mapper.OrderMapper;
 import com.xmall.xmall.dao.mapper.ProductMapper;
 import com.xmall.xmall.service.OrderService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName:
@@ -36,5 +38,10 @@ public class OrderServiceImpl implements OrderService {
     public OrderEntity getBySn(String orderSn) throws Exception {
         return orderMapper.findBySn(orderSn)
                 .orElseThrow(() -> new Exception("NOT_FOUND"));
+    }
+
+    @Override
+    public List<OrderItemEntity> getAllItemBySn(String orderSn) throws Exception {
+        return orderMapper.findAllItemBySn(orderSn);
     }
 }

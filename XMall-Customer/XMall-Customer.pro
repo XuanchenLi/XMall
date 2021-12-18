@@ -32,6 +32,9 @@ SOURCES += \
     mainwindow.cpp \
     menulistitem.cpp \
     menulistwidget.cpp \
+    orderlistitem.cpp \
+    orderlistwidget.cpp \
+    orderwindow.cpp \
     piclineedit.cpp \
     productionwindow.cpp \
     productlistwidget.cpp \
@@ -66,6 +69,9 @@ HEADERS += \
     mainwindow.h \
     menulistitem.h \
     menulistwidget.h \
+    orderlistitem.h \
+    orderlistwidget.h \
+    orderwindow.h \
     piclineedit.h \
     productionwindow.h \
     productlistwidget.h \
@@ -88,6 +94,9 @@ FORMS += \
     mainwindow.ui \
     menulistitem.ui \
     menulistwidget.ui \
+    orderlistitem.ui \
+    orderlistwidget.ui \
+    orderwindow.ui \
     piclineedit.ui \
     productionwindow.ui \
     productlistwidget.ui \

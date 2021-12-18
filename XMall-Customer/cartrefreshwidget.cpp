@@ -42,7 +42,6 @@ void CartRefreshWidget::setCartVector(QString phone)
             connect(item, &CartListItem::deleteRecord, this, &CartRefreshWidget::on_deleteRecord);
             connect(item, &CartListItem::itemChanged, this, &CartRefreshWidget::on_itemChanged);
             item->setCartEntity(CartEntity::parseJson(carts[i].toObject()));
-            qDebug()<<"bugg"<<CartEntity::parseJson(carts[i].toObject()).getChecked();
             cartVector.push_back(item);
         }
     }

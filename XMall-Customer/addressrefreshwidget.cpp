@@ -15,6 +15,7 @@ AddressRefreshWidget::AddressRefreshWidget(QWidget *parent) :
 
     connect(ui->listWidget, SIGNAL(msliderChanged(int)),  this , SLOT(onScrollBarMoved(int)));
     connect(ui->listWidget, SIGNAL(reachedBottom()),  this , SLOT(onReachedBottom()));
+
 }
 
 AddressRefreshWidget::~AddressRefreshWidget()
