@@ -191,3 +191,9 @@ void MainWindow::on_addProductButton_clicked()
     detailWin->show();
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    initProduct();
+}
+

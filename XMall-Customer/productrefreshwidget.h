@@ -43,6 +43,9 @@ private  slots:
      virtual void  onReachedBottom();
      //void on_deleteRecord(bool);
      void on_addCart();
+     void on_order(OrderItemEntity);
+signals:
+     void order(OrderItemEntity);
 };
 
 #endif // PRODUCTREFRESHWIDGET_H

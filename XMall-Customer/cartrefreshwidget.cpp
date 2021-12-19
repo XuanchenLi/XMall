@@ -15,6 +15,7 @@ CartRefreshWidget::CartRefreshWidget(QWidget *parent) :
 
 CartRefreshWidget::~CartRefreshWidget()
 {
+    clear();
     delete ui;
 }
 void  CartRefreshWidget::onScrollBarMoved( int  v)
@@ -63,6 +64,10 @@ void CartRefreshWidget::insertCart(CartListItem* Item)
 void CartRefreshWidget::clear()
 {
     curIndex = 0;
+    for (auto item : cartVector)
+    {
+        delete item;
+    }
     cartVector.clear();
 }
 void CartRefreshWidget::play(QString phone)
@@ -158,4 +163,17 @@ void CartRefreshWidget::checkAll()
 void CartRefreshWidget::on_itemChanged()
 {
     calculate();
+}
+
+QVector<ProductEntity> CartRefreshWidget::getSelectedItems()
+{
+    QVector<ProductEntity> products;
+    for (int i = 0; i < cartVector.length(); ++i)
+    {
+        if(cartVector[i]->isChecked())
+        {
+            products.append(cartVector[i]->getProduct());
+        }
+    }
+    return products;
 }

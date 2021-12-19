@@ -15,6 +15,7 @@ OrderListWidget::OrderListWidget(QWidget *parent) :
 
 OrderListWidget::~OrderListWidget()
 {
+    clear();
     delete ui;
 }
 void  OrderListWidget::onScrollBarMoved( int  v)
@@ -43,10 +44,20 @@ void OrderListWidget::setVector(QString orderSn)
             itemVector.push_back(item);
         }
     }
+//    for (int i =0; i<items.count(); ++i)
+//    {
+//        OrderListItem* item = new OrderListItem;
+//        item->setItem(items[i]);
+//        itemVector.push_back(item);
+//    }
 }
 void OrderListWidget::clear()
 {
     curIndex = 0;
+    for (auto item: itemVector)
+    {
+        delete item;
+    }
     itemVector.clear();
 }
 void OrderListWidget::insert(OrderListItem *item)

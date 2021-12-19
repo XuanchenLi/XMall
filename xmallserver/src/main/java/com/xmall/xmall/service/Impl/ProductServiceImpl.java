@@ -109,6 +109,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public int updateStorageById(long storage, long id) throws Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
+        return productMapper.updateStorageById(storage, id);
+    }
+
+    @Override
+    public int updateSaleById(long sale, long id) throws Exception {
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_0");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_1");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_2");
+        redisUtil.remove("THIRTY_MINUTES::PRODUCT_Status_3");
+        ProductEntity productEntity = getById(id);
+        productEntity.setSale(productEntity.getSale() + sale);
+        return productMapper.updateSaleById(productEntity.getSale(), id);
+    }
+
+    @Override
     public List<ProductEntity> getTenByRandom() throws Exception {
         return productMapper.getTenByRandom();
     }

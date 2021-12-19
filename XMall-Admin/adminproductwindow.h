@@ -38,6 +38,7 @@ private slots:
 private:
     Ui::AdminProductWindow *ui;
     ProductEntity product;
+    CategoryEntity level2;
     QVector<CategoryEntity> categoryLevel1;
     QVector<CategoryEntity> categoryLevel2;
     QVector<FreightEntity> freightVector;

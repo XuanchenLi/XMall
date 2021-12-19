@@ -6,33 +6,33 @@
 #include <QFile>
 #include "Service/HttpProxy.h"
 
-HttpProxy::HttpProxy()
+HttpProxy::HttpProxy():httpRequest(new QNetworkRequest),networkAccessManager(new QNetworkAccessManager)
 {
     //httpRequest.setRawHeader("Content-Type", "application/json");
-    QObject::connect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(serviceRequestFinished(QNetworkReply*)));
+    connect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), this, SLOT(serviceRequestFinished(QNetworkReply*)));
 }
 
 HttpProxy::~HttpProxy()
 {
-    networkAccessManager.disconnect();
+    networkAccessManager->disconnect();
 }
 
 void HttpProxy::get(const QString url)
 {
-    httpRequest.setRawHeader("Content-Type", "application/json");
+    httpRequest->setRawHeader("Content-Type", "application/json");
     QTimer timer;
     timer.setInterval(60000);//一分钟
-    httpRequest.setUrl(url);
+    httpRequest->setUrl(url);
     QEventLoop loop;
     connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
     timer.start();
-    QNetworkReply* reply = networkAccessManager.get(httpRequest);
-    QObject::connect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+    QNetworkReply* reply = networkAccessManager->get(*httpRequest);
+    connect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
     loop.exec();
     if(!timer.isActive())//处理超时
     {
         qDebug()<<"超时";
-        disconnect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+        disconnect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
         reply->abort();
         reply->deleteLater();
     }
@@ -45,19 +45,19 @@ void HttpProxy::get(const QString url)
 void HttpProxy::post(const QString url, const QByteArray &data)
 {
     QTimer timer;
-    httpRequest.setRawHeader("Content-Type", "application/json");
+    httpRequest->setRawHeader("Content-Type", "application/json");
     timer.setInterval(60000);//一分钟
-    httpRequest.setUrl(url);
-    QNetworkReply* reply = networkAccessManager.post(httpRequest, data);
+    httpRequest->setUrl(url);
+    QNetworkReply* reply = networkAccessManager->post(*httpRequest, data);
     QEventLoop loop;
     connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-    QObject::connect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+    connect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
     timer.start();
     loop.exec();
     if(!timer.isActive())//处理超时
     {
         qDebug()<<"超时";
-        disconnect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+        disconnect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
         reply->abort();
         reply->deleteLater();
     }
@@ -73,7 +73,7 @@ void HttpProxy::uploadPicture(const QString url, const QString filePath)
     QTimer timer;
     //httpRequest.setRawHeader("Content-Type", "multipart/form-data");
     timer.setInterval(60000);//一分钟
-    httpRequest.setUrl(url);
+    httpRequest->setUrl(url);
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     QHttpPart imagePart;
     int first = filePath.lastIndexOf ("\\");
@@ -85,16 +85,16 @@ void HttpProxy::uploadPicture(const QString url, const QString filePath)
     imagePart.setBodyDevice(file);
     file->setParent(multiPart);
     multiPart->append(imagePart);
-    QNetworkReply* reply = networkAccessManager.post(httpRequest, multiPart);
+    QNetworkReply* reply = networkAccessManager->post(*httpRequest, multiPart);
     QEventLoop loop;
     connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
-    QObject::connect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+    connect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
     timer.start();
     loop.exec();
     if(!timer.isActive())//处理超时
     {
         qDebug()<<"超时";
-        disconnect(&networkAccessManager, SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+        disconnect(networkAccessManager.get(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
         reply->abort();
         reply->deleteLater();
     }

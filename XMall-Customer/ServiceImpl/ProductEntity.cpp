@@ -101,14 +101,14 @@ void ProductEntity::setIsHaveAttribute(bool newIsHaveAttribute)
     isHaveAttribute = newIsHaveAttribute;
 }
 
-long ProductEntity::getFreightTemplateId() const
+double ProductEntity::getFreightPrice() const
 {
-    return freightTemplateId;
+    return freightPrice;
 }
 
-void ProductEntity::setFreightTemplateId(long newFreightTemplateId)
+void ProductEntity::setFreightPrice(double newFreightPrice)
 {
-    freightTemplateId = newFreightTemplateId;
+    freightPrice = newFreightPrice;
 }
 
 int ProductEntity::getStatus() const
@@ -161,7 +161,7 @@ void ProductEntity::setCreatTime(const QDateTime &newCreatTime)
     creatTime = newCreatTime;
 }
 
-QJsonObject ProductEntity::getJsonForm()
+QJsonObject ProductEntity::getJsonForm() const
 {
     return QJsonObject{
         {"id",  QString::number(id)},
@@ -174,7 +174,7 @@ QJsonObject ProductEntity::getJsonForm()
         {"limitation", QString::number(limitation)},
         {"categoryId",  QString::number(categoryId)},
         {"isHaveAttribute", isHaveAttribute},
-        {"freightTemplateId",  QString::number(freightTemplateId)},
+        {"freightPrice",  QString::number(freightPrice,'f',2)},
         {"status", QString::number(status)},
         {"sale",  QString::number(sale)},
         {"unit",  unit},
@@ -196,7 +196,7 @@ ProductEntity ProductEntity::parseJson(QJsonObject obj)
     productEntity.setLimitation(obj["limitation"].toInt());
     productEntity.setCategoryId(obj["categoryId"].toInteger());
     productEntity.setIsHaveAttribute(obj["isHaveAttribute"].toBool());
-    productEntity.setFreightTemplateId(obj["freightTemplateId"].toInteger());
+    productEntity.setFreightPrice(obj["freightPrice"].toDouble());
     productEntity.setStatus(obj["status"].toInt());
     productEntity.setSale(obj["sale"].toInteger());
     productEntity.setUnit(obj["unit"].toString());
@@ -204,7 +204,7 @@ ProductEntity ProductEntity::parseJson(QJsonObject obj)
     productEntity.setCreatTime(QDateTime::fromString(obj["creatTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
     return productEntity;
 }
-QByteArray ProductEntity::getQByteArrayForm()
+QByteArray ProductEntity::getQByteArrayForm() const
 {
     return QJsonDocument(this->getJsonForm()).toJson();
 }

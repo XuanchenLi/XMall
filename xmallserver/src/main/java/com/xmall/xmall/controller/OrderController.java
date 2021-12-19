@@ -1,13 +1,17 @@
 package com.xmall.xmall.controller;
 
+import com.xmall.xmall.controller.response.DoubleResponse;
 import com.xmall.xmall.controller.response.NormalResponse;
 import com.xmall.xmall.controller.response.OrderItemListResponse;
 import com.xmall.xmall.controller.response.OrderResponse;
 import com.xmall.xmall.dao.entity.OrderEntity;
+import com.xmall.xmall.dao.entity.OrderItemEntity;
 import com.xmall.xmall.service.OrderService;
 import com.xmall.xmall.utils.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName:
@@ -61,6 +65,76 @@ public class OrderController {
         {
             orderItemListResponse.setStatusCode(StatusEnum.NOT_FOUND);
             return orderItemListResponse;
+        }
+    }
+    @GetMapping("/newOrder/{phone}")
+    OrderResponse allocateNewOrder(@PathVariable("phone") String phone)
+    {
+        OrderResponse orderResponse = new OrderResponse();
+        try{
+            orderResponse.setOrderEntity(orderService.newOrder(phone));
+            orderResponse.setStatusCode(StatusEnum.SUCCESS);
+            return orderResponse;
+        }catch (Exception e)
+        {
+            orderResponse.setStatusCode(StatusEnum.INTERNAL_ERROR);
+            return orderResponse;
+        }
+    }
+    @PostMapping("/saveItem")
+    NormalResponse saveItem(@RequestBody OrderItemEntity orderItemEntity)
+    {
+        NormalResponse normalResponse = new NormalResponse();
+        try{
+            orderService.saveItem(orderItemEntity);
+            normalResponse.setStatusCode(StatusEnum.SUCCESS);
+            return normalResponse;
+        }catch (Exception e)
+        {
+            normalResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return normalResponse;
+        }
+    }
+    @PostMapping("/saveItems")
+    NormalResponse saveItem(@RequestBody List<OrderItemEntity> orderItemEntityList)
+    {
+        NormalResponse normalResponse = new NormalResponse();
+        try{
+            orderService.saveItems(orderItemEntityList);
+            normalResponse.setStatusCode(StatusEnum.SUCCESS);
+            return normalResponse;
+        }catch (Exception e)
+        {
+            normalResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return normalResponse;
+        }
+    }
+    @PostMapping("/calculate")
+    DoubleResponse calculate(@RequestBody List<OrderItemEntity> orderItemEntityList)
+    {
+        DoubleResponse doubleResponse = new DoubleResponse();
+        try{
+            doubleResponse.setRes(orderService.calculate(orderItemEntityList));
+            doubleResponse.setStatusCode(StatusEnum.SUCCESS);
+            return doubleResponse;
+        }catch (Exception e)
+        {
+            doubleResponse.setStatusCode(StatusEnum.INTERNAL_ERROR);
+            return doubleResponse;
+        }
+    }
+    @PostMapping("/pay")
+    NormalResponse pay(@RequestBody OrderEntity orderEntity)
+    {
+        NormalResponse normalResponse = new NormalResponse();
+        try{
+            orderService.pay(orderEntity);
+            normalResponse.setStatusCode(StatusEnum.SUCCESS);
+            return normalResponse;
+        }catch (Exception e)
+        {
+            normalResponse.setStatusCode(StatusEnum.BAD_REQUEST);
+            return normalResponse;
         }
     }
 }

@@ -9,6 +9,7 @@
 #include "alertwindow.h"
 #include <QJsonArray>
 #include <QLabel>
+
 extern QString GET_HOST();
 extern QString GET_PRODUCT_BIG_PATH();
 ProductionWindow::ProductionWindow(QWidget *parent) :
@@ -58,14 +59,15 @@ void ProductionWindow::setProduct(const ProductEntity &newProduct)
     ui->unitLabel->setText(product.getUnit());
     ui->storageLabel->setText("剩余：" + QString::number(product.getStorage()) + " " + product.getUnit());
     QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
-    FreightEntity freight;
-    httpProxy->get(GET_HOST() + "/freight/id/" + QString::number(product.getFreightTemplateId()));
-    QJsonObject jsonObject = httpProxy->getJsonObject();
-    if(jsonObject["statusCode"] == "SUCCESS")
-    {
-        freight = FreightEntity::parseJson(jsonObject["freightEntity"].toObject());
-        ui->freightLabel->setText("运费：￥ " + QString::number(freight.getPrice(), 'f', 2));
-    }
+//    FreightEntity freight;
+//    httpProxy->get(GET_HOST() + "/freight/id/" + QString::number(product.getFreightTemplateId()));
+//    QJsonObject jsonObject = httpProxy->getJsonObject();
+//    if(jsonObject["statusCode"] == "SUCCESS")
+//    {
+//        freight = FreightEntity::parseJson(jsonObject["freightEntity"].toObject());
+//        ui->freightLabel->setText("运费：￥ " + QString::number(freight.getPrice(), 'f', 2));
+//    }
+    ui->freightLabel->setText("运费：￥ " + QString::number(product.getFreightPrice(), 'f', 2));
     QString filepath = product.getBigPicAddress();
     int first = filepath.lastIndexOf ("\\");
     QString filename = filepath.right (filepath.length ()-first-1);
@@ -209,7 +211,35 @@ void ProductionWindow::on_cartPushButton_clicked()
 
 void ProductionWindow::on_orderPushButton_clicked()
 {
-    OrderWindow *orderWin = new OrderWindow;
-    orderWin->show();
+    if (ui->spinBox->value() <= 0) return ;
+    OrderItemEntity item;
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    //FreightEntity freight;
+    httpProxy->get(GET_HOST() + "/product/id/" + QString::number(product.getId()));
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] == "SUCCESS")
+    {
+        ProductEntity newProduct = ProductEntity::parseJson(jsonObject["productEntity"].toObject());
+        setProduct(newProduct);
+        int curCount = ui->spinBox->value();
+        if((newProduct.getLimitation() != -1 && curCount > newProduct.getLimitation())
+                || curCount > newProduct.getStorage())
+        {
+            AlertWindow* alertWin = new AlertWindow;
+            alertWin->setMessage("数量超限");
+            alertWin->show();
+            return ;
+        }
+        item = item.fromProductEntity(newProduct);
+        item.setCount(curCount);
+        //QVector<int> items;
+        //items.clear();
+        //qDebug()<<item.getCount();
+        //items.resize(5);
+        //qDebug()<<items.capacity();
+        //items.append(1);
+        //qDebug()<<"orderWin";
+        emit order(item);
+    }
 }
 

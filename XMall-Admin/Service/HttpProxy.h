@@ -30,8 +30,8 @@ public slots:
     void serviceRequestFinished(QNetworkReply *reply);
 private:
     //QTimer timer;
-    QNetworkRequest httpRequest;
-    QNetworkAccessManager networkAccessManager;
+    QScopedPointer<QNetworkRequest> httpRequest;
+    QScopedPointer<QNetworkAccessManager> networkAccessManager;
     int replyCode;
     QByteArray replyData;
 

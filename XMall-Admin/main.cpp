@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
     w.show();
 
     //text
-    MainWindow mw;
-    mw.show();
+//    MainWindow mw;
+//    mw.show();
 
     return a.exec();
 }

@@ -218,13 +218,15 @@ OrderEntity OrderEntity::parseJson(QJsonObject obj)
     OrderEntity.setPayType(obj["payType"].toInt());
     OrderEntity.setStatus(obj["status"].toInt());
     OrderEntity.setUserAddressInfo(obj["userAddressInfo"].toString());
-    OrderEntity.setCreatTime(QDateTime::fromString(obj["creatTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setPayTime(QDateTime::fromString(obj["payTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setDeliveryTime(QDateTime::fromString(obj["deliveryTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setRecvTime(QDateTime::fromString(obj["recvTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setCommentTime(QDateTime::fromString(obj["commentTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setRefundTime(QDateTime::fromString(obj["refundTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    OrderEntity.setDieTime(QDateTime::fromString(obj["dieTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
+    //qDebug()<<obj["creatTime"].toString();
+    //()<<QDateTime::fromString(,"yyyy-MM-dd'T'HH:mm:ss+mm:ss");
+    OrderEntity.setCreatTime(QDateTime::fromString(obj["creatTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setPayTime(QDateTime::fromString(obj["payTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setDeliveryTime(QDateTime::fromString(obj["deliveryTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setRecvTime(QDateTime::fromString(obj["recvTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setCommentTime(QDateTime::fromString(obj["commentTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setRefundTime(QDateTime::fromString(obj["refundTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
+    OrderEntity.setDieTime(QDateTime::fromString(obj["dieTime"].toString().mid(0,19),"yyyy-MM-dd'T'hh:mm:ss"));
     return OrderEntity;
 }
 QByteArray OrderEntity::getQByteArrayForm()

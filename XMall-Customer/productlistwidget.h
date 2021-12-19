@@ -1,6 +1,7 @@
 #ifndef PRODUCTLISTWIDGET_H
 #define PRODUCTLISTWIDGET_H
 #include "Service/ProductEntity.h"
+#include "Service/OrderItemEntity.h"
 #include "mainwindow.h"
 #include <QWidget>
 
@@ -37,9 +38,11 @@ private slots:
     void mouseClicked();
     void on_modified(ProductEntity);
     void on_addCart();
+    void on_order(OrderItemEntity);
 signals:
     //void clicked();
     void addCart();
+    void order(OrderItemEntity);
 };
 
 #endif // PRODUCTLISTWIDGET_H

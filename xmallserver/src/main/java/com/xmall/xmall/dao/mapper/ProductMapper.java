@@ -15,5 +15,7 @@ public interface ProductMapper {
     int updateBigPicById(String path, long id)throws Exception;
     int updateStatusById(int status, long id) throws  Exception;
     int updatePriceById(double price, long id) throws  Exception;
+    int updateStorageById(long storage, long id) throws  Exception;
+    int updateSaleById(long sale, long id) throws  Exception;
     int updateById(ProductEntity productEntity) throws  Exception;
 }

@@ -1,5 +1,6 @@
 #ifndef ORDERITEMENTITY_H
 #define ORDERITEMENTITY_H
+#include "Service/ProductEntity.h"
 #include <QString>
 #include <QJsonObject>
 #include <QByteArray>
@@ -23,7 +24,7 @@ public:
     void setPrice(double newPrice);
     int getCount() const;
     void setCount(int newCount);
-
+    OrderItemEntity fromProductEntity(ProductEntity);
     QJsonObject getJsonForm();
     QByteArray getQByteArrayForm();
     static OrderItemEntity parseJson(QJsonObject obj);

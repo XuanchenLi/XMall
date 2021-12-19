@@ -44,6 +44,7 @@ public:
     const QDateTime &getDieTime() const;
     void setDieTime(const QDateTime &newDieTime);
     enum{WAIT_PAY = 0, WAIT_DELIVERY = 1, WAIT_RECV = 2, WAIT_COMMENT = 3, COMPLETED = 4, WAIT_REFUND = 5, DIE = 6};
+    enum{NONE = 0, ALIPAY = 1, WECHAT = 2};
     QJsonObject getJsonForm();
     QByteArray getQByteArrayForm();
     static OrderEntity parseJson(QJsonObject obj);

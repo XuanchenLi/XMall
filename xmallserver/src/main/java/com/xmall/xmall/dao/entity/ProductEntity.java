@@ -28,7 +28,7 @@ public class ProductEntity implements Serializable {
     private int limitation;
     private long categoryId;
     private boolean isHaveAttribute;
-    private long freightTemplateId;
+    private double freightPrice;
     private int status;
     private long sale;
     private String unit;

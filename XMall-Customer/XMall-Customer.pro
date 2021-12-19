@@ -3,7 +3,6 @@ QT       += core gui network xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
-
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -12,6 +11,7 @@ SOURCES += \
     ServiceImpl/AddressEntity.cpp \
     ServiceImpl/CartEntity.cpp \
     ServiceImpl/CategoryEntity.cpp \
+    ServiceImpl/CommentEntity.cpp \
     ServiceImpl/FreightEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
     ServiceImpl/OrderEntity.cpp \
@@ -26,6 +26,8 @@ SOURCES += \
     cartlistitem.cpp \
     cartrefreshwidget.cpp \
     cityselectionwidget.cpp \
+    commentlistitem.cpp \
+    commentlistwidget.cpp \
     locationwidget.cpp \
     main.cpp \
     login.cpp \
@@ -49,6 +51,7 @@ HEADERS += \
     Service/AddressEntity.h \
     Service/CartEntity.h \
     Service/CategoryEntity.h \
+    Service/CommentEntity.h \
     Service/FreightEntity.h \
     Service/HttpProxy.h \
     Service/OrderEntity.h \
@@ -64,6 +67,8 @@ HEADERS += \
     cartlistitem.h \
     cartrefreshwidget.h \
     cityselectionwidget.h \
+    commentlistitem.h \
+    commentlistwidget.h \
     locationwidget.h \
     login.h \
     mainwindow.h \
@@ -90,6 +95,8 @@ FORMS += \
     cartlistitem.ui \
     cartrefreshwidget.ui \
     cityselectionwidget.ui \
+    commentlistitem.ui \
+    commentlistwidget.ui \
     login.ui \
     mainwindow.ui \
     menulistitem.ui \

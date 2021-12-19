@@ -4,9 +4,9 @@
 <mapper namespace="com.xmall.xmall.dao.mapper.ProductMapper">
     <insert id="saveProduct" useGeneratedKeys="true" keyProperty="id" parameterType="ProductEntity">
         insert into xm_product (`name`, introduction, price, current_price, small_pic_address, big_pic_address,
-        limitation, category_id, is_have_attribute,freight_template_id, `status`, sale, unit, `storage`, creat_time)
+        limitation, category_id, is_have_attribute,freight_price, `status`, sale, unit, `storage`, creat_time)
         values (#{name},#{introduction},#{price},#{currentPrice},#{smallPicAddress},#{bigPicAddress},
-        #{limitation},#{categoryId},#{isHaveAttribute},#{freightTemplateId},#{status},#{sale}, #{unit},
+        #{limitation},#{categoryId},#{isHaveAttribute},#{freightPrice},#{status},#{sale}, #{unit},
         #{storage}, #{creatTime})
     </insert>
     <select id="findAllByStatus" resultType="ProductEntity">
@@ -38,11 +38,21 @@
         set price = #{price}
         where id = #{id}
     </update>
+    <update id="updateSaleById" >
+        update xm_product
+        set sale = #{sale}
+        where id = #{id}
+    </update>
     <update id="updateById" >
         update xm_product
         set `name` = #{name}, introduction = #{introduction}, price = #{price},
             current_price = #{currentPrice},limitation = #{limitation},storage = #{storage},
-            freight_template_id = #{freightTemplateId}, status = #{status}, unit = #{unit}, category_id = #{categoryId}
+            freight_price = #{freightPrice}, status = #{status}, unit = #{unit}, category_id = #{categoryId}
+        where id = #{id}
+    </update>
+    <update id="updateStorageById" >
+        update xm_product
+        set storage = #{storage}
         where id = #{id}
     </update>
     <select id="getTenByRandom" resultType="ProductEntity">

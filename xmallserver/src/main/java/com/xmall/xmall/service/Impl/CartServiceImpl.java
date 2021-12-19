@@ -73,7 +73,7 @@ public class CartServiceImpl implements CartService {
         double res = 0;
         for (int i = 0; i < cartEntityList.size(); ++i)
         {
-            if(!cartEntityList.get( i).isDel() && cartEntityList.get(i).isChecked())
+            if(!cartEntityList.get(i).isDel() && cartEntityList.get(i).isChecked())
             {
                 CartEntity cartEntity = cartEntityList.get(i);
                 ProductEntity productEntity = productService.getById(cartEntity.getProductId());

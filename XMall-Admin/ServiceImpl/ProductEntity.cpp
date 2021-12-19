@@ -101,14 +101,14 @@ void ProductEntity::setIsHaveAttribute(bool newIsHaveAttribute)
     isHaveAttribute = newIsHaveAttribute;
 }
 
-long ProductEntity::getFreightTemplateId() const
+double ProductEntity::getFreightPrice() const
 {
-    return freightTemplateId;
+    return freightPrice;
 }
 
-void ProductEntity::setFreightTemplateId(long newFreightTemplateId)
+void ProductEntity::setFreightPrice(double newFreightPrice)
 {
-    freightTemplateId = newFreightTemplateId;
+    freightPrice = newFreightPrice;
 }
 
 int ProductEntity::getStatus() const
@@ -174,7 +174,7 @@ QJsonObject ProductEntity::getJsonForm()
         {"limitation", QString::number(limitation)},
         {"categoryId",  QString::number(categoryId)},
         {"isHaveAttribute", isHaveAttribute},
-        {"freightTemplateId",  QString::number(freightTemplateId)},
+        {"freightPrice",  QString::number(freightPrice,'f',2)},
         {"status", QString::number(status)},
         {"sale",  QString::number(sale)},
         {"unit",  unit},
@@ -196,7 +196,7 @@ ProductEntity ProductEntity::parseJson(QJsonObject obj)
     productEntity.setLimitation(obj["limitation"].toInt());
     productEntity.setCategoryId(obj["categoryId"].toInteger());
     productEntity.setIsHaveAttribute(obj["isHaveAttribute"].toBool());
-    productEntity.setFreightTemplateId(obj["freightTemplateId"].toInteger());
+    productEntity.setFreightPrice(obj["freightPrice"].toDouble());
     productEntity.setStatus(obj["status"].toInt());
     productEntity.setSale(obj["sale"].toInteger());
     productEntity.setUnit(obj["unit"].toString());

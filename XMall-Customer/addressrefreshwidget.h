@@ -2,6 +2,7 @@
 #define ADDRESSREFRESHWIDGET_H
 
 #include <QWidget>
+#include <QListWidgetItem>
 #include "addresslistitem.h"
 namespace Ui {
 class AddressRefreshWidget;
@@ -18,7 +19,7 @@ public:
     void insertAddress(AddressListItem* addressItem);
     void clear();
     void play(QString phone);
-
+    QString selectedAddress();
 
 private:
     Ui::AddressRefreshWidget *ui;

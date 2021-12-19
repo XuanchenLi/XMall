@@ -1,4 +1,4 @@
-#ifndef PRODUCTREFRESHWIDGET_H
+ #ifndef PRODUCTREFRESHWIDGET_H
 #define PRODUCTREFRESHWIDGET_H
 #include "productlistwidget.h"
 #include <QWidget>

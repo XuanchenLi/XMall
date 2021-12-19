@@ -12,6 +12,7 @@
 #include <QEventLoop>
 #include <QDebug>
 #include "slidewidget.h"
+#include "orderwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,12 +20,16 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Login w;
     w.show();
-
+    //QString date = QString("2021-12-19T13:28:25.000+00:00");
+    //qDebug()<<QDateTime::fromString(date.mid(0,19),"yyyy-MM-dd'T'hh:mm:ss").toString("yyyy-MM-dd hh:mm:ss");
     //TEST
 //    MainWindow mw;
 //    mw.show();
 //    mw.initCategoryMenu();
-    //
+//    OrderWindow *orderWin = new OrderWindow;
+//    orderWin->setPhone("15962456486");
+//    orderWin->show();
+//    //
     return a.exec();
 }
 

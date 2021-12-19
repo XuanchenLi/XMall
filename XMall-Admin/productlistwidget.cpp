@@ -30,6 +30,7 @@ void ProductListWidget::setProductEntity(const ProductEntity &newProductEntity)
 {
     productEntity = newProductEntity;
     ui->currentPriceLabel->setText("￥" + QString::number(productEntity.getCurrentPrice(), 'f', 2));
+    qDebug()<<productEntity.getCurrentPrice();
     if(productEntity.getCurrentPrice() != productEntity.getPrice())
     {
         ui->priceLabel->setText("￥" + QString::number(productEntity.getPrice(), 'f', 2));

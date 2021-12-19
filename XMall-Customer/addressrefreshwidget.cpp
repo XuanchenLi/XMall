@@ -20,6 +20,7 @@ AddressRefreshWidget::AddressRefreshWidget(QWidget *parent) :
 
 AddressRefreshWidget::~AddressRefreshWidget()
 {
+    clear();
     delete ui;
 }
 void  AddressRefreshWidget::onScrollBarMoved( int  v)
@@ -73,6 +74,10 @@ void AddressRefreshWidget::insertAddress(AddressListItem* addressItem)
 void AddressRefreshWidget::clear()
 {
     curIndex = 0;
+    for  (auto item : addressVector)
+    {
+        delete item;
+    }
     addressVector.clear();
 }
 void AddressRefreshWidget::play(QString phone)
@@ -80,14 +85,11 @@ void AddressRefreshWidget::play(QString phone)
     this->phone = phone;
     ui->listWidget->clear();
     setAddressVector(phone);
-    for(curIndex = 0; curIndex < qMin(addressVector.length(), 5); ++curIndex)
+    for(curIndex = 0; curIndex < addressVector.length(); ++curIndex)
     {
         insertAddress(addressVector[curIndex]);
     }
-    while(!ui->listWidget->isScrollVisible() && curIndex < addressVector.length())
-    {
-        insertAddress(addressVector[curIndex++]);
-    }
+
 }
 void AddressRefreshWidget::on_deleteRecord(bool signal)
 {
@@ -101,4 +103,18 @@ void AddressRefreshWidget::on_deleteRecord(bool signal)
         alertWin->setMessage("删除失败");
         alertWin->show();
     }
+}
+QString AddressRefreshWidget::selectedAddress()
+{
+    if (ui->listWidget->selectedItems().isEmpty()) return "";
+    QWidget* widget = ui->listWidget->itemWidget(ui->listWidget->selectedItems()[0]);
+    QString context = "";
+    QString name = widget->findChild<QLabel*>("nameLabel")->text();
+    QString city = widget->findChild<QLabel*>("cityLabel")->text();
+    QString phone = widget->findChild<QLabel*>("phoneLabel")->text();
+    QString detail = widget->findChild<QLabel*>("detailLabel")->text();
+    context = QString("收货人：" + name + " "
+                      + "手机号码：" + phone + " "
+                      + "收货地址："  + city + " " + detail);
+    return context;
 }

@@ -20,6 +20,7 @@ ProductRefreshWidget::ProductRefreshWidget(QWidget *parent) :
 
 ProductRefreshWidget::~ProductRefreshWidget()
 {
+    clear();
     delete ui;
 }
 void ProductRefreshWidget::setVector(int status)
@@ -36,6 +37,7 @@ void ProductRefreshWidget::setVector(int status)
             ProductListWidget* item = new ProductListWidget;
             item->setPhone(phone);
             connect(item, &ProductListWidget::addCart, this, &ProductRefreshWidget::on_addCart);
+            connect(item, &ProductListWidget::order, this, &ProductRefreshWidget::on_order);
             item->setProductEntity(ProductEntity::parseJson(products[i].toObject()));
             productVectors[status].push_back(item);
         }
@@ -62,6 +64,7 @@ void ProductRefreshWidget::setVector()
                 ProductListWidget* item = new ProductListWidget;
                 item->setPhone(phone);
                 connect(item, &ProductListWidget::addCart, this, &ProductRefreshWidget::on_addCart);
+                connect(item, &ProductListWidget::order, this, &ProductRefreshWidget::on_order);
                 item->setProductEntity(ProductEntity::parseJson(products[i].toObject()));
                 productVectors[STATUS_NUMBER].push_back(item);
             }
@@ -89,11 +92,22 @@ void ProductRefreshWidget::insert(ProductListWidget* item)
 void ProductRefreshWidget::clear(int status)
 {
     curIndex = 0;
+        for (auto item : productVectors[status])
+        {
+            delete item;
+        }
     productVectors[status].clear();
 }
 void ProductRefreshWidget::clear()
 {
     curIndex = 0;
+    for (auto vector : productVectors)
+    {
+        for (auto item : vector)
+        {
+            delete item;
+        }
+    }
     productVectors[STATUS_NUMBER].clear();
 }
 void ProductRefreshWidget::play(int status)
@@ -179,30 +193,28 @@ void  ProductRefreshWidget::onReachedBottom()
         {
             insert(productVectors[curStatus][curIndex]);
         }
-        if (curIndex >= productVectors[curStatus].length() && curStatus != STATUS_NUMBER)
-        {
-            QVector<ProductListWidget*> next;
-            QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
-            httpProxy->get(GET_HOST() + "/product/random/ten");
-            QJsonObject jsonObject = httpProxy->getJsonObject();
-            if(jsonObject["statusCode"].toString() == "SUCCESS")
-            {
-                QJsonArray products = jsonObject["productEntityList"].toArray();
-                for (int i =0; i<products.count(); ++i)
-                {
-                    ProductListWidget* item = new ProductListWidget;
-                    //connect(item, &ProductListWidget::deleteRecord, this, &ProductRefreshWidget::on_deleteRecord);
-                    item->setProductEntity(ProductEntity::parseJson(products[i].toObject()));
-                    next.push_back(item);
-                }
-            }
-            for  ( int i = 0; i < next.length(); i++)
-            {
-                insert(next[i]);
-            }
-        }
-        //if(curIndex >= productVectors[curStatus].length())
-           // curIndex = 0;
+//        if (curIndex >= productVectors[curStatus].length() && curStatus != STATUS_NUMBER)
+//        {
+//            QVector<ProductListWidget*> next;
+//            QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+//            httpProxy->get(GET_HOST() + "/product/random/ten");
+//            QJsonObject jsonObject = httpProxy->getJsonObject();
+//            if(jsonObject["statusCode"].toString() == "SUCCESS")
+//            {
+//                QJsonArray products = jsonObject["productEntityList"].toArray();
+//                for (int i =0; i<products.count(); ++i)
+//                {
+//                    ProductListWidget* item = new ProductListWidget;
+//                    //connect(item, &ProductListWidget::deleteRecord, this, &ProductRefreshWidget::on_deleteRecord);
+//                    item->setProductEntity(ProductEntity::parseJson(products[i].toObject()));
+//                    next.push_back(item);
+//                }
+//            }
+//            for  ( int i = 0; i < next.length(); i++)
+//            {
+//                insert(next[i]);
+//            }
+//        }
     }
     else
     {
@@ -218,4 +230,10 @@ void  ProductRefreshWidget::onReachedBottom()
         }
     }
 
+}
+
+void ProductRefreshWidget::on_order(OrderItemEntity item)
+{
+
+    emit order(item);
 }

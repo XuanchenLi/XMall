@@ -25,6 +25,7 @@ AdminProductWindow::AdminProductWindow(QWidget *parent) :
     ui->statusbar->addPermanentWidget(logoLabel);
     ui->statusbar->addPermanentWidget(textLabel);
     //
+    ui->limitationSpinBox->setValue(-1);
     initCategory();
     initFreight();
 }
@@ -49,13 +50,12 @@ void AdminProductWindow::setProduct(const ProductEntity &newProduct)
     ui->currentPriceDoubleSpinBox->setValue(product.getCurrentPrice());
     for(int i = 0; i<freightVector.length(); ++i)
     {
-        if(freightVector[i].getId() == product.getFreightTemplateId())
+        if(freightVector[i].getPrice() == product.getFreightPrice())
         {
             ui->freightComboBox->setCurrentIndex(i);
             break;
         }
     }
-    CategoryEntity level2;
     for(int i = 0; i < categoryLevel2.length(); ++i)
     {
         if(categoryLevel2[i].getId() == product.getCategoryId())
@@ -69,19 +69,21 @@ void AdminProductWindow::setProduct(const ProductEntity &newProduct)
         if(GET_ID(ui->category_1ComboBox->itemText(i)) == level2.getParentId())
         {
             ui->category_1ComboBox->setCurrentIndex(i);
-            emit ui->category_1ComboBox->currentIndexChanged(i);
+            on_category_1ComboBox_currentIndexChanged(i);
             break;
         }
     }
+    //qDebug()<<"hahah";
+//    for(int i = 0; i<categoryLevel2.length(); ++i)
+//    {
 
-    for(int i = 0; i<categoryLevel2.length(); ++i)
-    {
-        if(categoryLevel2[i].getId() == level2.getId())
-        {
-            ui->category_2ComboBox->setCurrentIndex(i);
-            break;
-        }
-    }
+//        //qDebug()<<"hahah"<<categoryLevel2[i].getId();
+//        if(categoryLevel2[i].getId() == level2.getId())
+//        {
+//            ui->category_2ComboBox->setCurrentIndex(i);
+//            break;
+//        }
+//    }
     ui->introductionTextEdit->setText(product.getIntroduction());
     ui->limitationSpinBox->setValue(product.getLimitation());
     ui->storageSpinBox->setValue(product.getStorage());
@@ -217,7 +219,13 @@ void AdminProductWindow::on_savePushButton_clicked()
      newProduct.setCategoryId(GET_ID(ui->category_2ComboBox->currentText()));
      newProduct.setPrice(ui->priceDoubleSpinBox->value());
      newProduct.setCurrentPrice(ui->currentPriceDoubleSpinBox->value());
-     newProduct.setFreightTemplateId(GET_ID(ui->freightComboBox->currentText()));
+     for (auto item : freightVector) {
+         if (GET_ID(ui->freightComboBox->currentText()) == item.getId())
+         {
+             newProduct.setFreightPrice(item.getPrice());
+             break;
+         }
+     }
      newProduct.setIntroduction(ui->introductionTextEdit->toPlainText());
      newProduct.setLimitation(ui->limitationSpinBox->value());
      newProduct.setStorage(ui->storageSpinBox->value());
@@ -232,7 +240,7 @@ void AdminProductWindow::on_savePushButton_clicked()
              AlertWindow *alertWin = new AlertWindow;
              alertWin->setMessage("保存成功");
              alertWin->show();
-             product = newProduct;
+             //setProduct(ProductEntity::parseJson(httpProxy->getJsonObject()["productEntity"].toObject()));
              emit modified(product);
          }
          else
@@ -253,6 +261,7 @@ void AdminProductWindow::on_savePushButton_clicked()
              alertWin->setMessage("添加成功");
              alertWin->show();
              product = ProductEntity::parseJson(httpProxy->getJsonObject()["productEntity"].toObject());
+             status = UPDATE_PRODUCT;
          }
          else
          {
@@ -279,10 +288,12 @@ void AdminProductWindow::setStatus(int newStatus)
 
 void AdminProductWindow::on_category_1ComboBox_currentIndexChanged(int index)
 {
+    //qDebug()<<"hahaha";
     ui->category_2ComboBox->clear();
     int parent = GET_ID(ui->category_1ComboBox->currentText());
     for (int i = 0;i < categoryLevel2.length(); ++i)
     {
+        //qDebug()<<categoryLevel2[i].getId();
         if(categoryLevel2[i].getParentId() == parent)
         {
             ui->category_2ComboBox->addItem(QString::number(categoryLevel2[i].getId())
@@ -290,5 +301,16 @@ void AdminProductWindow::on_category_1ComboBox_currentIndexChanged(int index)
                                             + categoryLevel2[i].getName());
         }
     }
+    for(int i = 0; i<ui->category_2ComboBox->count(); ++i)
+    {
+
+        //qDebug()<<"hahah"<<categoryLevel2[i].getId();
+        if(GET_ID(ui->category_2ComboBox->itemText(i)) == level2.getId())
+        {
+            ui->category_2ComboBox->setCurrentIndex(i);
+            break;
+        }
+    }
+    //qDebug()<<"hahah22";
 }
 

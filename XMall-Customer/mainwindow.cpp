@@ -10,6 +10,7 @@
 #include "menulistwidget.h"
 #include "productrefreshwidget.h"
 #include "cartrefreshwidget.h"
+#include "orderwindow.h"
 #include <QPushButton>
 #include<QRegularExpression>
 #include<QRegularExpressionValidator>
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this,
             SLOT(on_switchAccountAction_trigger()));
     connect(ui->cartWidget, &CartRefreshWidget::finishCalculate, this, &MainWindow::on_finishCalculate);
+    connect(ui->productRefreshWidget, &ProductRefreshWidget::order, this, &MainWindow::on_order);
     QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
      animation->setDuration(1000);
      animation->setStartValue(0);
@@ -354,3 +356,34 @@ void MainWindow::initCart(QString phone)
 {
     ui->cartWidget->play(phone);
 }
+
+void MainWindow::on_order(OrderItemEntity item)
+{
+    QVector<OrderItemEntity> items;
+    items.append(item);
+    OrderWindow *orderWin = new OrderWindow;
+    //qDebug()<<"11";
+    orderWin->setPhone(currentUser.getPhone());
+    orderWin->setItemVector(items);
+    orderWin->initNew(items);
+    orderWin->show();
+}
+
+void MainWindow::on_orderPushButton_clicked()
+{
+    QVector<ProductEntity> products = ui->cartWidget->getSelectedItems();
+    if(products.empty()) return;
+    QVector<OrderItemEntity> items;
+    for (auto product : products)
+    {
+        OrderItemEntity item;
+        items.append(item.fromProductEntity(product));
+    }
+    OrderWindow *orderWin = new OrderWindow;
+    //qDebug()<<"11";
+    orderWin->setPhone(currentUser.getPhone());
+    orderWin->setItemVector(items);
+    orderWin->initNew(items);
+    orderWin->show();
+}
+

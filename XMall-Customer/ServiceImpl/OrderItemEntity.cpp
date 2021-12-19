@@ -71,15 +71,24 @@ void OrderItemEntity::setCount(int newCount)
 }
 QJsonObject OrderItemEntity::getJsonForm()
 {
-    return QJsonObject{
-        {"id",  QString::number(id)},
-        {"orderSn", orderSn},
-        {"productId",  QString::number(productId)},
-        {"name", name},
-        {"price", QString::number(price, 'f', 2)},
-        {"currentPrice",  QString::number(currentPrice, 'f', 2)},
-        {"count",QString::number(count) }
-    };
+    QJsonObject obj;
+    obj.insert("id", QString::number(id));
+    obj.insert("orderSn", orderSn);
+    obj.insert("productId",  QString::number(productId));
+    obj.insert("price", QString::number(price, 'f', 2));
+    obj.insert("currentPrice",  QString::number(currentPrice, 'f', 2));
+    obj.insert("count",QString::number(count));
+    obj.insert("name", name);
+    return obj;
+//    return QJsonObject{
+//        {"id",  QString::number(id)},
+//        {"orderSn", orderSn},
+//        {"productId",  QString::number(productId)},
+//        {"name", name},
+//        {"price", QString::number(price, 'f', 2)},
+//        {"currentPrice",  QString::number(currentPrice, 'f', 2)},
+//        {"count",QString::number(count) }
+//    };
 }
 
 OrderItemEntity OrderItemEntity::parseJson(QJsonObject obj)
@@ -97,4 +106,13 @@ OrderItemEntity OrderItemEntity::parseJson(QJsonObject obj)
 QByteArray OrderItemEntity::getQByteArrayForm()
 {
     return QJsonDocument(this->getJsonForm()).toJson();
+}
+
+OrderItemEntity OrderItemEntity::fromProductEntity(ProductEntity entity)
+{
+    productId = entity.getId();
+    name = entity.getName();
+    price = entity.getPrice();
+    currentPrice = entity.getCurrentPrice();
+    return *this;
 }

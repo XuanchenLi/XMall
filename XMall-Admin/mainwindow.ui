@@ -193,7 +193,7 @@ border:1px solid;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="categoryTab">
        <property name="styleSheet">
@@ -507,7 +507,31 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,8,1,1">
+         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,1,14,1,1">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="9,1">
+            <item>
+             <spacer name="horizontalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>刷新</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
           <item>
            <widget class="QLabel" name="label_9">
             <property name="text">

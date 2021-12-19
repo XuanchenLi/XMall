@@ -82,7 +82,7 @@ border:0px;
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1">
      <item>
-      <widget class="QLabel" name="priceLabel">
+      <widget class="QLabel" name="currentPriceLabel">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -109,7 +109,7 @@ background:transparent;
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="currentPriceLabel">
+      <widget class="QLabel" name="priceLabel">
        <property name="font">
         <font>
          <family>微软雅黑</family>

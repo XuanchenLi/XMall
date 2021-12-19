@@ -21,6 +21,7 @@ CategoryRefreshWidget::CategoryRefreshWidget(QWidget *parent) :
 
 CategoryRefreshWidget::~CategoryRefreshWidget()
 {
+    clear();
     delete ui;
 }
 
@@ -74,6 +75,10 @@ void CategoryRefreshWidget::insertCategory(CategoryListItem* categoryItem)
 void CategoryRefreshWidget::clear()
 {
     curIndex = 0;
+    for (auto item : categoryVector)
+    {
+        delete item;
+    }
     categoryVector.clear();
 }
 void CategoryRefreshWidget::play(int level)

@@ -31,8 +31,8 @@ public:
     void setCategoryId(long newCategoryId);
     bool getIsHaveAttribute() const;
     void setIsHaveAttribute(bool newIsHaveAttribute);
-    long getFreightTemplateId() const;
-    void setFreightTemplateId(long newFreightTemplateId);
+    double getFreightPrice() const;
+    void setFreightPrice(double newFreightTemplateId);
     int getStatus() const;
     void setStatus(int newStatus);
     long getSale() const;
@@ -57,7 +57,7 @@ private:
      int limitation;
      long categoryId;
      bool isHaveAttribute;
-     long freightTemplateId;
+     long freightPrice;
      int status;
      long sale;
      QString unit;

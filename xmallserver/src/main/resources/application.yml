@@ -20,6 +20,10 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+      write_dates_as_timestamps : false
+    time-zone: GMT+08:00
+    date-format: yyyy-MM-dd HH:mm:ss
+
 
   redis:
     # Redis数据库索引（默认为0）

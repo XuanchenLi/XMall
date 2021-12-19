@@ -14,6 +14,7 @@ FreightRefreshWidget::FreightRefreshWidget(QWidget *parent) :
 
 FreightRefreshWidget::~FreightRefreshWidget()
 {
+    clear();
     delete ui;
 }
 void FreightRefreshWidget::setVector()
@@ -52,6 +53,10 @@ void FreightRefreshWidget::insert(FreightListItem* item)
 void FreightRefreshWidget::clear()
 {
     curIndex = 0;
+    for (auto item : freightVector)
+    {
+        delete item;
+    }
     freightVector.clear();
 }
 void FreightRefreshWidget::play()

@@ -13,7 +13,8 @@ ProductListWidget::ProductListWidget(QWidget *parent) :
     raise();
     ui->textBrowser->setTextInteractionFlags ( Qt::NoTextInteraction );
     this->setAttribute(Qt::WA_StyledBackground,true);
-    this->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(52, 120, 221), stop:1 rgb(67,129,162));");
+    this->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, "
+                        "stop:0 rgb(52, 120, 221), stop:1 rgb(67,129,162));");
 }
 
 ProductListWidget::~ProductListWidget()
@@ -78,6 +79,7 @@ void ProductListWidget::mouseClicked()
     productWin->setPhone(phone);
     productWin->setProduct(productEntity);
     connect(productWin, &ProductionWindow::addCart, this, &ProductListWidget::on_addCart);
+    connect(productWin, &ProductionWindow::order, this, &ProductListWidget::on_order);
     productWin->show();
 
 }
@@ -112,4 +114,9 @@ void ProductListWidget::on_modified(ProductEntity entity)
 void ProductListWidget::on_addCart()
 {
     emit addCart();
+}
+
+void ProductListWidget::on_order(OrderItemEntity item)
+{
+    emit order(item);
 }

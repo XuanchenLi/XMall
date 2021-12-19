@@ -18,6 +18,7 @@ ProductRefreshWidget::ProductRefreshWidget(QWidget *parent) :
 
 ProductRefreshWidget::~ProductRefreshWidget()
 {
+    clear();
     delete ui;
 }
 void ProductRefreshWidget::setVector(int status)
@@ -80,11 +81,22 @@ void ProductRefreshWidget::insert(ProductListWidget* item)
 void ProductRefreshWidget::clear(int status)
 {
     curIndex = 0;
+    for (auto item : productVectors[status])
+    {
+        delete item;
+    }
     productVectors[status].clear();
 }
 void ProductRefreshWidget::clear()
 {
     curIndex = 0;
+    for (auto vector : productVectors)
+    {
+        for (auto item : vector)
+        {
+            delete item;
+        }
+    }
     productVectors[STATUS_NUMBER].clear();
 }
 void ProductRefreshWidget::play(int status)

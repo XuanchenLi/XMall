@@ -16,11 +16,13 @@
         values
         (#{userPhone}, #{orderSn}, #{totPrice}, #{payPrice}, #{freightPrice},
          #{promotionPrice}, #{couponPrice}, #{payType}, #{status}, #{userAddressInfo},
-         #{creat_time}, #{pay_time}, #{delivery_time}, #{recv_time}, #{comment_time}, #{refund_time}, #{die_time})
+         #{creatTime}, #{payTime}, #{deliveryTime}, #{recvTime}, #{commentTime}, #{refundTime}, #{dieTime})
     </insert>
     <update id="updatePay" >
         update xm_order
-        set pay_price = #{payPrice}, pay_time = #{payTime}, pay_type = #{payType}, status = 1
+        set pay_price = #{payPrice}, tot_price = #{totPrice}, freight_price = #{freightPrice},
+            promotion_price = #{promotionPrice}, coupon_price = #{couponPrice},
+            user_address_info = #{userAddressInfo}, pay_time = #{payTime}, pay_type = #{payType}, status = 1
         where id = #{id}
     </update>
     <update id="updateDelivery" >

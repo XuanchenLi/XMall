@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "Service/ProductEntity.h"
 #include "Service/UserInfoEntity.h"
+#include "Service/OrderItemEntity.h"
 namespace Ui {
 class ProductionWindow;
 }
@@ -34,6 +35,7 @@ private:
     QString phone;
 signals:
     void addCart();
+    void order(OrderItemEntity);
 };
 
 #endif // PRODUCTIONWINDOW_H
