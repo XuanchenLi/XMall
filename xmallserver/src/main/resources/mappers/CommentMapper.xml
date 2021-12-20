@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmall.xmall.dao.mapper.CommentMapper">
+    <insert id="saveComment" useGeneratedKeys="true" keyProperty="id" parameterType="CommentEntity">
+        insert into xm_cart_item (user_phone,product_id,`status`,creat_time,content,user_nickname)
+        values (#{userPhone},#{productId},#{status},#{creatTime},#{content},#{userNickname})
+    </insert>
+</mapper>

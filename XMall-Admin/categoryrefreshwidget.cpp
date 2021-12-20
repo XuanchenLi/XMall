@@ -75,11 +75,9 @@ void CategoryRefreshWidget::insertCategory(CategoryListItem* categoryItem)
 void CategoryRefreshWidget::clear()
 {
     curIndex = 0;
-    for (auto item : categoryVector)
-    {
-        delete item;
-    }
+    ui->listWidget->clear();
     categoryVector.clear();
+    categoryVector.squeeze();
 }
 void CategoryRefreshWidget::play(int level)
 {

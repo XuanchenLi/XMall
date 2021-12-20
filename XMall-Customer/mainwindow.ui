@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>980</width>
-    <height>730</height>
+    <height>732</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -175,7 +175,7 @@ background-color: rgb(0, 99, 148)
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="shopTab">
        <property name="styleSheet">
@@ -426,11 +426,77 @@ background:rgb(255, 11, 68)
         <string notr="true">*{
 background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(40, 44, 50), stop:1 rgb(49, 97, 117))
 
-}</string>
+}
+
+QPushButton{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-color:white;
+border-radius:3px;
+border:0px solid ;
+}
+
+QPushButton:pressed{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-radius:3px;
+border:1px solid;
+}
+</string>
        </property>
        <attribute name="title">
         <string>我的订单</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_13" stretch="14,1">
+        <item>
+         <widget class="OrderViewWidget" name="orderView" native="true"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
+          <property name="spacing">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="waitPayPushButton">
+            <property name="text">
+             <string>待付款</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitDeliveryPushButton">
+            <property name="text">
+             <string>待发货</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitRecvPushButton">
+            <property name="text">
+             <string>待收货</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitRefundPushButton">
+            <property name="text">
+             <string>退款申请中</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="allPushButton">
+            <property name="text">
+             <string>全部</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="profileTab">
        <attribute name="title">
@@ -1489,6 +1555,12 @@ background:rgb(48, 48, 48)
  </widget>
  <customwidgets>
   <customwidget>
+   <class>AddressRefreshWidget</class>
+   <extends>QWidget</extends>
+   <header>addressrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>VerticalTabWidget</class>
    <extends>QTabWidget</extends>
    <header>verticaltabwidget.h</header>
@@ -1501,12 +1573,6 @@ background:rgb(48, 48, 48)
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>AddressRefreshWidget</class>
-   <extends>QWidget</extends>
-   <header>addressrefreshwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>ProductRefreshWidget</class>
    <extends>QWidget</extends>
    <header>productrefreshwidget.h</header>
@@ -1516,6 +1582,12 @@ background:rgb(48, 48, 48)
    <class>CartRefreshWidget</class>
    <extends>QWidget</extends>
    <header>cartrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OrderViewWidget</class>
+   <extends>QWidget</extends>
+   <header>orderviewwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

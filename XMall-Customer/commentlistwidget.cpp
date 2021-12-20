@@ -19,6 +19,7 @@ CommentListWidget::CommentListWidget(QWidget *parent) :
 
 CommentListWidget::~CommentListWidget()
 {
+    clear();
     delete ui;
 }
 void  CommentListWidget::onScrollBarMoved( int  v)
@@ -73,11 +74,9 @@ void CommentListWidget::insert(CommentListItem* commentItem)
 void CommentListWidget::clear()
 {
     curIndex = 0;
-    for  (auto item : commentVector)
-    {
-        delete item;
-    }
+    ui->listWidget->clear();
     commentVector.clear();
+    commentVector.squeeze();
 }
 void CommentListWidget::play(long id)
 {

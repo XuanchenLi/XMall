@@ -4,6 +4,7 @@
 #include "Service/CartEntity.h"
 #include "Service/HttpProxy.h"
 #include "alertwindow.h"
+#include "QPushButton"
 #include <QJsonArray>
 #include <QLabel>
 extern QString GET_HOST();
@@ -34,7 +35,6 @@ OrderWindow::~OrderWindow()
 void OrderWindow::initNew(QVector<OrderItemEntity> items)
 {
     itemVector = items;
-    qDebug()<<items[0].getProductId();
     ui->addressList->play(phone);
     //创建订单
     QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
@@ -78,7 +78,6 @@ void OrderWindow::initNew(QVector<OrderItemEntity> items)
         case OrderEntity::WAIT_DELIVERY:ui->statusLabel->setText("待发货"); break;
         case OrderEntity::WAIT_RECV:ui->statusLabel->setText("待收货"); break;
         case OrderEntity::WAIT_REFUND:ui->statusLabel->setText("退款申请中"); break;
-        case OrderEntity::WAIT_COMMENT:ui->statusLabel->setText("待评论"); break;
         case OrderEntity::DIE:ui->statusLabel->setText("已关闭"); break;
         case OrderEntity::COMPLETED:ui->statusLabel->setText("已完成"); break;
     }
@@ -101,19 +100,98 @@ void OrderWindow::initNew(QVector<OrderItemEntity> items)
             return ;
         }
     }
+    orderEntity.setFreightPrice(freightPrice);
     ui->freightLabel->setText("￥ " + QString::number(freightPrice,'f',2));
     //
     totPrice = calculate() + freightPrice;
+    orderEntity.setPayPrice(totPrice);
+    orderEntity.setTotPrice(totPrice);
     ui->totLabel->setText("￥ " + QString::number(totPrice,'f',2));
     //此处可加入促销运算
     //ui->payLabel->setText("￥ " + QString::number(calculateWithPromotion(),'f',2))
     payPrice = totPrice;
     ui->payLabel->setText(ui->totLabel->text());
+    httpProxy->post(GET_HOST() + "/order/update", orderEntity.getQByteArrayForm());
+    jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"].toString() != "SUCCESS")
+    {
+        AlertWindow* alertWin = new AlertWindow;
+        alertWin->setMessage("发生异常");
+        alertWin->show();
+        return ;
+    }
     //
-
+    newByStatus();
 
 }
+void OrderWindow::initOld()
+{
+    itemVector.clear();
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
 
+    //添加订单商品
+    //LABEL初始化
+    ui->itemList->play(orderEntity.getOrderSn());
+    ui->orderSnLabel->setText(orderEntity.getOrderSn());
+    ui->dateLabel->setText(orderEntity.getCreatTime().toString("yyyy-MM-dd hh:mm:ss"));
+//    qDebug()<<orderEntity.getCreatTime().toString("yyyy-MM-dd hh:mm:ss");
+//    qDebug()<<orderEntity.getCreatTime();
+    switch(orderEntity.getStatus())
+    {
+        case OrderEntity::WAIT_PAY:ui->statusLabel->setText("未付款"); break;
+        case OrderEntity::WAIT_DELIVERY:ui->statusLabel->setText("待发货"); break;
+        case OrderEntity::WAIT_RECV:ui->statusLabel->setText("待收货"); break;
+        case OrderEntity::WAIT_REFUND:ui->statusLabel->setText("退款申请中"); break;
+        case OrderEntity::DIE:ui->statusLabel->setText("已关闭"); break;
+        case OrderEntity::COMPLETED:ui->statusLabel->setText("已完成"); break;
+    }
+    if(orderEntity.getStatus() != OrderEntity::WAIT_PAY)
+    {
+        ui->wechatRadioButton->setAttribute(Qt::WA_TransparentForMouseEvents, 1);
+        ui->wechatRadioButton->setFocusPolicy(Qt::NoFocus);
+        ui->alipayRadioButton->setAttribute(Qt::WA_TransparentForMouseEvents, 1);
+        ui->alipayRadioButton->setFocusPolicy(Qt::NoFocus);
+        switch(orderEntity.getPayType())
+        {
+        case OrderEntity::ALIPAY:
+        {
+            qDebug()<<orderEntity.getPayType();
+            ui->alipayRadioButton->setChecked(true);
+            break;
+        }
+        case OrderEntity::WECHAT:
+        {
+            ui->wechatRadioButton->setChecked(true);
+            break;
+        }
+        }
+        //运费
+        QLabel* address = new QLabel;
+        address->setText(orderEntity.getUserAddressInfo());
+        ui->addressList->clear();
+        ui->addressList->insertAddressView(address);
+        ui->freightLabel->setText("￥ " + QString::number(orderEntity.getFreightPrice(),'f',2));
+        //
+        ui->totLabel->setText("￥ " + QString::number(orderEntity.getTotPrice(),'f',2));
+
+        ui->payLabel->setText("￥ " + QString::number(orderEntity.getPayPrice(),'f',2));
+        //
+    }
+    else
+    {
+        ui->addressList->play(orderEntity.getUserPhone());
+        ui->freightLabel->setText("￥ " + QString::number(orderEntity.getFreightPrice(),'f',2));
+        //
+        ui->totLabel->setText("￥ " + QString::number(orderEntity.getTotPrice(),'f',2));
+        //此处可加入促销运算
+        //ui->payLabel->setText("￥ " + QString::number(calculateWithPromotion(),'f',2))
+        payPrice = totPrice;
+        ui->payLabel->setText(QString::number(orderEntity.getPayPrice(),'f',2));
+        //
+    }
+    newByStatus();
+
+}
 const QVector<OrderItemEntity> &OrderWindow::getItemVector() const
 {
     return itemVector;
@@ -175,14 +253,16 @@ double OrderWindow::calculate()
 
 void OrderWindow::on_orderPushButton_clicked()
 {
-    ui->orderPushButton->setEnabled(false);
+//    QString name = sender()->objectName();
+//    QPushButton* btn = ui->BtnHorizontalLayout->findChild<QPushButton*>(name);
+//    btn->setEnabled(false);
     if(!ui->alipayRadioButton->isChecked() && ! ui->wechatRadioButton->isChecked())
     {
         AlertWindow* alertWin = new AlertWindow;
         alertWin->setMessage("未选择支付方式");
         orderEntity.setPayType(orderEntity.NONE);
         alertWin->show();
-        ui->orderPushButton->setEnabled(true);
+//        btn->setEnabled(true);
         return ;
     }
     else{
@@ -201,7 +281,7 @@ void OrderWindow::on_orderPushButton_clicked()
         AlertWindow* alertWin = new AlertWindow;
         alertWin->setMessage("未选择地址");
         alertWin->show();
-        ui->orderPushButton->setEnabled(true);
+//        btn->setEnabled(true);
         return ;
     }
     else
@@ -223,11 +303,132 @@ void OrderWindow::on_orderPushButton_clicked()
         AlertWindow* alertWin = new AlertWindow;
         alertWin->setMessage("支付失败");
         alertWin->show();
-        ui->orderPushButton->setEnabled(true);
+//        btn->setEnabled(true);
         return ;
     }
     AlertWindow* alertWin = new AlertWindow;
     alertWin->setMessage("支付成功");
     alertWin->show();
+    orderEntity.setStatus(OrderEntity::WAIT_DELIVERY);
+    initOld();
 }
 
+void OrderWindow::newByStatus()
+{
+    clearLayout();
+    switch(orderEntity.getStatus())
+    {
+    case OrderEntity::WAIT_PAY:
+    {
+
+        QPushButton* payBtn = new QPushButton(tr("立即付款"));
+        ui->BtnHorizontalLayout->addWidget(payBtn);
+        connect(payBtn, &QPushButton::clicked, this, &OrderWindow::on_orderPushButton_clicked);
+        QPushButton* dieBtn = new QPushButton(tr("取消订单"));
+        ui->BtnHorizontalLayout->addWidget(dieBtn);
+        connect(dieBtn, &QPushButton::clicked, this, &OrderWindow::on_diePushButton_clicked);
+        break;
+    }
+
+    case OrderEntity::WAIT_DELIVERY:
+    {
+        QPushButton* refundBtn = new QPushButton(tr("申请退款"));
+        ui->BtnHorizontalLayout->addWidget(refundBtn);
+        connect(refundBtn, &QPushButton::clicked, this, &OrderWindow::on_refundPushButton_clicked);
+        break;
+    }
+    case OrderEntity::WAIT_RECV:
+    {
+        QPushButton* refundBtn = new QPushButton(tr("申请退款"));
+        ui->BtnHorizontalLayout->addWidget(refundBtn);
+        connect(refundBtn, &QPushButton::clicked, this, &OrderWindow::on_refundPushButton_clicked);
+        QPushButton* recvBtn = new QPushButton(tr("确认收货"));
+        ui->BtnHorizontalLayout->addWidget(recvBtn);
+        connect(recvBtn, &QPushButton::clicked, this, &OrderWindow::on_recvPushButton_clicked);
+        break;
+    }
+    case OrderEntity::COMPLETED:
+    {
+        QPushButton* refundBtn = new QPushButton(tr("申请退款"));
+        ui->BtnHorizontalLayout->addWidget(refundBtn);
+        connect(refundBtn, &QPushButton::clicked, this, &OrderWindow::on_refundPushButton_clicked);
+        break;
+    }
+
+    }
+}
+
+void OrderWindow::clearLayout()
+{
+    QLayoutItem *child;
+     while ((child = ui->BtnHorizontalLayout->takeAt(0)) != 0)
+     {
+            //setParent为NULL，防止删除之后界面不消失
+            if(child->widget())
+            {
+                child->widget()->setParent(NULL);
+            }
+
+            delete child;
+     }
+
+}
+
+void OrderWindow::on_recvPushButton_clicked()
+{
+//    QString name = sender()->objectName();
+//    QPushButton* btn = ui->BtnHorizontalLayout->findChild<QPushButton*>(name);
+//    btn->setEnabled(false);
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/order/recv/id/" + QString::number(orderEntity.getId()));
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] != "SUCCESS")
+    {
+        AlertWindow* alertWin = new AlertWindow;
+        alertWin->setMessage("网络异常");
+        alertWin->show();
+//        btn->setEnabled(true);
+        return ;
+    }
+//    btn->setEnabled(true);
+    orderEntity.setStatus(OrderEntity::COMPLETED);
+    initOld();
+}
+
+void OrderWindow::on_refundPushButton_clicked()
+{
+//    QString name = sender()->objectName();
+//    QPushButton* btn = ui->BtnHorizontalLayout->findChild<QPushButton*>(name);
+//    btn->setEnabled(false);
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/order/refund/id/" + QString::number(orderEntity.getId()));
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] != "SUCCESS")
+    {
+        AlertWindow* alertWin = new AlertWindow;
+        alertWin->setMessage("网络异常");
+        alertWin->show();
+//        btn->setEnabled(true);
+        return ;
+    }
+//    btn->setEnabled(true);
+    orderEntity.setStatus(OrderEntity::WAIT_REFUND);
+    initOld();
+}
+void OrderWindow::on_diePushButton_clicked()
+{
+
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    httpProxy->get(GET_HOST() + "/order/die/id/" + QString::number(orderEntity.getId()));
+    QJsonObject jsonObject = httpProxy->getJsonObject();
+    if(jsonObject["statusCode"] != "SUCCESS")
+    {
+        AlertWindow* alertWin = new AlertWindow;
+        alertWin->setMessage("网络异常");
+        alertWin->show();
+        return ;
+    }
+
+    orderEntity.setStatus(OrderEntity::DIE);
+    initOld();
+}

@@ -15,7 +15,6 @@ class OrderWindow : public QMainWindow
 public:
     explicit OrderWindow(QWidget *parent = nullptr);
     ~OrderWindow();
-    void initNew(QVector<OrderItemEntity>);
     void initOld();
     const QVector<OrderItemEntity> &getItemVector() const;
     void setItemVector(const QVector<OrderItemEntity> &newItemVector);
@@ -28,10 +27,9 @@ public:
 
     void newByStatus();
 private slots:
-    void on_orderPushButton_clicked();
-    void on_refundPushButton_clicked();
-    void on_recvPushButton_clicked();
-    void on_diePushButton_clicked();
+    void on_declinePushButton_clicked();
+    void on_ackPushButton_clicked();
+    void on_deliveryPushButton_clicked();
 private:
     void clearLayout();
     Ui::OrderWindow *ui;

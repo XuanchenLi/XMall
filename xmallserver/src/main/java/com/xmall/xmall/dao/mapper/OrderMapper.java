@@ -12,11 +12,13 @@ import java.util.Optional;
 public interface OrderMapper {
     Optional<OrderEntity> findById(long id) throws Exception;
     Optional<OrderEntity> findBySn(String orderSn) throws Exception;
+    List<OrderEntity> findByStatus(int status) throws Exception;
+    List<OrderEntity> findByStatusAndPhone(int status,String phone) throws Exception;
+    int updateOrder(OrderEntity orderEntity) throws  Exception;
     int saveOrder(OrderEntity orderEntity) throws  Exception;
     int updatePay(OrderEntity orderEntity)throws  Exception;
     int updateDelivery(OrderEntity orderEntity) throws Exception;
     int updateRecv(OrderEntity orderEntity) throws Exception;
-    int updateComment(OrderEntity orderEntity) throws Exception;
     int updateRefund(OrderEntity orderEntity) throws Exception;
     int updateFinish(OrderEntity orderEntity) throws Exception;
     int saveOrderItem(OrderItemEntity orderItemEntity) throws Exception;
@@ -24,4 +26,5 @@ public interface OrderMapper {
     int updateRefundFormHandle(OrderRefundFormEntity orderRefundFormEntity) throws  Exception;
     List<OrderItemEntity> findAllItemBySn(String orderSn) throws Exception;
     OrderRefundFormEntity findFormBySn(String orderSn) throws Exception;
+
 }

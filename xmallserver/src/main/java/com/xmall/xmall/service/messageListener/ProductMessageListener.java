@@ -27,7 +27,7 @@ public class ProductMessageListener {
     private ProductService productService;
 
     @RabbitListener(queues = PRODUCT_SALE_QUEUE,concurrency = "10", ackMode = "AUTO")
-    public void onMessageFromUserLogQueue(ProductSaleMessage message) throws Exception {
+    public void onMessageFromSale(ProductSaleMessage message) throws Exception {
         productService.updateSaleById(message.getSale(), message.getProductId());
     }
 }

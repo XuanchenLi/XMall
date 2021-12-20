@@ -134,6 +134,7 @@ void MainWindow::initFunction()
     initCategoryMenu();
     initProduction();
     initCart(currentUser.getPhone());
+    initOrder(currentUser.getPhone());
 }
 
 void MainWindow::on_ackPushButton_clicked()
@@ -356,7 +357,11 @@ void MainWindow::initCart(QString phone)
 {
     ui->cartWidget->play(phone);
 }
-
+void MainWindow::initOrder(QString phone)
+{
+    ui->orderView->setPhone(phone);
+    on_allPushButton_clicked();
+}
 void MainWindow::on_order(OrderItemEntity item)
 {
     QVector<OrderItemEntity> items;
@@ -385,5 +390,37 @@ void MainWindow::on_orderPushButton_clicked()
     orderWin->setItemVector(items);
     orderWin->initNew(items);
     orderWin->show();
+}
+
+
+void MainWindow::on_allPushButton_clicked()
+{
+    ui->orderView->play();
+}
+
+
+
+void MainWindow::on_waitPayPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_PAY);
+}
+
+
+
+void MainWindow::on_waitDeliveryPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_DELIVERY);
+}
+
+
+void MainWindow::on_waitRecvPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_RECV);
+}
+
+
+void MainWindow::on_waitRefundPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_REFUND);
 }
 

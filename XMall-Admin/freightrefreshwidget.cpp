@@ -53,11 +53,9 @@ void FreightRefreshWidget::insert(FreightListItem* item)
 void FreightRefreshWidget::clear()
 {
     curIndex = 0;
-    for (auto item : freightVector)
-    {
-        delete item;
-    }
+    ui->listWidget->clear();
     freightVector.clear();
+    freightVector.squeeze();
 }
 void FreightRefreshWidget::play()
 {

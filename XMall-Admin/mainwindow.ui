@@ -193,7 +193,7 @@ border:1px solid;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="categoryTab">
        <property name="styleSheet">
@@ -618,56 +618,76 @@ border:1px solid;
         <string notr="true">*{
 background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(40, 44, 50), stop:1 rgb(49, 97, 117))
 
-}</string>
+}
+
+QPushButton{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-color:white;
+border-radius:3px;
+border:0px solid ;
+}
+
+QPushButton:pressed{
+background-color:QLinearGradient(x1:0, y1: 0, x2: 1, y2: 0, stop: 0 rgb(71,191,255) , stop: 1 rgb(23, 78, 115));
+border-style:solid;
+border-radius:3px;
+border:1px solid;
+}
+</string>
        </property>
        <attribute name="title">
         <string>订单管理</string>
        </attribute>
-      </widget>
-      <widget class="QWidget" name="promotionTab">
-       <property name="styleSheet">
-        <string notr="true">*{
-background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgb(40, 44, 50), stop:1 rgb(49, 97, 117))
-
-}
-QMenu::item 
-{
-     background-color:rgb(42, 42, 42);
-}
- 
-/*选择项设置*/
-QMenu::item:selected 
-{
-     background-color: rgb(36, 58, 99);
-}
-QMenuBar::item:selected{
-background-color:rgb(51, 124, 188);
-color:white;
-}
-QMenuBar::item{
-color:white;
-font:20px;
-}</string>
-       </property>
-       <attribute name="title">
-        <string>促销管理</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="14,1">
+        <item>
+         <widget class="OrderViewWidget" name="orderView" native="true"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
+          <property name="spacing">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="waitPayPushButton">
+            <property name="text">
+             <string>待付款</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitDeliveryPushButton">
+            <property name="text">
+             <string>待发货</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitRecvPushButton">
+            <property name="text">
+             <string>待收货</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="waitRefundPushButton">
+            <property name="text">
+             <string>退款申请中</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="allPushButton">
+            <property name="text">
+             <string>全部</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="freightTab">
@@ -887,6 +907,12 @@ border:1px solid;
    <class>ProductRefreshWidget</class>
    <extends>QWidget</extends>
    <header>productrefreshwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OrderViewWidget</class>
+   <extends>QWidget</extends>
+   <header>orderviewwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

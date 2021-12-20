@@ -24,4 +24,5 @@ public class OrderRefundFormEntity {
     private String userPhone;
     private Timestamp handleTime;
     private int status;
+    private int preStatus;
 }

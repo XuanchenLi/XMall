@@ -92,23 +92,16 @@ void ProductRefreshWidget::insert(ProductListWidget* item)
 void ProductRefreshWidget::clear(int status)
 {
     curIndex = 0;
-        for (auto item : productVectors[status])
-        {
-            delete item;
-        }
+    ui->listWidget->clear();
     productVectors[status].clear();
+    productVectors[status].squeeze();
 }
 void ProductRefreshWidget::clear()
 {
     curIndex = 0;
-    for (auto vector : productVectors)
-    {
-        for (auto item : vector)
-        {
-            delete item;
-        }
-    }
+    ui->listWidget->clear();
     productVectors[STATUS_NUMBER].clear();
+    productVectors[STATUS_NUMBER].squeeze();
 }
 void ProductRefreshWidget::play(int status)
 {
@@ -186,7 +179,6 @@ void  ProductRefreshWidget::onScrollBarMoved( int  v)
 
 void  ProductRefreshWidget::onReachedBottom()
 {
-    qDebug()<<"bottom";
     if(curCategory.getId() == 0)
     {
         for  ( int i = 0; i < 10 && curIndex < productVectors[curStatus].length(); i++, curIndex++)

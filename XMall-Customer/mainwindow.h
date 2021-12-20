@@ -24,6 +24,7 @@ public:
     void initAddress();
     void initCategoryMenu();
     void initProduction();
+    void initOrder(QString);
     void initCart(QString);
 private slots:
 void on_switchAccountAction_trigger();
@@ -38,6 +39,17 @@ void on_allCheckBox_stateChanged(int arg1);
 
 
 void on_orderPushButton_clicked();
+
+void on_allPushButton_clicked();
+
+void on_waitPayPushButton_clicked();
+
+void on_waitDeliveryPushButton_clicked();
+
+void on_waitRecvPushButton_clicked();
+
+
+void on_waitRefundPushButton_clicked();
 
 public slots:
 void on_changeCategory(CategoryEntity);

@@ -36,6 +36,8 @@ SOURCES += \
     menulistwidget.cpp \
     orderlistitem.cpp \
     orderlistwidget.cpp \
+    orderviewitem.cpp \
+    orderviewwidget.cpp \
     orderwindow.cpp \
     piclineedit.cpp \
     productionwindow.cpp \
@@ -76,6 +78,8 @@ HEADERS += \
     menulistwidget.h \
     orderlistitem.h \
     orderlistwidget.h \
+    orderviewitem.h \
+    orderviewwidget.h \
     orderwindow.h \
     piclineedit.h \
     productionwindow.h \
@@ -103,6 +107,8 @@ FORMS += \
     menulistwidget.ui \
     orderlistitem.ui \
     orderlistwidget.ui \
+    orderviewitem.ui \
+    orderviewwidget.ui \
     orderwindow.ui \
     piclineedit.ui \
     productionwindow.ui \

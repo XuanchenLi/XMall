@@ -118,8 +118,8 @@ double CartRefreshWidget::calculate()
         if(jsonObject["statusCode"].toString() == "SUCCESS")
         {
             double remoteRes = jsonObject["res"].toDouble();
-            qDebug()<<"local:"<<res;
-            qDebug()<<"remote:"<<remoteRes;
+//            qDebug()<<"local:"<<res;
+//            qDebug()<<"remote:"<<remoteRes;
             if(res != remoteRes)
             {
                 //Refresh

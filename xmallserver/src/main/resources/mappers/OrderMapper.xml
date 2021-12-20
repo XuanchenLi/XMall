@@ -8,6 +8,12 @@
     <select id="findBySn" resultType="OrderEntity">
         select * from xm_order where order_sn = #{orderSn}
     </select>
+    <select id="findByStatus" resultType="OrderEntity">
+        select * from xm_order where `status` = #{status} order by `id` DESC
+    </select>
+    <select id="findByStatusAndPhone" resultType="OrderEntity">
+        select * from xm_order where `status` = #{status} and user_phone = #{phone} order by `id` DESC
+    </select>
     <insert id="saveOrder" useGeneratedKeys="true" keyProperty="id" parameterType="OrderEntity">
         insert into xm_order
         (user_phone, order_sn, tot_price, pay_price, freight_price,
@@ -18,6 +24,12 @@
          #{promotionPrice}, #{couponPrice}, #{payType}, #{status}, #{userAddressInfo},
          #{creatTime}, #{payTime}, #{deliveryTime}, #{recvTime}, #{commentTime}, #{refundTime}, #{dieTime})
     </insert>
+    <update id="updateOrder" >
+        update xm_order
+        set pay_price = #{payPrice}, tot_price = #{totPrice}, freight_price = #{freightPrice},
+            promotion_price = #{promotionPrice}, coupon_price = #{couponPrice}, status = #{status}
+        where id = #{id}
+    </update>
     <update id="updatePay" >
         update xm_order
         set pay_price = #{payPrice}, tot_price = #{totPrice}, freight_price = #{freightPrice},
@@ -25,6 +37,7 @@
             user_address_info = #{userAddressInfo}, pay_time = #{payTime}, pay_type = #{payType}, status = 1
         where id = #{id}
     </update>
+
     <update id="updateDelivery" >
         update xm_order
         set delivery_time = #{deliveryTime}, status = 2
@@ -35,19 +48,14 @@
         set recv_time = #{recvTime}, status = 3
         where id = #{id}
     </update>
-    <update id="updateComment" >
-        update xm_order
-        set comment_time = #{commentTime}, status = 4
-        where id = #{id}
-    </update>
     <update id="updateRefund" >
         update xm_order
-        set refund_time = #{refundTime}, status = 5
+        set refund_time = #{refundTime}, status = 4
         where id = #{id}
     </update>
     <update id="updateFinish" >
         update xm_order
-        set die_time = #{dieTime}, status = 6
+        set die_time = #{dieTime}, status = 3
         where id = #{id}
     </update>
 
@@ -65,15 +73,15 @@
     </insert>
 
     <select id="findFormBySn" resultType="OrderRefundFormEntity">
-        select * from xm_order_refund_form where order_sn = #{orderSn}
+        select * from xm_order_refund_form where order_sn = #{orderSn} and `status` = 0
     </select>
     <insert id="saveRefundForm" useGeneratedKeys="true" keyProperty="id" parameterType="OrderRefundFormEntity">
         insert into xm_order_refund_form
         (order_sn, user_phone, `creat_time`, refund_price,
-         handle_time, `status`)
+         handle_time, `status`, pre_status)
         values
         (#{orderSn}, #{userPhone}, #{creatTime}, #{refundPrice},
-         #{handleTime}, #{status})
+         #{handleTime}, #{status}, #{preStatus})
     </insert>
     <update id="updateRefundFormHandle" >
         update xm_order_refund_form

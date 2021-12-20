@@ -21,7 +21,7 @@ public:
     void play(QString phone);
     double calculate();
     void checkAll();
-
+    QVector<ProductEntity> getSelectedItems();
 private:
     Ui::CartRefreshWidget *ui;
     QVector<CartListItem*> cartVector;

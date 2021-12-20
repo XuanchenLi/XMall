@@ -46,7 +46,9 @@ void CartListItem::setCartEntity(const CartEntity &newCartEntity)
             {
                 ui->spinBox->setValue(cartEntity.getCount());
                 if(cartEntity.getChecked())
-                {ui->checkBox->setChecked(true);qDebug()<<"666666";}
+                {ui->checkBox->setChecked(true);
+                    //qDebug()<<"666666";
+                }
                 //qDebug()<<"bugg2"<<cartEntity.getCount();
                 updateCount();
                 setProduct(item);
