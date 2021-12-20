@@ -20,6 +20,7 @@ public:
     void initCategory();
     void initFreight();
     void initProduct();
+    void initOrder();
 private:
     Ui::MainWindow *ui;
     AdminEntity currentAdmin;
@@ -33,6 +34,16 @@ void on_categoryPushButton_2_clicked();
 void on_freightPushButton_clicked();
 void on_addProductButton_clicked();
 void on_pushButton_clicked();
+void on_allPushButton_clicked();
+
+void on_waitPayPushButton_clicked();
+
+void on_waitDeliveryPushButton_clicked();
+
+void on_waitRecvPushButton_clicked();
+
+
+void on_waitRefundPushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

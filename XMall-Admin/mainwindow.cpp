@@ -48,6 +48,7 @@ void MainWindow::initFunction()
     initCategory();
     initFreight();
     initProduct();
+    initOrder();
 }
 void MainWindow::initCategory()
 {
@@ -179,7 +180,10 @@ void MainWindow::initProduct()
 {
     ui->productRefreshWidget->play();
 }
-
+void MainWindow::initOrder()
+{
+    ui->productRefreshWidget->play();
+}
 void MainWindow::on_addProductButton_clicked()
 {
     //qDebug()<<"Add new";
@@ -197,3 +201,33 @@ void MainWindow::on_pushButton_clicked()
     initProduct();
 }
 
+void MainWindow::on_allPushButton_clicked()
+{
+    ui->orderView->play();
+}
+
+
+
+void MainWindow::on_waitPayPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_PAY);
+}
+
+
+
+void MainWindow::on_waitDeliveryPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_DELIVERY);
+}
+
+
+void MainWindow::on_waitRecvPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_RECV);
+}
+
+
+void MainWindow::on_waitRefundPushButton_clicked()
+{
+    ui->orderView->play(OrderEntity().WAIT_REFUND);
+}

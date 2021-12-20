@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "Service/MyThread.h"
 #include <QMainWindow>
 #include "Service/UserInfoDto.h"
 #include "Service/HttpProxy.h"
 #include "Service/OrderItemEntity.h"
 #include "Service/CategoryEntity.h"
+#include "Service/MyThread.h"
 namespace Ui {
 class MainWindow;
 }
@@ -64,6 +65,7 @@ private:
     UserInfoDto currentUser;
     QVector<CategoryEntity> categoryLevel1;
     QVector<CategoryEntity> categoryLevel2;
+    MyThread my_thread;
 };
 
 

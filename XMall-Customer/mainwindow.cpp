@@ -54,11 +54,19 @@ MainWindow::MainWindow(QWidget *parent) :
      animation->setStartValue(0);
      animation->setEndValue(1);
      animation->start();
+     //my_thread = new MyThread;
+     connect(&my_thread, &MyThread::initAddress, this, &MainWindow::initAddress);
+     connect(&my_thread, &MyThread::initProduction, this, &MainWindow::initProduction);
+     connect(&my_thread, &MyThread::initCategoryMenu, this, &MainWindow::initCategoryMenu);
+     connect(&my_thread, &MyThread::initUserBaseInfo, this, &MainWindow::initUserBaseInfo);
+
+
 
 }
 
 MainWindow::~MainWindow()
 {
+    //delete my_thread;
     delete ui;
 }
 void MainWindow::on_switchAccountAction_trigger()
@@ -129,10 +137,12 @@ void MainWindow::initUserBaseInfo()
 }
 void MainWindow::initFunction()
 {
-    initUserBaseInfo();
-    initAddress();
-    initCategoryMenu();
-    initProduction();
+
+//    initUserBaseInfo();
+//    initAddress();
+//    initCategoryMenu();
+//    initProduction();
+    my_thread.start();
     initCart(currentUser.getPhone());
     initOrder(currentUser.getPhone());
 }

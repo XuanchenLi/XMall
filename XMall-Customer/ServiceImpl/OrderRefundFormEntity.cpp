@@ -76,6 +76,7 @@ QJsonObject OrderRefundFormEntity::getJsonForm()
         {"orderSn", orderSn},
         {"refundPrice",  QString::number(refundPrice, 'f', 2)},
         {"status",QString::number(status) },
+        {"preStatus",QString::number(preStatus) },
         {"userPhone", userPhone},
         {"handleTime", handleTime.toString("yyyy-MM-dd hh:mm:ss")},
         {"creatTime", creatTime.toString("yyyy-MM-dd hh:mm:ss")}
@@ -92,7 +93,18 @@ OrderRefundFormEntity OrderRefundFormEntity::parseJson(QJsonObject obj)
     OrderRefundFormEntity.setHandleTime(QDateTime::fromString(obj["hadnleTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
     OrderRefundFormEntity.setUserPhone(obj["userPhone"].toString());
     OrderRefundFormEntity.setStatus(obj["status"].toInt());
+    OrderRefundFormEntity.setPreStatus(obj["preStatus"].toInt());
     return OrderRefundFormEntity;
+}
+
+int OrderRefundFormEntity::getPreStatus() const
+{
+    return preStatus;
+}
+
+void OrderRefundFormEntity::setPreStatus(int newPreStatus)
+{
+    preStatus = newPreStatus;
 }
 QByteArray OrderRefundFormEntity::getQByteArrayForm()
 {

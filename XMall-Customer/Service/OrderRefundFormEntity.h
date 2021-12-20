@@ -22,6 +22,9 @@ public:
     QJsonObject getJsonForm();
     QByteArray getQByteArrayForm();
     static OrderRefundFormEntity parseJson(QJsonObject obj);
+    int getPreStatus() const;
+    void setPreStatus(int newPreStatus);
+
 private:
 
          long id;
@@ -31,6 +34,7 @@ private:
          QString userPhone;
          QDateTime handleTime;
          int status;
+         int preStatus;
 };
 
 #endif // ORDERREFUNDFORMENTITY_H

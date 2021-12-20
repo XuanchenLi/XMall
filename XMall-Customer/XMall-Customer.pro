@@ -14,6 +14,7 @@ SOURCES += \
     ServiceImpl/CommentEntity.cpp \
     ServiceImpl/FreightEntity.cpp \
     ServiceImpl/HttpProxy.cpp \
+    ServiceImpl/MyThread.cpp \
     ServiceImpl/OrderEntity.cpp \
     ServiceImpl/OrderItemEntity.cpp \
     ServiceImpl/OrderRefundFormEntity.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     Service/CommentEntity.h \
     Service/FreightEntity.h \
     Service/HttpProxy.h \
+    Service/MyThread.h \
     Service/OrderEntity.h \
     Service/OrderItemEntity.h \
     Service/OrderRefundFormEntity.h \
