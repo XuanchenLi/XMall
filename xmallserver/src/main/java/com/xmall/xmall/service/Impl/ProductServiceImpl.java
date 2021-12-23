@@ -129,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> getTenByRandom() throws Exception {
-        return productMapper.getTenByRandom();
+    public List<ProductEntity> getFiveByRandom() throws Exception {
+        return productMapper.getFiveByRandom();
     }
 }

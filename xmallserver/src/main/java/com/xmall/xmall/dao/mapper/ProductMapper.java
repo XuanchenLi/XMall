@@ -9,7 +9,7 @@ public interface ProductMapper {
     int saveProduct(ProductEntity productEntity) throws Exception;
     List<ProductEntity> findAllByStatus(int status) throws Exception;
     List<ProductEntity> findAllByCategory(int id) throws Exception;
-    List<ProductEntity> getTenByRandom() throws Exception;
+    List<ProductEntity> getFiveByRandom() throws Exception;
     Optional<ProductEntity> findById(long id);
     int updateSmallPicById(String path, long id)throws Exception;
     int updateBigPicById(String path, long id)throws Exception;

@@ -25,6 +25,7 @@ public:
     void initAddress();
     void initCategoryMenu();
     void initProduction();
+    void initSlide();
     void initOrder(QString);
     void initCart(QString);
 private slots:
@@ -59,6 +60,7 @@ void on_finishCalculate(double);
 
 void on_refreshPushButton_clicked();
 void on_order(OrderItemEntity);
+void on_addCart();
 
 private:
     Ui::MainWindow *ui;

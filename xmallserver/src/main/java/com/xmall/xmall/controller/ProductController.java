@@ -186,13 +186,13 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/random/ten")
-    ProductListResponse getTenByRandom()
+    @GetMapping("/random/5")
+    ProductListResponse getFiveByRandom()
     {
         ProductListResponse productListResponse = new ProductListResponse();
         productListResponse.setProductEntityList(null);
         try{
-            productListResponse.setProductEntityList(productService.getTenByRandom());
+            productListResponse.setProductEntityList(productService.getFiveByRandom());
             productListResponse.setStatusCode(StatusEnum.SUCCESS);
             return productListResponse;
         }catch (Exception e)

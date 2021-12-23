@@ -5,6 +5,11 @@
 #include <QDebug>
 #include <QButtonGroup>
 #include <QPropertyAnimation>
+#include <QJsonArray>
+#include "productionwindow.h"
+#include "Service/HttpProxy.h"
+extern QString GET_HOST();
+extern QString GET_PRODUCT_BIG_PATH();
 SlideWidget::SlideWidget(QWidget *parent)
     : QWidget(parent)
     , m_currentDrawImageIndx(0)
@@ -32,11 +37,9 @@ SlideWidget::SlideWidget(QWidget *parent)
 
     //this->setFixedSize(QSize(400, 250));
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    //this->setWindowFlags(Qt::FramelessWindowHint);
     //
-    addImage(":/pics/icons/test.png");
-    addImage(":/pics/icons/mylogo.png");
-    addImage(":/pics/icons/email.png");
+
     startPlay();
 
 
@@ -53,51 +56,91 @@ void SlideWidget::initChangeImageButton()
     changeButtonGroup = new QButtonGroup;
     QHBoxLayout* hLayout = new QHBoxLayout();
     hLayout->addStretch();
-    for (int i = 0; i < m_imageFileNameList.count(); i++)
+
+    for (int i = 0; i < 5; i++)
     {
+
         QPushButton* pButton = new QPushButton;
+        pButton->setObjectName("pButton_" + QString::number(i));
         pButton->setFixedSize(QSize(16, 16));
         pButton->setCheckable(true);
         changeButtonGroup->addButton(pButton, i);
         m_pButtonChangeImageList.append(pButton);
         hLayout->addWidget(pButton);
+        //qDebug()<<"new "<<pButton;
+        //pButton->raise();
+        //pButton->setWindowFlags(Qt::WindowStaysOnTopHint);
     }
     hLayout->addStretch();
     hLayout->setSpacing(10);
-    //hLayout->setMargin(0);
 
-    connect(changeButtonGroup, &QButtonGroup::buttonClicked,
+    connect(changeButtonGroup,  &QButtonGroup::buttonClicked,
             this,
             &SlideWidget::onImageSwitchButtonClicked);
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->addStretch();
     mainLayout->addLayout(hLayout);
-    mainLayout->setContentsMargins(0, 0, 0, 20);
-}
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
-void SlideWidget::setImageList(QStringList imageFileNameList)
+}
+void SlideWidget::init()
 {
-    m_imageFileNameList = imageFileNameList;
-}
 
-void SlideWidget::addImage(QString imageFileName)
+        QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+        httpProxy->get(GET_HOST() + "/product/random/5");
+        QJsonObject jsonObject = httpProxy->getJsonObject();
+        if(jsonObject["statusCode"].toString() == "SUCCESS")
+        {
+            QJsonArray products = jsonObject["productEntityList"].toArray();
+            for (int i =0; i<products.count(); ++i)
+            {
+                addItem(ProductEntity::parseJson(products[i].toObject()));
+            }
+        }
+
+}
+void SlideWidget::setImageList(QList<QPixmap> imageList)
 {
-    m_imageFileNameList.append(imageFileName);
+    m_image = imageList;
 }
 
+void SlideWidget::addImage(QPixmap image)
+{
+    m_image.append(image);
+}
+void SlideWidget::addItem(ProductEntity product)
+{
+    m_product.append(product);
+    //加载图片
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+    QString filepath = product.getBigPicAddress();
+    int first = filepath.lastIndexOf ("\\");
+    QString filename = filepath.right (filepath.length ()-first-1);
+    httpProxy->get(GET_HOST()+GET_PRODUCT_BIG_PATH()+filename);
+    if(httpProxy->getReplyCode() == 200)
+    {
+        QByteArray avatarData = httpProxy->getReplyData();
+        //qDebug()<<"avatarData";
+        QImage img;
+        img.loadFromData(avatarData);
+        QPixmap pixmap(QPixmap::fromImage(img));
+        m_image.append(pixmap);
+    }
+}
 void SlideWidget::startPlay()
 {
     // 添加完图片之后，根据图片多少设置图片切换按钮;
+
     initChangeImageButton();
-    if (m_imageFileNameList.count() == 1)
+    if (m_image.count() == 1)
     {
         m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(true);
     }
-    else if (m_imageFileNameList.count() > 1)
+    else if (m_image.count() > 1)
     {
         m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(true);
-        m_currentPixmap = QPixmap(m_imageFileNameList.at(m_currentDrawImageIndx));
+        m_currentPixmap = m_image.at(m_currentDrawImageIndx);
         m_imageChangeTimer.start(SWITCH_DURATION);
         update();
     }
@@ -106,13 +149,14 @@ void SlideWidget::startPlay()
 void SlideWidget::onImageChangeTimeout()
 {
     // 设置前后的图片;
-    m_currentPixmap = QPixmap(m_imageFileNameList.at(m_currentDrawImageIndx));
+    m_currentPixmap = m_image.at(m_currentDrawImageIndx);
+    m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(false);
     m_currentDrawImageIndx++;
-    if (m_currentDrawImageIndx >= m_imageFileNameList.count())
+    if (m_currentDrawImageIndx >= m_image.count())
     {
         m_currentDrawImageIndx = 0;
     }
-    m_nextPixmap = QPixmap(m_imageFileNameList.at(m_currentDrawImageIndx));
+    m_nextPixmap = m_image.at(m_currentDrawImageIndx);
 
     m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(true);
 
@@ -127,19 +171,19 @@ void SlideWidget::paintEvent(QPaintEvent *event)
     QRect imageRect = this->rect();
 
     // 如果图片列表为空，显示默认图片;
-    if (m_imageFileNameList.isEmpty())
+    if (m_image.isEmpty())
     {
         //QPixmap backPixmap = QPixmap("");
         //painter.drawPixmap(imageRect, backPixmap.scaled(imageRect.size()));
     }
     // 如果只有一张图片;
-    else if (m_imageFileNameList.count() == 1)
+    else if (m_image.count() == 1)
     {
-        QPixmap backPixmap = QPixmap(m_imageFileNameList.first());
+        QPixmap backPixmap = QPixmap(m_image.first());
         painter.drawPixmap(imageRect, backPixmap.scaled(imageRect.size()));
     }
     // 多张图片;
-    else if (m_imageFileNameList.count() > 1)
+    else if (m_image.count() > 1)
     {
         float imageOpacity = this->property("ImageOpacity").toFloat();
         painter.setOpacity(1);
@@ -149,26 +193,29 @@ void SlideWidget::paintEvent(QPaintEvent *event)
     }
 }
 
-void SlideWidget::onImageSwitchButtonClicked(QAbstractButton* button)
+void SlideWidget::onImageSwitchButtonClicked(QAbstractButton* btn)
 {
 
+    m_pButtonChangeImageList[m_currentDrawImageIndx]->setChecked(false);
     m_currentDrawImageIndx = 0;
-
     QList<QAbstractButton*> listBt = changeButtonGroup->buttons();
+
+    //qDebug()<<btn->objectName();
     if(listBt.isEmpty())
         return;
-    for (int i = 0; listBt.size() ; ++i)
+    for (int i = 0; i < listBt.size() ; ++i)
     {
-        if(listBt[i]==button)
+        //qDebug()<<listBt[i]->objectName();
+        if(listBt[i]->objectName() == btn->objectName())
         {
-           m_currentDrawImageIndx = i;
+           m_currentDrawImageIndx = i - 1;
            break;
         }
     }
 
     if (m_currentDrawImageIndx == -1)
     {
-        m_currentDrawImageIndx = m_imageFileNameList.count() - 1;
+        m_currentDrawImageIndx = m_image.count() - 1;
     }
 
     onImageChangeTimeout();
@@ -179,10 +226,31 @@ void SlideWidget::onImageSwitchButtonClicked(QAbstractButton* button)
 void SlideWidget::mousePressEvent(QMouseEvent* event)
 {
     // 这里可以对当前图片进行点击然后触发每个图片对应的效果;
-    //qDebug() << m_currentDrawImageIndx;
-    //return __super::mouseEvent(event);
+    if(m_product.empty())return;
+    int curIndex = m_currentDrawImageIndx;
+    ProductionWindow* productWin = new ProductionWindow;
+    productWin->setPhone(phone);
+    productWin->setProduct(m_product[curIndex]);
+    connect(productWin, &ProductionWindow::addCart, this, &SlideWidget::on_addCart);
+    connect(productWin, &ProductionWindow::order, this, &SlideWidget::on_order);
+    productWin->show();
+
 }
 void SlideWidget::onValueChanged(const QVariant&)
 {
     update();
+}
+
+void SlideWidget::setPhone(const QString &newPhone)
+{
+    phone = newPhone;
+}
+void SlideWidget::on_addCart()
+{
+    emit addCart();
+}
+
+void SlideWidget::on_order(OrderItemEntity item)
+{
+    emit order(item);
 }

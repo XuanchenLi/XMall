@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
 
     //text
 //    MainWindow mw;
-//    mw.show();
 
     return a.exec();
 }

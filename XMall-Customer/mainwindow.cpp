@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(on_switchAccountAction_trigger()));
     connect(ui->cartWidget, &CartRefreshWidget::finishCalculate, this, &MainWindow::on_finishCalculate);
     connect(ui->productRefreshWidget, &ProductRefreshWidget::order, this, &MainWindow::on_order);
+    connect(ui->slideWidget, &SlideWidget::order, this, &MainWindow::on_order);
+    connect(ui->slideWidget, &SlideWidget::addCart, this, &MainWindow::on_addCart);
     QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
      animation->setDuration(1000);
      animation->setStartValue(0);
@@ -59,8 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(&my_thread, &MyThread::initProduction, this, &MainWindow::initProduction);
      connect(&my_thread, &MyThread::initCategoryMenu, this, &MainWindow::initCategoryMenu);
      connect(&my_thread, &MyThread::initUserBaseInfo, this, &MainWindow::initUserBaseInfo);
-
-
+     connect(&my_thread, &MyThread::initSlide, this, &MainWindow::initSlide);
 
 }
 
@@ -135,6 +136,12 @@ void MainWindow::initUserBaseInfo()
 
 
 }
+void MainWindow::initSlide()
+{
+    ui->slideWidget->setPhone(currentUser.getPhone());
+    ui->slideWidget->init();
+    ui->slideWidget->startPlay();
+}
 void MainWindow::initFunction()
 {
 
@@ -145,6 +152,7 @@ void MainWindow::initFunction()
     my_thread.start();
     initCart(currentUser.getPhone());
     initOrder(currentUser.getPhone());
+//    initSlide();
 }
 
 void MainWindow::on_ackPushButton_clicked()
@@ -383,7 +391,10 @@ void MainWindow::on_order(OrderItemEntity item)
     orderWin->initNew(items);
     orderWin->show();
 }
-
+void MainWindow::on_addCart()
+{
+    initCart(currentUser.getPhone());
+}
 void MainWindow::on_orderPushButton_clicked()
 {
     QVector<ProductEntity> products = ui->cartWidget->getSelectedItems();

@@ -98,6 +98,10 @@ void CartListItem::setProduct(const ProductEntity &newProduct)
     ui->priceLabel->setText("￥ " + QString::number(product.getPrice(),'f',2));
     ui->currentPriceLabel->setText("￥ " + QString::number(product.getCurrentPrice(),'f',2));
     setTotPrice(ui->spinBox->value() * product.getCurrentPrice());
+    if(product.getLimitation() != -1)
+    {
+        ui->limitationLabel->setText("限购 " + QString::number(product.getLimitation()) + " " + product.getUnit());
+    }
     if(product.getSmallPicAddress() != "")
     {
         QString filepath = product.getSmallPicAddress();
@@ -111,6 +115,7 @@ void CartListItem::setProduct(const ProductEntity &newProduct)
             QImage img;
             img.loadFromData(avatarData);
             QPixmap pixmap(QPixmap::fromImage(img));
+            //pixmap = pixmap.scaled(ui->smallLabel->width(), ui->smallLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
             ui->smallLabel->setScaledContents(true);
             ui->smallLabel->setAlignment(Qt::AlignCenter);
             ui->smallLabel->setPixmap(pixmap);

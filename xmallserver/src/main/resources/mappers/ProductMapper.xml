@@ -55,7 +55,7 @@
         set storage = #{storage}
         where id = #{id}
     </update>
-    <select id="getTenByRandom" resultType="ProductEntity">
-        select  *  from  xm_product where status = 1 order by rand() limit 10
+    <select id="getFiveByRandom" resultType="ProductEntity">
+        select  *  from  xm_product where status = 1 order by rand() limit 5
     </select>
 </mapper>

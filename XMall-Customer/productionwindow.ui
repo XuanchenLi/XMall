@@ -151,7 +151,7 @@ background:transparent;
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="7,2,4">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,3">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
       <item>
@@ -339,7 +339,7 @@ color:rgb(231, 21, 52)
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
@@ -351,9 +351,6 @@ color:rgb(231, 21, 52)
        <widget class="QTextBrowser" name="introductionBrowser"/>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QWidget" name="commentWidget" native="true"/>
     </item>
    </layout>
   </widget>

@@ -9,7 +9,7 @@ public interface ProductService {
     ProductEntity creatNewProduct(ProductEntity productEntity) throws Exception;
     List<ProductEntity> getAllByStatus (int status) throws Exception;
     List<ProductEntity> getAllByCategory (int id) throws Exception;
-    List<ProductEntity> getTenByRandom () throws Exception;
+    List<ProductEntity> getFiveByRandom () throws Exception;
     ProductEntity getById(long id) throws NotFoundException;
     int updateSmallPicById(String path, long id) throws NotFoundException, Exception;
     int updateBigPicById(String path, long id) throws NotFoundException, Exception;

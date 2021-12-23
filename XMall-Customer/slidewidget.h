@@ -6,7 +6,8 @@
 #include <QTimer>
 #include <QPropertyAnimation>
 #include <QPushButton>
-
+#include "Service/ProductEntity.h"
+#include "Service/OrderItemEntity.h"
 namespace Ui {
 class SlideWidget;
 }
@@ -19,11 +20,15 @@ public:
     ~SlideWidget();
 
     // 设置图片列表;
-    void setImageList(QStringList imageFileNameList);
+    void setImageList(QList<QPixmap>);
+    void addItem(ProductEntity);
     // 添加图片;
-    void addImage(QString imageFileName);
+    void addImage(QPixmap image);
     // 开始播放;
+    void init();
     void startPlay();
+
+    void setPhone(const QString &newPhone);
 
 private:
     // 初始化图片切换按钮;
@@ -39,18 +44,20 @@ public slots:
     void onImageChangeTimeout();
 
     // 图片切换按钮点击;
-    void onImageSwitchButtonClicked(QAbstractButton* button);
+    void onImageSwitchButtonClicked(QAbstractButton*);
 
     void onValueChanged(const QVariant&);
+    void on_addCart();
+    void on_order(OrderItemEntity);
 
 private:
     const int ANIMATION_DURATION = 500;
-    const int SWITCH_DURATION = 3000;
+    const int SWITCH_DURATION = 6000;
     // 用来做图片切换滑动效果，目前以透明度作为切换效果;
     QScrollArea* m_imagePlayWidget;
     // 图片列表;
-    QList<QString> m_imageFileNameList;
-
+    QList<QPixmap> m_image;
+    QList<ProductEntity> m_product;
     // 图片切换时钟;
     QTimer m_imageChangeTimer;
 
@@ -65,7 +72,14 @@ private:
     // 按钮列表;
     QList<QPushButton*> m_pButtonChangeImageList;
     QButtonGroup* changeButtonGroup;
+
+    QString phone;
     Ui::SlideWidget *ui;
+
+signals:
+    //void clicked();
+    void addCart();
+    void order(OrderItemEntity);
 };
 
 
