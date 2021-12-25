@@ -121,7 +121,7 @@ public class OrderController {
         }
     }
     @PostMapping("/saveItems")
-    NormalResponse saveItem(@RequestBody List<OrderItemEntity> orderItemEntityList)
+    NormalResponse saveItems(@RequestBody List<OrderItemEntity> orderItemEntityList)
     {
         NormalResponse normalResponse = new NormalResponse();
         try{

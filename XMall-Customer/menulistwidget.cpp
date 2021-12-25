@@ -24,6 +24,7 @@ QWidget* MenuListWidget::createWidget(QWidget *parent)
     if(parent->inherits("QMenu")||parent->inherits("QToolBarr"))
     {
         QSplitter *splitter = new QSplitter(parent);
+        splitter->setMaximumWidth(500);
         for (int i = start; i <= end; ++i)
         {
             QSplitter *subSplitter = new QSplitter(Qt::Vertical, splitter);
@@ -46,6 +47,7 @@ QWidget* MenuListWidget::createWidget(QWidget *parent)
                     QListWidgetItem* pItem = new QListWidgetItem();
                     connect(item, &MenuListItem::changeCategory,father, &MainWindow::on_changeCategory);
                     list->addItem(pItem);
+                    //item->setMaximumSize(110,25);
                     pItem->setSizeHint(item->size());
                     list->setItemWidget(pItem,item);
                 }

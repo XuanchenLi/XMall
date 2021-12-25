@@ -99,6 +99,7 @@ public class OrderServiceImpl implements OrderService {
             ProductEntity oldProduct = productService.getById(item.getProductId());
             if(item.getCount() > oldProduct.getStorage())
             {
+                log.info(""+item.getCount());
                 throw new Exception("超限");
             }
             productEntityList.add(oldProduct);
@@ -107,6 +108,10 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemEntity item : orderItemEntityList)
         {
             productService.updateStorageById(productEntityList.get(i).getStorage() - item.getCount(), productEntityList.get(i).getId());
+            if (productEntityList.get(i).getStorage() == item.getCount())
+            {
+                productService.updateStatusById(3, productEntityList.get(i).getId());
+            }
             res += orderMapper.saveOrderItem(item);
         }
         return res;

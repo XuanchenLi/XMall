@@ -6,6 +6,7 @@ void MyThread::run()
     emit initCategoryMenu();
     emit initProduction();
     emit initUserBaseInfo();
+    emit initSlide();
 }
 
 

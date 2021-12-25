@@ -91,7 +91,7 @@ void OrderViewWidget::insert(OrderViewItem* item)
     }
     QListWidgetItem* pItem = new QListWidgetItem();
     ui->listWidget->addItem(pItem);
-    qDebug()<<item->size();
+
     pItem->setSizeHint(item->size());
     ui->listWidget->setItemWidget(pItem,item);
 
@@ -148,7 +148,6 @@ void OrderViewWidget::play()
     for(curIndex = 0; curIndex < orderVectors[STATUS_NUMBER].size(); ++curIndex)
     {
 
-        qDebug()<<orderVectors[STATUS_NUMBER].size();
         insert(orderVectors[STATUS_NUMBER][curIndex]);
     }
 //        while(!ui->listWidget->isScrollVisible() && curIndex < orderVectors[STATUS_NUMBER].length())

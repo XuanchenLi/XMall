@@ -19,6 +19,7 @@ signals:
     void initAddress();
     void initCategoryMenu();
     void initProduction();
+    void initSlide();
 
 private:
 
