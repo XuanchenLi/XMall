@@ -41,6 +41,9 @@ private:
     double freightPrice;
     double totPrice;
     double payPrice;
+
+signals:
+    void delCart(QVector<OrderItemEntity>);
 };
 
 #endif // ORDERWINDOW_H

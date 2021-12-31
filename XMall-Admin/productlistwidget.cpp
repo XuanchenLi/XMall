@@ -29,7 +29,11 @@ const ProductEntity &ProductListWidget::getProductEntity() const
 void ProductListWidget::setProductEntity(const ProductEntity &newProductEntity)
 {
     productEntity = newProductEntity;
-    ui->currentPriceLabel->setText("￥" + QString::number(productEntity.getCurrentPrice(), 'f', 2));
+    QString str = "￥" + QString::number(productEntity.getCurrentPrice(), 'f', 2);
+    if(productEntity.getStorage() == 0 || productEntity.getStatus() == productEntity.SHORTAGE)
+        str  = str + " " + "(缺货)";
+    ui->currentPriceLabel->setText(str);
+
     qDebug()<<productEntity.getCurrentPrice();
     if(productEntity.getCurrentPrice() != productEntity.getPrice())
     {

@@ -116,3 +116,9 @@ OrderItemEntity OrderItemEntity::fromProductEntity(ProductEntity entity)
     currentPrice = entity.getCurrentPrice();
     return *this;
 }
+OrderItemEntity OrderItemEntity::fromCartEntity(CartEntity entity)
+{
+    productId = entity.getProduct_id();
+    count = entity.getCount();
+    return *this;
+}

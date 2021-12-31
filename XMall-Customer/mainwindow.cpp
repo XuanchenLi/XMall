@@ -397,15 +397,19 @@ void MainWindow::on_addCart()
 }
 void MainWindow::on_orderPushButton_clicked()
 {
-    QVector<ProductEntity> products = ui->cartWidget->getSelectedItems();
+    QVector<CartEntity> carts = ui->cartWidget->getSelectedItemsCartEntity();
+    QVector<ProductEntity> products = ui->cartWidget->getSelectedItemsProductEntity();
     if(products.empty()) return;
     QVector<OrderItemEntity> items;
-    for (auto product : products)
+    for (int i = 0; i < carts.length(); ++i)
     {
         OrderItemEntity item;
-        items.append(item.fromProductEntity(product));
+        item.fromProductEntity(products[i]);
+        item.fromCartEntity(carts[i]);
+        items.append(item);
     }
     OrderWindow *orderWin = new OrderWindow;
+    connect(orderWin, &OrderWindow::delCart, this, &MainWindow::on_delCart);
     //qDebug()<<"11";
     orderWin->setPhone(currentUser.getPhone());
     orderWin->setItemVector(items);
@@ -445,3 +449,8 @@ void MainWindow::on_waitRefundPushButton_clicked()
     ui->orderView->play(OrderEntity().WAIT_REFUND);
 }
 
+void MainWindow::on_delCart(QVector<OrderItemEntity> orderItems)
+{
+    ui->cartWidget->delCart(orderItems);
+    initCart(currentUser.getPhone());
+}

@@ -44,6 +44,12 @@ border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:
    </property>
    <item>
     <widget class="QLabel" name="smallLabel">
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -61,6 +67,18 @@ border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:
    </item>
    <item>
     <widget class="QLabel" name="countLabel">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
       <string>TextLabel</string>
      </property>
@@ -71,6 +89,12 @@ border-right:1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:
    </item>
    <item>
     <widget class="QLabel" name="priceLabel">
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
       <string>TextLabel</string>
      </property>

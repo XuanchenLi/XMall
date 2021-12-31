@@ -53,6 +53,8 @@ void on_waitRecvPushButton_clicked();
 
 void on_waitRefundPushButton_clicked();
 
+void on_delCart(QVector<OrderItemEntity>);
+
 public slots:
 void on_changeCategory(CategoryEntity);
 void on_finishCalculate(double);

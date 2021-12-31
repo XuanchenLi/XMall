@@ -190,6 +190,7 @@ void MainWindow::on_addProductButton_clicked()
     AdminProductWindow *detailWin = new AdminProductWindow;
     detailWin->setStatus(detailWin->NEW_PRODUCT);
     ProductEntity productEntity;
+    productEntity.setLimitation(-1);
     detailWin->setProduct(productEntity);
     connect(detailWin, &AdminProductWindow::modified, this, &MainWindow::initProduct);
     detailWin->show();

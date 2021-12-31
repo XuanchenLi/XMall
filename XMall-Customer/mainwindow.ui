@@ -175,7 +175,7 @@ background-color: rgb(0, 99, 148)
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="shopTab">
        <property name="styleSheet">
@@ -752,8 +752,8 @@ background:transparent;
                        </property>
                        <property name="minimumSize">
                         <size>
-                         <width>0</width>
-                         <height>0</height>
+                         <width>200</width>
+                         <height>200</height>
                         </size>
                        </property>
                        <property name="maximumSize">

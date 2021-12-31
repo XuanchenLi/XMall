@@ -67,6 +67,14 @@ void OrderWindow::initNew(QVector<OrderItemEntity> items)
     }else{
         return ;
     }
+    //删除购物车
+    emit delCart(items);
+    for (int i = 0; i < items.length(); ++i)
+    {
+        items[i].setOrderSn(orderEntity.getOrderSn());
+        QJsonObject obj = items[i].getJsonForm();
+        request.append(obj);
+    }
     //LABEL初始化
     ui->itemList->play(orderEntity.getOrderSn());
     ui->orderSnLabel->setText(orderEntity.getOrderSn());

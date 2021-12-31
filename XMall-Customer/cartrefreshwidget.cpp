@@ -165,7 +165,19 @@ void CartRefreshWidget::on_itemChanged()
     calculate();
 }
 
-QVector<ProductEntity> CartRefreshWidget::getSelectedItems()
+QVector<CartEntity> CartRefreshWidget::getSelectedItemsCartEntity()
+{
+    QVector<CartEntity> products;
+    for (int i = 0; i < cartVector.length(); ++i)
+    {
+        if(cartVector[i]->isChecked())
+        {
+            products.append(cartVector[i]->getCartEntity());
+        }
+    }
+    return products;
+}
+QVector<ProductEntity> CartRefreshWidget::getSelectedItemsProductEntity()
 {
     QVector<ProductEntity> products;
     for (int i = 0; i < cartVector.length(); ++i)
@@ -176,4 +188,29 @@ QVector<ProductEntity> CartRefreshWidget::getSelectedItems()
         }
     }
     return products;
+}
+
+void CartRefreshWidget::delCart(QVector<OrderItemEntity> items)
+{
+    QScopedPointer<HttpProxy> httpProxy(new HttpProxy);
+
+    for(auto item : items)
+    {
+        for(auto cart : cartVector)
+        {
+            if ( cart->getProduct().getId() == item.getProductId())
+            {
+                httpProxy->get(GET_HOST() + "/cart/delete/phone/" + phone + "/id/" + QString::number(cart->getCartEntity().getId()));
+                QJsonObject jsonObject = httpProxy->getJsonObject();
+                if(jsonObject["statusCode"].toString() != "SUCCESS")
+                {
+                    AlertWindow* alertWin = new AlertWindow;
+                    alertWin->setMessage("发生错误");
+                    alertWin->show();
+                    return ;
+                }
+                break;
+            }
+        }
+    }
 }

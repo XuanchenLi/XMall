@@ -24,7 +24,7 @@ Register::Register(QWidget *parent) :
     //背景透明
     setAttribute(Qt::WA_TranslucentBackground);
 
-    setMinimumSize(1280, 1280); setMaximumSize(1280, 1280);
+    setMinimumSize(1280, 400); setMaximumSize(1280, 420);
 
     ui->phonePicLineEdit->findChild<QLineEdit*>("lineEdit")->setPlaceholderText("手机号");
     ui->pswPicLineEdit->findChild<QLineEdit*>("lineEdit")->setPlaceholderText("密码");

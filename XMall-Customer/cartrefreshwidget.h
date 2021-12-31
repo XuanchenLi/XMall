@@ -1,6 +1,8 @@
 #ifndef CARTREFRESHWIDGET_H
 #define CARTREFRESHWIDGET_H
 #include "cartlistitem.h"
+#include "Service/CartEntity.h"
+#include "Service/OrderItemEntity.h"
 #include <QWidget>
 #include <QVector>
 
@@ -21,7 +23,9 @@ public:
     void play(QString phone);
     double calculate();
     void checkAll();
-    QVector<ProductEntity> getSelectedItems();
+    QVector<CartEntity> getSelectedItemsCartEntity();
+    QVector<ProductEntity> getSelectedItemsProductEntity();
+    void delCart(QVector<OrderItemEntity>);
 private:
     Ui::CartRefreshWidget *ui;
     QVector<CartListItem*> cartVector;
