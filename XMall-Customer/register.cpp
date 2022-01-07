@@ -170,6 +170,7 @@ void Register::on_registerPushButton_clicked()
                                           , ui->phonePicLineEdit->findChild<QLineEdit*>("lineEdit")->text()
                                           , ui->pswPicLineEdit->findChild<QLineEdit*>("lineEdit")->text()
                                           , ui->emailPicLineEdit->findChild<QLineEdit*>("lineEdit")->text());
+
     QByteArray postMsg = QJsonDocument(userInfoDto.getJsonForm()).toJson();
     httpProxy->post(GET_HOST() + "/user/register", postMsg);
     jsonObject = httpProxy->getJsonObject();
@@ -179,6 +180,7 @@ void Register::on_registerPushButton_clicked()
         alertWin->show();
         ui->registerPushButton->setEnabled(true);
         emit retLogin(this->frameGeometry().topLeft());
+        close();
         return ;
     }
     else

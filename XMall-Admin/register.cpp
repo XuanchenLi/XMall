@@ -145,6 +145,7 @@ void Register::on_registerPushButton_clicked()
         alertWin->show();
         ui->registerPushButton->setEnabled(true);
         emit retLogin(this->frameGeometry().topLeft());
+        close();
         return ;
     }
     else

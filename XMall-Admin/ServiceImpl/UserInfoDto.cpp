@@ -55,6 +55,6 @@ QJsonObject UserInfoDto::getJsonForm()
         {"nickname", nickname},
         {"phone", phone},
         {"password", password},
-        {"emial", email}
+        {"email", email}
     };
 }
